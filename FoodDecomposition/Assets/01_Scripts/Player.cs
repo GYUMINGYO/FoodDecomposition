@@ -2,15 +2,22 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private InputReaderSO input;
+    private CharacterController controller;
+
+    private void Awake()
     {
-        
+        controller = GetComponent<CharacterController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        input = SOManager.Instance.InputReaderSO;
+    }
+
+    private void Update()
+    {
+        Debug.Log(input.Movement);
+        controller.Move(input.Movement);
     }
 }
