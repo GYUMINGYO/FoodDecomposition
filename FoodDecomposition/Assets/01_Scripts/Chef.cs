@@ -1,6 +1,6 @@
 namespace GM.Staffs
 {
-    public class Waiter : Staff
+    public class Chef : Staff
     {
         
     }

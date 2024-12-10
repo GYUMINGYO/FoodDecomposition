@@ -5,6 +5,6 @@ namespace GM.Manager
 {
     public class RestourantManager : MonoBehaviour
     {
-        public List<Transform> tableList;
+        public Dictionary<Transform, Customer> chiarList;
     }
 }

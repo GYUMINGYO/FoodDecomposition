@@ -1,11 +1,11 @@
-using System;
+using System.Collections.Generic;
+using GM.Staffs;
 using UnityEngine;
 
 namespace GM.Manager
 {
     public class OrderManager : MonoBehaviour
     {
-        public Action OnOrder;
-        public Action OnFoodCount;
+        public List<Waiter> waiterList;
     }
 }
