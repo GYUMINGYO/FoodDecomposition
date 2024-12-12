@@ -7,22 +7,22 @@ namespace GM.Manager
 {
     public class RestourantManager : MonoSingleton<RestourantManager>
     {
-        public Dictionary<Transform, Customer> chiarDictionary;
+        public Dictionary<Transform, Customer> chairDictionary;
 
         protected override void Awake()
         {
             base.Awake();
-            chiarDictionary = new Dictionary<Transform, Customer>();
+            chairDictionary = new Dictionary<Transform, Customer>();
         }
 
         public void AddChiar(Transform chiarTrm)
         {
-            chiarDictionary.Add(chiarTrm, null);
+            chairDictionary.Add(chiarTrm, null);
         }
 
         public Transform GetChiar()
         {
-            return chiarDictionary.FirstOrDefault(x => x.Value == null).Key;
+            return chairDictionary.FirstOrDefault(x => x.Value == null).Key;
         }
     }
 }
