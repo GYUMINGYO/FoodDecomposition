@@ -1,5 +1,4 @@
 using GM;
-using GM._01_Scripts.Data;
 using System;
 using Unity.Behavior;
 using UnityEngine;
@@ -15,7 +14,7 @@ public partial class RequstForCountAction : Action
 
     protected override Status OnStart()
     {
-        WaiterManager.Instance.AddCounterList(Customer.Value);
+        WaiterManager.Instance.AddListData(Customer.Value);
         return Status.Success;
     }
 }

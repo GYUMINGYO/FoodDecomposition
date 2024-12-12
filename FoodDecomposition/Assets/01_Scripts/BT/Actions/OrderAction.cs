@@ -20,7 +20,7 @@ public partial class OrderAction : Action
         order.recipe = RecipeManager.Instance.GetRecipe();
 
         Customer.Value.SetOrderData(order);
-        WaiterManager.Instance.AddOrderList(order);
+        WaiterManager.Instance.AddListData(order);
 
         return Status.Success;
     }

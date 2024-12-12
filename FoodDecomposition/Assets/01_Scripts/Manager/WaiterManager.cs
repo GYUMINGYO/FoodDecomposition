@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using GM._01_Scripts.Data;
 using GM.Staffs;
 using MKDir;
-using UnityEngine;
 
 namespace GM.Manager
 {
@@ -20,34 +19,55 @@ namespace GM.Manager
             _counterList = new Queue<Customer>();
         }
 
-        public void AddOrderList(OrderData data)
+        /// <summary>
+        /// Add Data for WaiterManager Field Queue
+        /// </summary>
+        /// <param name="data">Add Data</param>
+        /// <param name="list">Save Queue</param>
+        /// <typeparam name="T">type</typeparam>
+        public void AddListData<T>(T data, Queue<T> list)
         {
-            _orderList.Enqueue(data);
+            list.Enqueue(data);
+        }
+
+        /// <summary>
+        /// Get Data for WaiterManager Field Queue
+        /// </summary>
+        /// <param name="list">Get Queue</param>
+        /// <typeparam name="T">type</typeparam>
+        /// <returns></returns>
+        public T GetListData<T>(Queue<T> list)
+        {
+            if (list.Count <= 0)
+            {
+                return default;
+            }
+
+            return list.Dequeue();
+        }
+
+        public void AddListData(OrderData data)
+        {
+            AddListData(data, _orderList);
+            // TODO : 여기 주문 처리 하기
+            //* 이벤트를 발행
+            //* 이벤트 채널을 각각 클로닝해서 갖고 있고 그 각각에 전해 줄까? 근데 할 때마다 데이터를 갖고 와야 해
+            //* 아니면 이건 Waiter에 변수를 만들던지 해서 해결 하는게 깔끕할 듯 
+        }
+
+        public void AddListData(Customer customer)
+        {
+            AddListData(customer, _counterList);
         }
 
         public OrderData GetOrderData()
         {
-            if (_orderList.Count <= 0)
-            {
-                return default;
-            }
-
-            return _orderList.Dequeue();
+            return GetListData(_orderList);
         }
 
-        public void AddCounterList(Customer customer)
+        public Customer GetCounterData()
         {
-            _counterList.Enqueue(customer);
-        }
-
-        public Customer GetCounterCustomer()
-        {
-            if (_counterList.Count <= 0)
-            {
-                return default;
-            }
-
-            return _counterList.Dequeue();
+            return GetListData(_counterList);
         }
     }
 }
