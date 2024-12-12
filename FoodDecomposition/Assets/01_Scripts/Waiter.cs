@@ -7,10 +7,10 @@ namespace GM.Staffs
     {
         private void Update()
         {
-            //�׽�Ʈ
-            if(Input.GetKeyDown(KeyCode.P))
+            //�׽�Ʈ
+            if (Input.GetKeyDown(KeyCode.P))
             {
-                Customer counterCustomer = WaiterManager.Instance.GetCounterCustomer();
+                Customer counterCustomer = WaiterManager.Instance.GetCounterData();
                 float sellPrice = counterCustomer.GetSellPrice();
                 Debug.Log($"+{sellPrice}");
 
