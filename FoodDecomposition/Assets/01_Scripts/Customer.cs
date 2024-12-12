@@ -1,3 +1,6 @@
+using GM._01_Scripts.Data;
+using Unity.VisualScripting;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,7 +11,8 @@ namespace GM
         OrderWait,
         FoodWait,
         FoodComplete,
-        CounterWait
+        CounterWait,
+        CounterComplete
     }
 
     public class Customer : MonoBehaviour
@@ -19,6 +23,8 @@ namespace GM
 
         public CustomerState CurrentState => _currentState;
         private CustomerState _currentState = CustomerState.OrderWait;
+
+        private OrderData _orderData;
 
         private void Awake()
         {
@@ -32,5 +38,21 @@ namespace GM
 
         public void SuccessOrder() => _currentState = CustomerState.FoodWait;
         //public void SuccessEatFood() => _currentState = CustomerState.CounterWait;
+
+        public void SetOrderData(OrderData orderData) => _orderData = orderData;
+
+        public float GetSellPrice()
+        {
+            if (_orderData)
+                return _orderData.recipe.sellPrice;
+            else
+                return 0;
+        }
+
+        //test
+        public void ChangeState(CustomerState state)
+        {
+            _currentState = state;
+        }
     }
 }

@@ -9,28 +9,45 @@ namespace GM.Manager
     public class WaiterManager : MonoSingleton<WaiterManager>
     {
         public List<Waiter> waiterList;
-        private Queue<OrderData> _orderData;
+        private Queue<OrderData> _orderList;
+        private Queue<Customer> _counterList;
 
         protected override void Awake()
         {
             base.Awake();
             waiterList = new List<Waiter>();
-            _orderData = new Queue<OrderData>();
+            _orderList = new Queue<OrderData>();
+            _counterList = new Queue<Customer>();
         }
 
-        public void AddOrderData(OrderData data)
+        public void AddOrderList(OrderData data)
         {
-            _orderData.Enqueue(data);
+            _orderList.Enqueue(data);
         }
 
         public OrderData GetOrderData()
         {
-            if (_orderData.Count <= 0)
+            if (_orderList.Count <= 0)
             {
                 return default;
             }
 
-            return _orderData.Dequeue();
+            return _orderList.Dequeue();
+        }
+
+        public void AddCounterList(Customer customer)
+        {
+            _counterList.Enqueue(customer);
+        }
+
+        public Customer GetCounterCustomer()
+        {
+            if (_counterList.Count <= 0)
+            {
+                return default;
+            }
+
+            return _counterList.Dequeue();
         }
     }
 }
