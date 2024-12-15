@@ -39,4 +39,3 @@ public partial class MoveToTargetAction : Action
         return Status.Running;
     }
 }
-

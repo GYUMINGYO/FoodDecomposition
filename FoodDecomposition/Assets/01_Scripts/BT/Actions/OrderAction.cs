@@ -21,8 +21,8 @@ public partial class OrderAction : Action
 
         Customer.Value.SetOrderData(order);
         WaiterManager.Instance.AddOrderList(order);
+        Debug.Log("order");
 
         return Status.Success;
     }
 }
-

@@ -5,16 +5,17 @@ namespace GM
 {
     public enum FoodType
     {
-        Buger,
+        Burger,
         Pizza,
         icecream,
         Meet,
         Supe
     }
 
-    public class Recipe : MonoBehaviour
+    [CreateAssetMenu(menuName ="SO/Recipe")]
+    public class Recipe : ScriptableObject
     {
-        FoodType type;
+        public FoodType type;
         public float sellPrice;
         public float researchPrice;
         public bool unLock = false;
