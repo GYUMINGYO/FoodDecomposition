@@ -5,6 +5,7 @@ using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
 using UnityEngine.AI;
+using DG.Tweening;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "MoveToTarget", story: "[customer] move to [target]", category: "Action", id: "d0d3edfff31fee69d64e268c987e512f")]
@@ -37,5 +38,10 @@ public partial class MoveToTargetAction : Action
         }
 
         return Status.Running;
+    }
+
+    protected override void OnEnd()
+    {
+        Customer.Value.transform.DORotate(Target.Value.localRotation * Vector3.forward, 0.5f);
     }
 }

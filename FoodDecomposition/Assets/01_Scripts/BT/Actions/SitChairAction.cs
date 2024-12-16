@@ -23,9 +23,9 @@ public partial class SitChairAction : Action
         Sequence seq = DOTween.Sequence()
         .OnStart(() =>
         {
-            Customer.Value.transform.DOJump(Chair.Value.position, _jumpPower, 1, 1);
+            Customer.Value.transform.DOJump(Chair.Value.position, _jumpPower, 1, 0.5f);
         })
-        .Append(Customer.Value.transform.DORotate(lookDir, 1))
+        .Append(Customer.Value.transform.DORotate(lookDir, 0.5f))
         .OnComplete(() =>
         {
             status = Status.Success;
