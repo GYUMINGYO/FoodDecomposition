@@ -12,7 +12,7 @@ namespace MKDir
             {
                 if (_instance == null)
                 {
-                    _instance = (T)FindObjectOfType(typeof(T));
+                    _instance = FindAnyObjectByType(typeof(T)) as T;
                     if (_instance == null)
                     {
                         SetupInstnace();
@@ -34,7 +34,7 @@ namespace MKDir
 
         private static void SetupInstnace()
         {
-            _instance = (T)FindObjectOfType(typeof(T));
+            _instance = FindAnyObjectByType(typeof(T)) as T;
             if (_instance == null)
             {
                 GameObject obj = new GameObject();
