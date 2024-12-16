@@ -17,8 +17,6 @@ namespace GM.Staffs
         {
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
             _myBTAgent.GetVariable("StateChange", out _myStateChangeEvent);
-
-            Debug.Log(_myStateChangeEvent);
         }
 
         private void Update()
@@ -37,6 +35,7 @@ namespace GM.Staffs
         public void StartWork(WaiterState workType)
         {
             _myStateChangeEvent.Value.SendEventMessage(workType);
+            Debug.Log(_myStateChangeEvent.Value);
         }
     }
 }

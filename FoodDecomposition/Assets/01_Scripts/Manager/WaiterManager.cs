@@ -14,7 +14,7 @@ namespace GM.Manager
         private Queue<OrderData> _orderList;
         private Queue<Customer> _counterList;
 
-        protected override void Awake()
+        protected override void Awake() 
         {
             base.Awake();
             waiterList = new List<Waiter>();

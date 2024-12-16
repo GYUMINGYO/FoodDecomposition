@@ -11,10 +11,6 @@ namespace GM
         OrderData order;
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                WaiterManager.Instance.AddListData(order);
-            }
         }
     }
 }
