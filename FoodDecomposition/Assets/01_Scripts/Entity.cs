@@ -5,14 +5,13 @@ namespace GM.Entities
 {
     public abstract class Entity : MonoBehaviour
     {
-        public bool CanManualMove => _canManualMove;
         public NavMeshAgent NavAgent => _navAgent;
+        public bool CanManualMove => _canManualMove;
 
-        private bool _canManualMove = false;
+        protected NavMeshAgent _navAgent;
+        protected bool _canManualMove = false;
 
-        private NavMeshAgent _navAgent;
-
-        private void Awake()
+        protected virtual void Awake()
         {
             _navAgent = GetComponent<NavMeshAgent>();
         }
