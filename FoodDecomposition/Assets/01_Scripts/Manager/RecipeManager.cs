@@ -8,12 +8,6 @@ namespace GM.Manager
     {
         public List<Recipe> recipeList;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            recipeList = new List<Recipe>();
-        }
-
         public void AddRecipe(Recipe recipe)
         {
             recipeList.Add(recipe);
@@ -21,7 +15,8 @@ namespace GM.Manager
 
         public Recipe GetRecipe()
         {
-            return recipeList[Random.Range(0, recipeList.Count)];
+            int idx = Random.Range(0, recipeList.Count);
+            return recipeList[idx];
         }
     }
 }

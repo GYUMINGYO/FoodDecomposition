@@ -14,9 +14,9 @@ public partial class CustomerSuccessOrderCondition : Condition
     {
         if (Customer.Value.CurrentState == State.Value)
         {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

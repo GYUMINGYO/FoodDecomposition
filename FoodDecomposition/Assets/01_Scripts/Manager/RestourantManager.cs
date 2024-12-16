@@ -1,28 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using MKDir;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace GM.Manager
 {
     public class RestourantManager : MonoSingleton<RestourantManager>
     {
-        public Dictionary<Transform, Customer> chiarDictionary;
+        public List<Transform> startChairList;
+        public Dictionary<Transform, Customer> chairDictionary;
 
         protected override void Awake()
         {
             base.Awake();
-            chiarDictionary = new Dictionary<Transform, Customer>();
+            chairDictionary = new Dictionary<Transform, Customer>();
+            startChairList.ForEach(chair => AddChiar(chair));
         }
 
-        public void AddChiar(Transform chiarTrm)
+        public void AddChiar(Transform chairTrm)
         {
-            chiarDictionary.Add(chiarTrm, null);
+            chairDictionary.Add(chairTrm, null);
         }
 
         public Transform GetChiar()
         {
-            return chiarDictionary.FirstOrDefault(x => x.Value == null).Key;
+            return chairDictionary.FirstOrDefault(x => x.Value == null).Key;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace GM
         private NavMeshAgent _agent;
 
         public CustomerState CurrentState => _currentState;
-        private CustomerState _currentState = CustomerState.OrderWait;
+        private CustomerState _currentState = CustomerState.FoodComplete;
 
         private OrderData _orderData;
 
