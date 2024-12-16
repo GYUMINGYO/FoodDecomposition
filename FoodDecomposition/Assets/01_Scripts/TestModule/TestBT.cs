@@ -1,20 +1,20 @@
+using GM._01_Scripts.Data;
+using GM.Manager;
 using Unity.Behavior;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace GM
 {
     public class TestBT : MonoBehaviour
     {
-        [SerializeField] private BehaviorGraphAgent _agent;
-
-        private void Start()
+        OrderData order;
+        private void Update()
         {
-            BlackboardVariable<float> bf;
-            _agent.GetVariable("TestFloat", out bf);
-
-            Debug.Log(bf.Value);
-
-            //* 그니까 지금 이게 웨이터를 다 들고 있고 엄
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                WaiterManager.Instance.AddListData(order);
+            }
         }
     }
 }

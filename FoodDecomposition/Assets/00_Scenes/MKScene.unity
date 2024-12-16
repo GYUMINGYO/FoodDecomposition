@@ -5601,6 +5601,8 @@ GameObject:
   - component: {fileID: 1381187376}
   - component: {fileID: 1381187375}
   - component: {fileID: 1381187377}
+  - component: {fileID: 1381187378}
+  - component: {fileID: 1381187379}
   m_Layer: 0
   m_Name: Waiter
   m_TagString: Untagged
@@ -5670,7 +5672,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f94c70a758a56468ccfe85bebd4b76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _agent: {fileID: 1381187375}
+--- !u!114 &1381187378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381187374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6379d3e55bd94733b2889de095c7cd8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1381187379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381187374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2674d691ddde4c6baa457dd651591bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waiterList:
+  - {fileID: 1381187378}
 --- !u!1 &1412322831
 GameObject:
   m_ObjectHideFlags: 0
