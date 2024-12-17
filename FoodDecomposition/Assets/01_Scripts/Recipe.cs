@@ -1,4 +1,4 @@
-using GM._01_Scripts.Data;
+using GM.Data;
 using UnityEngine;
 
 namespace GM
@@ -12,7 +12,7 @@ namespace GM
         Supe
     }
 
-    [CreateAssetMenu(menuName ="SO/Recipe")]
+    [CreateAssetMenu(menuName = "SO/Recipe")]
     public class Recipe : ScriptableObject
     {
         public FoodType type;

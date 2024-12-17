@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GM._01_Scripts.Data
+namespace GM.Data
 {
     public class OrderData : MonoBehaviour
     {

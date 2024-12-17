@@ -4,8 +4,8 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
-using GM._01_Scripts.Data;
-using GM.Manager;
+using GM.Data;
+using GM.Managers;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "Order", story: "[customer] order", category: "Action", id: "738c202e4ec81fbb8f0171d342c291cd")]
@@ -20,7 +20,7 @@ public partial class OrderAction : Action
         order.recipe = RecipeManager.Instance.GetRecipe();
 
         Customer.Value.SetOrderData(order);
-        WaiterManager.Instance.AddListData(order);
+        ManagerHub.WaiterManager.AddListData(order);
         Debug.Log("order");
 
         return Status.Success;

@@ -1,31 +1,31 @@
 using System.Collections.Generic;
 using System.Linq;
-using MKDir;
-using UnityEditor.Build;
 using UnityEngine;
 
-namespace GM.Manager
+namespace GM.Managers
 {
-    public class RestourantManager : MonoSingleton<RestourantManager>
+    public class RestourantManager
     {
-        public List<Transform> startChairList;
         public Dictionary<Transform, Customer> chairDictionary;
 
-        protected override void Awake()
+        public void Init()
         {
-            base.Awake();
             chairDictionary = new Dictionary<Transform, Customer>();
-            startChairList.ForEach(chair => AddChiar(chair));
-        }
 
-        public void AddChiar(Transform chairTrm)
-        {
-            chairDictionary.Add(chairTrm, null);
+            foreach (var chair in ManagerHub.FindObjectsByType<chair>(FindObjectsSortMode.None))
+            {
+                chairDictionary.Add(chair.transform, null);
+            }
         }
 
         public Transform GetChiar()
         {
             return chairDictionary.FirstOrDefault(x => x.Value == null).Key;
+        }
+
+        public void Clear()
+        {
+            chairDictionary.Clear();
         }
     }
 }

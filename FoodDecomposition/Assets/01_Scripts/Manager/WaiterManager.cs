@@ -1,46 +1,48 @@
 using System.Collections.Generic;
 using System.Linq;
-using GM._01_Scripts.Data;
-using GM.Staffs;
+using GM.Data;
 using UnityEngine;
-using MKDir;
-using UnityEditor.Rendering.Universal.ShaderGUI;
 
-namespace GM.Manager
+using GM.Staffs;
+
+namespace GM.Managers
 {
-    public class WaiterManager : MonoSingleton<WaiterManager>
+    public class WaiterManager
     {
         public List<Waiter> waiterList;
         private Queue<OrderData> _orderList;
         private Queue<Customer> _counterList;
 
-        protected override void Awake() 
+        public void Init()
         {
-            base.Awake();
             waiterList = new List<Waiter>();
             _orderList = new Queue<OrderData>();
             _counterList = new Queue<Customer>();
 
-            //! Test
-            waiterList.Add(FindAnyObjectByType<Waiter>());
+            foreach (var waiter in ManagerHub.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
+            {
+                waiterList.Add(waiter);
+            }
         }
 
-        private void Update()
+        public void Update()
         {
             GiveWork();
         }
 
         private void GiveWork()
         {
+            if (waiterList.Count <= 0) return;
+
             // TODO : counter는 연속 처리 되게 만들어야 함
             if (_counterList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.COUNT);
+                //CheckWorking()?.StartWork(WaiterState.COUNT);
             }
 
             if (_orderList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.ORDER);
+                CheckWorking()?.StartWork(WaiterState.ORDER, GetListData(_orderList));
                 GetListData(_orderList);
             }
         }
@@ -101,6 +103,13 @@ namespace GM.Manager
         public Customer GetCounterData()
         {
             return GetListData(_counterList);
+        }
+
+        public void Clear()
+        {
+            waiterList.Clear();
+            _orderList.Clear();
+            _counterList.Clear();
         }
     }
 }

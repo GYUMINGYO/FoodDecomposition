@@ -1,4 +1,5 @@
-using GM.Manager;
+using GM.Data;
+using GM.Managers;
 using Unity.Behavior;
 using UnityEngine;
 
@@ -6,14 +7,15 @@ namespace GM.Staffs
 {
     public class Waiter : Staff
     {
-        public bool IsWorking => _isWorking;
-
-        private bool _isWorking = false;
-
         private BehaviorGraphAgent _myBTAgent;
         private BlackboardVariable<StateChange> _myStateChangeEvent;
 
-        void Awake()
+        protected override void Awake()
+        {
+            InitializedBT();
+        }
+
+        private void InitializedBT()
         {
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
             _myBTAgent.GetVariable("StateChange", out _myStateChangeEvent);
@@ -24,7 +26,7 @@ namespace GM.Staffs
             //????
             if (Input.GetKeyDown(KeyCode.P))
             {
-                Customer counterCustomer = WaiterManager.Instance.GetCounterData();
+                Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
                 float sellPrice = counterCustomer.GetSellPrice();
                 Debug.Log($"+{sellPrice}");
 
@@ -32,10 +34,9 @@ namespace GM.Staffs
             }
         }
 
-        public void StartWork(WaiterState workType)
+        public void StartWork(WaiterState workType, OrderData data)
         {
             _myStateChangeEvent.Value.SendEventMessage(workType);
-            Debug.Log(_myStateChangeEvent.Value);
         }
     }
 }

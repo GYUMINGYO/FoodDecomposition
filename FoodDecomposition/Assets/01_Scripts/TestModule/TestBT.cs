@@ -1,4 +1,4 @@
-using GM._01_Scripts.Data;
+using GM.Data;
 using GM.Manager;
 using Unity.Behavior;
 using UnityEngine;
