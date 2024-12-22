@@ -9,7 +9,7 @@ using Unity.Properties;
 #endif
 [Serializable, GeneratePropertyBag]
 [EventChannelDescription(name: "StateChange", message: "change to [state]", category: "Events", id: "4a450d351caf103bb71687852b05cb37")]
-public partial class StateChange : EventChannelBase
+public partial class StateChange : EventChannelBase, ICloneable
 {
     public delegate void StateChangeEventHandler(WaiterState state);
     public event StateChangeEventHandler Event;
@@ -48,6 +48,11 @@ public partial class StateChange : EventChannelBase
     public override void UnregisterListener(Delegate del)
     {
         Event -= del as StateChangeEventHandler;
+    }
+
+    public object Clone()
+    {
+        return Instantiate(this);
     }
 }
 

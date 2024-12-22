@@ -37,13 +37,12 @@ namespace GM.Managers
             // TODO : counter는 연속 처리 되게 만들어야 함
             if (_counterList.Count > 0)
             {
-                //CheckWorking()?.StartWork(WaiterState.COUNT);
+                CheckWorking()?.StartWork(WaiterState.COUNT, GetListData(_counterList));
             }
 
             if (_orderList.Count > 0)
             {
                 CheckWorking()?.StartWork(WaiterState.ORDER, GetListData(_orderList));
-                GetListData(_orderList);
             }
         }
 

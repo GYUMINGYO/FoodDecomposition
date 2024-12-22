@@ -1,16 +1,25 @@
 using GM.Data;
-using GM.Manager;
-using Unity.Behavior;
+using GM.Managers;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace GM
 {
     public class TestBT : MonoBehaviour
     {
+        public Customer _customer;
         OrderData order;
+
+        private void Start()
+        {
+            order = new OrderData();
+            order.orderCustomer = _customer;
+        }
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                ManagerHub.WaiterManager.AddListData(order);
+            }
         }
     }
 }
