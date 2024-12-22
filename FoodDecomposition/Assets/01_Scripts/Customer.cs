@@ -1,3 +1,5 @@
+using GM.Data;
+using GM.Entities;
 using GM._01_Scripts.Data;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,26 +15,11 @@ namespace GM
         CounterComplete
     }
 
-    public class Customer : MonoBehaviour
+    public class Customer : Entity
     {
-        public NavMeshAgent Agent => _agent;
-
-        private NavMeshAgent _agent;
-
         public CustomerState CurrentState => _currentState;
         private CustomerState _currentState = CustomerState.FoodComplete;
-
         private OrderData _orderData;
-
-        private void Awake()
-        {
-            _agent = GetComponent<NavMeshAgent>();
-        }
-
-        public void MoveToTarget(Transform targetTrm)
-        {
-            _agent.SetDestination(targetTrm.position);
-        }
 
         public void SuccessOrder() => _currentState = CustomerState.FoodWait;
         //public void SuccessEatFood() => _currentState = CustomerState.CounterWait;

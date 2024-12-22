@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using MKDir;
 
-namespace GM.Manager
+namespace GM.Managers
 {
     public class RecipeManager : MonoSingleton<RecipeManager>
     {

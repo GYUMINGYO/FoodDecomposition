@@ -1,11 +1,12 @@
-using UnityEngine;
+using GM.Entities;
 
 namespace GM.Staffs
 {
-    public class Staff : MonoBehaviour
+    public class Staff : Entity
     {
-        // 직원 스탯
-        // 이동 / 이거는 손님이랑 겹치긴 함
-        
+        // TODO : 직원 스탯
+        public bool IsWorking => _isWorking;
+
+        protected bool _isWorking = false;
     }
 }

@@ -1,5 +1,5 @@
 using GM;
-using GM.Manager;
+using GM.Managers;
 using System;
 using Unity.Behavior;
 using UnityEngine;
@@ -13,7 +13,7 @@ public partial class FindTableCondition : Condition
 
     public override bool IsTrue()
     {
-        Chair.Value = RestourantManager.Instance.GetChiar();
+        Chair.Value = ManagerHub.RestourantManager.GetChiar();
 
         if (Chair.Value == null)
         {
