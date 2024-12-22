@@ -1,10 +1,16 @@
-using UnityEngine;
-
 namespace GM.Data
 {
-    public class OrderData : MonoBehaviour
+    public enum OrderType
+    {
+        Order,
+        Serving,
+        Count
+    }
+
+    public struct OrderData
     {
         public Customer orderCustomer;
+        public OrderType type;
         public Recipe recipe;
     }
 }
