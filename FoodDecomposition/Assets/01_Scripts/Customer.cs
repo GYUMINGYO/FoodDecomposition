@@ -1,8 +1,5 @@
 using GM.Data;
 using GM.Entities;
-using GM._01_Scripts.Data;
-using UnityEngine;
-using UnityEngine.AI;
 
 namespace GM
 {

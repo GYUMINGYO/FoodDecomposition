@@ -21,19 +21,6 @@ namespace GM.Staffs
             _myBTAgent.GetVariable("StateChange", out _myStateChangeEvent);
         }
 
-        private void Update()
-        {
-            //????
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
-                float sellPrice = counterCustomer.GetSellPrice();
-                Debug.Log($"+{sellPrice}");
-
-                counterCustomer.ChangeState(CustomerState.CounterComplete);
-            }
-        }
-
         public void StartWork(WaiterState workType, OrderData data)
         {
             _myStateChangeEvent.Value.SendEventMessage(workType);
