@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 namespace GM.Entities
 {
+    [RequireComponent(typeof(NavMeshAgent))]
     public abstract class Entity : MonoBehaviour
     {
         public NavMeshAgent NavAgent => _navAgent;
