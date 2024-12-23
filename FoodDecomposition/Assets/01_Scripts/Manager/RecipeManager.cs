@@ -4,6 +4,7 @@ using MKDir;
 
 namespace GM.Managers
 {
+    // TODO : 이게 필요 할까?
     public class RecipeManager : MonoSingleton<RecipeManager>
     {
         public List<Recipe> recipeList;

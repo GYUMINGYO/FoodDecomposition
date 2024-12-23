@@ -1,52 +1,110 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using MKDir;
 using UnityEngine;
 
 namespace GM.Managers
 {
-    public class ManagerHub : MonoBehaviour
+    public class ManagerHub : MonoSingleton<ManagerHub>
     {
-        public static bool Initialized { get; set; } = false;
+        private Dictionary<Type, IManagerable> _managers;
+        private List<IManagerUpdateable> _updateManagers;
 
-        private static ManagerHub s_instacne;
-        public static ManagerHub Instance { get { Init(); return s_instacne; } }
-
-
-        #region Contents 
-        private WaiterManager _waiter = new WaiterManager();
-        private RestourantManager _restourant = new RestourantManager();
-
-        public static WaiterManager WaiterManager { get { return Instance?._waiter; } }
-        public static RestourantManager RestourantManager { get { return Instance?._restourant; } }
-        #endregion
-
-        public static void Init()
+        protected override void Initialized()
         {
-            if (s_instacne == null && Initialized == false)
-            {
-                Initialized = true;
+            base.Initialized();
 
-                GameObject obj = GameObject.Find("@Managers");
-                if (obj == null)
-                {
-                    obj = new GameObject { name = "@Managers" };
-                    obj.AddComponent<ManagerHub>();
-                }
-                DontDestroyOnLoad(obj);
+            _managers = new Dictionary<Type, IManagerable>();
+            _updateManagers = new List<IManagerUpdateable>();
 
-                s_instacne = obj.GetComponent<ManagerHub>();
-                WaiterManager.Init();
-                RestourantManager.Init();
-            }
+            FindAndAddManagerToDictionary();
+            ManagerInitialize();
+            AddUpdateManager();
         }
 
         private void Update()
         {
-            WaiterManager.Update();
+            UpdateManager();
         }
 
-        public static void Clear()
+        private void OnDestroy()
         {
-            WaiterManager.Clear();
-            RestourantManager.Clear();
+            ManagerAllClear();
+        }
+
+        public T GetManager<T>() where T : IManagerable
+        {
+            if (_managers.TryGetValue(typeof(T), out IManagerable manager))
+            {
+                return (T)manager;
+            }
+
+            Debug.LogError("Manger Not Found");
+            return default;
+        }
+
+        /// <summary>
+        /// Find all classes that implement IManagerable and add them to the dictionary
+        /// </summary>
+        private void FindAndAddManagerToDictionary()
+        {
+            var types = Assembly.GetExecutingAssembly().GetTypes()
+                .Where(type => typeof(IManagerable).IsAssignableFrom(type) && type.IsClass);
+
+            foreach (var type in types)
+            {
+                try
+                {
+                    var manager = Activator.CreateInstance(type) as IManagerable;
+                    _managers.Add(type, manager);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"{ex} createInstance Error, Message : {ex.Message}");
+                }
+            }
+        }
+
+        private void ManagerInitialize()
+        {
+            foreach (var manager in _managers.Values)
+            {
+                manager.Initialized();
+            }
+        }
+
+        private void AddUpdateManager()
+        {
+            foreach (var manager in _managers.Values)
+            {
+                if (manager is IManagerUpdateable updateable)
+                {
+                    _updateManagers.Add(updateable);
+                }
+            }
+        }
+
+        private void UpdateManager()
+        {
+            if (_updateManagers.Count < 0)
+            {
+                return;
+            }
+
+            foreach (var manager in _updateManagers)
+            {
+                manager.Update();
+            }
+        }
+
+        private void ManagerAllClear()
+        {
+            foreach (var manager in _managers.Values)
+            {
+                manager.Clear();
+            }
         }
     }
 }

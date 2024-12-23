@@ -13,7 +13,7 @@ public partial class FindTableCondition : Condition
 
     public override bool IsTrue()
     {
-        Chair.Value = ManagerHub.RestourantManager.GetChiar();
+        Chair.Value = ManagerHub.Instance.GetManager<RestourantManager>().GetChiar();
 
         if (Chair.Value == null)
         {

@@ -15,11 +15,12 @@ namespace GM
             order.orderCustomer = _customer;
             order.type = OrderType.Order;
         }
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                ManagerHub.WaiterManager.AddOrderData(order);
+                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
             }
         }
     }

@@ -2,18 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using GM.Data;
 using UnityEngine;
-
 using GM.Staffs;
 
 namespace GM.Managers
 {
-    public class WaiterManager
+    public class WaiterManager : IManagerable, IManagerUpdateable
     {
         public List<Waiter> waiterList;
         private Queue<OrderData> _orderList;
         private Queue<OrderData> _counterList;
 
-        public void Init()
+        public void Initialized()
         {
             waiterList = new List<Waiter>();
             _orderList = new Queue<OrderData>();
@@ -23,6 +22,13 @@ namespace GM.Managers
             {
                 waiterList.Add(waiter);
             }
+        }
+
+        public void Clear()
+        {
+            waiterList.Clear();
+            _orderList.Clear();
+            _counterList.Clear();
         }
 
         public void Update()
@@ -97,13 +103,6 @@ namespace GM.Managers
                     _counterList.Enqueue(data);
                     break;
             }
-        }
-
-        public void Clear()
-        {
-            waiterList.Clear();
-            _orderList.Clear();
-            _counterList.Clear();
         }
     }
 }
