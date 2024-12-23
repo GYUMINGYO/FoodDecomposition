@@ -4,7 +4,7 @@ namespace MKDir
 {
     public class MonoSingleton<T> : MonoBehaviour where T : Component
     {
-        private static T _instance;
+        protected static T _instance;
 
         public static T Instance
         {
@@ -25,14 +25,20 @@ namespace MKDir
         protected virtual void Awake()
         {
             RemoveDuplicates();
+            Initialized();
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             _instance = null;
         }
 
-        private static void SetupInstnace()
+        protected virtual void Initialized()
+        {
+            SetupInstnace();
+        }
+
+        protected static void SetupInstnace()
         {
             _instance = FindAnyObjectByType(typeof(T)) as T;
             if (_instance == null)
@@ -44,7 +50,7 @@ namespace MKDir
             }
         }
 
-        private void RemoveDuplicates()
+        protected void RemoveDuplicates()
         {
             if (_instance == null)
             {
