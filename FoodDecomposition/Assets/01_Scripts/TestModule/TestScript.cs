@@ -11,11 +11,11 @@ namespace GM
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
+                /* Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
                 float sellPrice = counterCustomer.GetSellPrice();
                 Debug.Log($"+{sellPrice}");
 
-                counterCustomer.ChangeState(CustomerState.CounterComplete);
+                counterCustomer.ChangeState(CustomerState.CounterComplete); */
             }
         }
     }

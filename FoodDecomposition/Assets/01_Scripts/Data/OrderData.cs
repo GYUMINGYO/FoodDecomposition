@@ -1,16 +1,17 @@
 namespace GM.Data
 {
-    public enum OrderType
+    public enum OrderDataType
     {
+        Null,
         Order,
-        Serving,
-        Count
+        Count,
+        Serving
     }
 
     public struct OrderData
     {
         public Customer orderCustomer;
-        public OrderType type;
+        public OrderDataType type;
         public Recipe recipe;
     }
 }

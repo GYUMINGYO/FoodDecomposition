@@ -13,12 +13,13 @@ namespace GM
         {
             order = new OrderData();
             order.orderCustomer = _customer;
+            order.type = OrderDataType.Order;
         }
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.T))
             {
-                ManagerHub.WaiterManager.AddListData(order);
+                ManagerHub.WaiterManager.AddOrderData(order);
             }
         }
     }

@@ -27,14 +27,14 @@ namespace GM.Staffs
         private void Update()
         {
             //????
-            if (Input.GetKeyDown(KeyCode.P))
+            /* if (Input.GetKeyDown(KeyCode.P))
             {
-                Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
+                Customer counterCustomer = ManagerHub.WaiterManager.GetOrderData();
                 float sellPrice = counterCustomer.GetSellPrice();
                 Debug.Log($"+{sellPrice}");
 
                 counterCustomer.ChangeState(CustomerState.CounterComplete);
-            }
+            } */
         }
 
         private OrderData _currentData;

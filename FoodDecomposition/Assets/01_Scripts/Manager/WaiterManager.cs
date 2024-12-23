@@ -11,13 +11,13 @@ namespace GM.Managers
     {
         public List<Waiter> waiterList;
         private Queue<OrderData> _orderList;
-        private Queue<Customer> _counterList;
+        private Queue<OrderData> _counterList;
 
         public void Init()
         {
             waiterList = new List<Waiter>();
             _orderList = new Queue<OrderData>();
-            _counterList = new Queue<Customer>();
+            _counterList = new Queue<OrderData>();
 
             foreach (var waiter in ManagerHub.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
             {
@@ -37,36 +37,37 @@ namespace GM.Managers
             // TODO : counter는 연속 처리 되게 만들어야 함
             if (_counterList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.COUNT, GetListData(_counterList));
+                CheckWorking()?.StartWork(WaiterState.COUNT, GetOrderData(OrderDataType.Count));
             }
 
             if (_orderList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.ORDER, GetListData(_orderList));
+                CheckWorking()?.StartWork(WaiterState.ORDER, GetOrderData(OrderDataType.Order));
             }
         }
 
         private Waiter CheckWorking() =>
             waiterList.FirstOrDefault(x => x.IsWorking == false);
 
-        /// <summary>
-        /// Add Data for WaiterManager Field Queue
-        /// </summary>
-        /// <param name="data">Add Data</param>
-        /// <param name="list">Save Queue</param>
-        /// <typeparam name="T">type</typeparam>
-        private void AddListData<T>(T data, Queue<T> list)
+        public OrderData GetOrderData(OrderDataType type)
         {
-            list.Enqueue(data);
+            switch (type)
+            {
+                case OrderDataType.Order:
+                    return GetOrderListData(_orderList);
+                case OrderDataType.Count:
+                    return GetOrderListData(_counterList);
+                default:
+                    return default;
+            }
         }
 
         /// <summary>
         /// Get Data for WaiterManager Field Queue
         /// </summary>
-        /// <param name="list">Get Queue</param>
-        /// <typeparam name="T">type</typeparam>
+        /// <param name="list">Ordet data Queue</param>
         /// <returns></returns>
-        public T GetListData<T>(Queue<T> list)
+        private OrderData GetOrderListData(Queue<OrderData> list)
         {
             if (list.Count <= 0)
             {
@@ -80,28 +81,20 @@ namespace GM.Managers
         /// Add Data for WaiterManager Order
         /// </summary>
         /// <param name="data">Order data</param>
-        public void AddListData(OrderData data)
+        public void AddOrderData(OrderData data)
         {
-            AddListData(data, _orderList);
-        }
-
-        /// <summary>
-        /// Add Data for WaiterManager count
-        /// </summary>
-        /// <param name="customer">Count data</param>
-        public void AddListData(Customer customer)
-        {
-            AddListData(customer, _counterList);
-        }
-
-        public OrderData GetOrderData()
-        {
-            return GetListData(_orderList);
-        }
-
-        public Customer GetCounterData()
-        {
-            return GetListData(_counterList);
+            switch (data.type)
+            {
+                case OrderDataType.Order:
+                    _orderList.Enqueue(data);
+                    break;
+                case OrderDataType.Serving:
+                    // TODO : Serving 처리
+                    break;
+                case OrderDataType.Count:
+                    _counterList.Enqueue(data);
+                    break;
+            }
         }
 
         public void Clear()
