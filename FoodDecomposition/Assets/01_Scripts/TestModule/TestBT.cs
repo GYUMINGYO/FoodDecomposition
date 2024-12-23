@@ -13,7 +13,7 @@ namespace GM
         {
             order = new OrderData();
             order.orderCustomer = _customer;
-            order.type = OrderDataType.Order;
+            order.type = OrderType.Order;
         }
         private void Update()
         {
