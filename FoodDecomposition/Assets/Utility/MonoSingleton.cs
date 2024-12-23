@@ -49,6 +49,10 @@ namespace MKDir
             if (_instance == null)
             {
                 _instance = this as T;
+
+                if (transform.parent != null)
+                    transform.SetParent(null);
+
                 DontDestroyOnLoad(this.gameObject);
             }
             else

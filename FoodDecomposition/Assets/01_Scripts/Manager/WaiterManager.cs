@@ -50,23 +50,11 @@ namespace GM.Managers
         private Waiter CheckWorking() =>
             waiterList.FirstOrDefault(x => x.IsWorking == false);
 
-        /// <summary>
-        /// Add Data for WaiterManager Field Queue
-        /// </summary>
-        /// <param name="data">Add Data</param>
-        /// <param name="list">Save Queue</param>
-        /// <typeparam name="T">type</typeparam>
         private void AddListData<T>(T data, Queue<T> list)
         {
             list.Enqueue(data);
         }
 
-        /// <summary>
-        /// Get Data for WaiterManager Field Queue
-        /// </summary>
-        /// <param name="list">Get Queue</param>
-        /// <typeparam name="T">type</typeparam>
-        /// <returns></returns>
         public T GetListData<T>(Queue<T> list)
         {
             if (list.Count <= 0)
@@ -77,19 +65,11 @@ namespace GM.Managers
             return list.Dequeue();
         }
 
-        /// <summary>
-        /// Add Data for WaiterManager Order
-        /// </summary>
-        /// <param name="data">Order data</param>
         public void AddListData(OrderData data)
         {
             AddListData(data, _orderList);
         }
 
-        /// <summary>
-        /// Add Data for WaiterManager count
-        /// </summary>
-        /// <param name="customer">Count data</param>
         public void AddListData(Customer customer)
         {
             AddListData(customer, _counterList);

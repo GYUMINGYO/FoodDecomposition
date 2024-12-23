@@ -12,7 +12,7 @@ namespace GM.Managers
         {
             chairDictionary = new Dictionary<Transform, Customer>();
 
-            foreach (var chair in ManagerHub.FindObjectsByType<chair>(FindObjectsSortMode.None))
+            foreach (var chair in ManagerHub.FindObjectsByType<Chair>(FindObjectsSortMode.None))
             {
                 chairDictionary.Add(chair.transform, null);
             }

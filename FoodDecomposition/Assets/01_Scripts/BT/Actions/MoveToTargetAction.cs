@@ -43,6 +43,6 @@ public partial class MoveToTargetAction : Action
 
     protected override void OnEnd()
     {
-        Entity.Value.transform.DORotate(Target.Value.localRotation * Vector3.forward, 0.5f);
+        //Entity.Value.transform.DORotate(Target.Value.localRotation * Vector3.forward, 0.5f);
     }
 }

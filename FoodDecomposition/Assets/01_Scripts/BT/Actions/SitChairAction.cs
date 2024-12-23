@@ -17,7 +17,7 @@ public partial class SitChairAction : Action
 
     protected override Status OnStart()
     {
-        Vector3 lookDir = Chair.Value.forward;
+        Vector3 lookDir = Chair.Value.transform.localRotation * Vector3.forward;
         Status status = Status.Running;
 
         Sequence seq = DOTween.Sequence()
@@ -28,6 +28,7 @@ public partial class SitChairAction : Action
         .Append(Customer.Value.transform.DORotate(lookDir, 0.5f))
         .OnComplete(() =>
         {
+            Debug.Log(lookDir);
             status = Status.Success;
         });
         return status;

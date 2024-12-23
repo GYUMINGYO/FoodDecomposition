@@ -399,7 +399,7 @@ Transform:
   m_GameObject: {fileID: 157780552}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf7bfeb49f34fb149ab44b1f2a4321b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 2095785231}
   text: {fileID: 5249857}
   background: {fileID: 1105481311}
 --- !u!1 &168886306
@@ -991,6 +990,7 @@ MonoBehaviour:
   - rid: 8818507951928770562
   - rid: 8818507951928770650
   - rid: 8818507951928770651
+  - rid: 8818508179139985544
   references:
     version: 2
     RefIds:
@@ -1026,6 +1026,14 @@ MonoBehaviour:
           m_Value1: 4799413106845577801
         Name: Counter
         m_Value: {fileID: 679200954}
+    - rid: 8818508179139985544
+      type: {class: 'BlackboardVariable`1[[GM.DebugBubble, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 7023851302064344122
+          m_Value1: 11467059966275114733
+        Name: DebugBubble
+        m_Value: {fileID: 157780554}
 --- !u!114 &641601090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2039,7 +2047,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.5681286, y: 0.4896, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalScale: {x: 0, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1002943567}
@@ -3506,7 +3514,7 @@ Transform:
   m_GameObject: {fileID: 2095785231}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 2.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
