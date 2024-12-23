@@ -11,9 +11,17 @@ public class InputReaderSO : ScriptableObject, InputSystem_Actions.IPlayerAction
 
     private void OnEnable()
     {
-        _inputSystem_Actions = new InputSystem_Actions();
+        if (_inputSystem_Actions == null)
+        {
+            _inputSystem_Actions = new InputSystem_Actions();
+            _inputSystem_Actions.Player.SetCallbacks(this);
+        }
         _inputSystem_Actions.Enable();
-        _inputSystem_Actions.Player.SetCallbacks(this);
+    }
+
+    private void OnDisable()
+    {
+        _inputSystem_Actions.Disable();
     }
 
     public void OnMove(InputAction.CallbackContext context)
