@@ -2,7 +2,13 @@ using UnityEngine;
 
 namespace GM
 {
-    public class chair : MonoBehaviour
+    public class Chair : MonoBehaviour
     {
+        //test
+        [ContextMenu("dir")]
+        public void Dir()
+        {
+            Debug.Log(transform.localRotation * Vector3.forward);
+        }
     }
 }

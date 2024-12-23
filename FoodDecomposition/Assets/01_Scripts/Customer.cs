@@ -1,41 +1,43 @@
 using GM.Data;
 using GM.Entities;
+using Unity.Behavior;
 
 namespace GM
 {
+
+    [BlackboardEnum]
     public enum CustomerState
     {
-        OrderWait,
-        FoodWait,
-        FoodComplete,
-        CounterWait,
-        CounterComplete
+        Order,
+        Food,
+        Counter
     }
 
     public class Customer : Entity
     {
-        public CustomerState CurrentState => _currentState;
-        private CustomerState _currentState = CustomerState.FoodComplete;
         private OrderData _orderData;
 
-        public void SuccessOrder() => _currentState = CustomerState.FoodWait;
-        //public void SuccessEatFood() => _currentState = CustomerState.CounterWait;
+        private bool isWait = false;
+        public bool IsWait => isWait;
 
         public void SetOrderData(OrderData orderData) => _orderData = orderData;
 
         public float GetSellPrice()
         {
-            /* if (_orderData == null)
-                return _orderData.recipe.sellPrice;
+            if (_orderData.Equals(default(OrderData)))
+                return 0;
             else
-                return 0; */
-            return 0;
+                return _orderData.recipe.sellPrice;
         }
 
-        //test
-        public void ChangeState(CustomerState state)
+        public OrderData GetOrderData()
         {
-            _currentState = state;
+            if (_orderData.Equals(default(OrderData)))
+                return default;
+            else
+                return _orderData;
         }
+
+        public void SetWait(bool value) => isWait = value;
     }
 }

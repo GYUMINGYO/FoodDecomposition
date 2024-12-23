@@ -15,10 +15,9 @@ public partial class RequstForCountAction : Action
 
     protected override Status OnStart()
     {
-        OrderData order = new();
-        order.orderCustomer = Customer.Value;
+        OrderData order = Customer.Value.GetOrderData();
+        order.type = OrderDataType.Count;
         ManagerHub.WaiterManager.AddOrderData(order);
         return Status.Success;
     }
 }
-
