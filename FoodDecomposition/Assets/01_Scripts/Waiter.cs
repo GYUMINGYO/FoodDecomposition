@@ -1,10 +1,12 @@
 using GM.Data;
+using Unity.Behavior;
 using UnityEngine;
 
 namespace GM.Staffs
 {
     public class Waiter : Staff
     {
+        public WaiterState currentWaiterState;
         [SerializeField] private StateChange _stateChangeEvent;
 
         protected override void Awake()
@@ -40,6 +42,7 @@ namespace GM.Staffs
 
         public void StartWork(WaiterState workType, OrderData data)
         {
+            currentWaiterState = workType;
             _currentData = data;
             _stateChangeEvent.SendEventMessage(workType);
             _isWorking = true;

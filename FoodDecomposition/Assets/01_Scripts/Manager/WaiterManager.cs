@@ -18,7 +18,7 @@ namespace GM.Managers
             _orderList = new Queue<OrderData>();
             _counterList = new Queue<OrderData>();
 
-            foreach (var waiter in ManagerHub.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
+            foreach (var waiter in MonoBehaviour.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
             {
                 waiterList.Add(waiter);
             }
@@ -43,7 +43,15 @@ namespace GM.Managers
             // TODO : counter는 연속 처리 되게 만들어야 함
             if (_counterList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
+                var waiter = waiterList.Where(x => x.IsWorking == true && x.currentWaiterState == WaiterState.COUNT);
+                if (waiter.Count() <= 0)
+                {
+                    CheckWorking()?.StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
+                }
+                else
+                {
+                    waiter.First().StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
+                }
             }
 
             if (_orderList.Count > 0)
