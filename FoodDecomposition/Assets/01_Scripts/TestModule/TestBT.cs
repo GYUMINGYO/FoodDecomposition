@@ -22,6 +22,15 @@ namespace GM
             {
                 ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
             }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                order.type = OrderType.Count;
+
+                for (int i = 0; i < 3; ++i)
+                {
+                    ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                }
+            }
         }
     }
 }
