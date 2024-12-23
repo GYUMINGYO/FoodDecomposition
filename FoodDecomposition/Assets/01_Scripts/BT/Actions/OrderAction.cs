@@ -17,7 +17,7 @@ public partial class OrderAction : Action
     {
         OrderData order = new OrderData();
         order.orderCustomer = Customer.Value;
-        order.type = OrderDataType.Order;
+        order.type = OrderType.Order;
         order.recipe = RecipeManager.Instance.GetRecipe();
 
         Customer.Value.SetOrderData(order);
