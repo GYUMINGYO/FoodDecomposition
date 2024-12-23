@@ -1,11 +1,10 @@
+using GM.Entities;
 using System;
 using Unity.Behavior;
-using UnityEngine;
-using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using UnityEngine;
 using UnityEngine.AI;
-using DG.Tweening;
-using GM.Entities;
+using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "MoveToTarget", story: "[entity] move to [target]", category: "Action", id: "d0d3edfff31fee69d64e268c987e512f")]
@@ -26,7 +25,6 @@ public partial class MoveToTargetAction : Action
             Debug.LogError("not agent");
             return Status.Failure;
         }
-
         return Status.Running;
     }
 
@@ -36,12 +34,6 @@ public partial class MoveToTargetAction : Action
         {
             return Status.Success;
         }
-
         return Status.Running;
-    }
-
-    protected override void OnEnd()
-    {
-        Entity.Value.transform.DORotate(Target.Value.localRotation.eulerAngles, 0.5f);
     }
 }

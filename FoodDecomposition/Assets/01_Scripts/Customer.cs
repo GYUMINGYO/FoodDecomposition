@@ -24,10 +24,18 @@ namespace GM
 
         public float GetSellPrice()
         {
-            if (_orderData == null)
-                return _orderData.recipe.sellPrice;
-            else
+            if (_orderData.Equals(default(OrderData)))
                 return 0;
+            else
+                return _orderData.recipe.sellPrice;
+        }
+
+        public OrderData GetOrderData()
+        {
+            if (_orderData.Equals(default(OrderData)))
+                return default;
+            else
+                return _orderData;
         }
 
         public void SetWait(bool value) => isWait = value;

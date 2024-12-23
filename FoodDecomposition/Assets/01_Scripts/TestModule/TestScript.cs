@@ -11,16 +11,16 @@ namespace GM
         {
             if (Input.GetKeyDown(KeyCode.P))
             {
-                Customer counterCustomer = ManagerHub.WaiterManager.GetCounterData();
+                Customer counterCustomer;
                 if (isTwo)
                 {
-                    counterCustomer = ManagerHub.WaiterManager.GetCounterData();
+                    counterCustomer = ManagerHub.WaiterManager.GetOrderData(Data.OrderDataType.Count).orderCustomer;
                     float sellPrice = counterCustomer.GetSellPrice();
                     Debug.Log($"+{sellPrice}");
                 }
                 else
                 {
-                    counterCustomer = ManagerHub.WaiterManager.GetOrderData().orderCustomer;
+                    counterCustomer = ManagerHub.WaiterManager.GetOrderData(Data.OrderDataType.Order).orderCustomer;
                     isTwo = true;
                 }
 
