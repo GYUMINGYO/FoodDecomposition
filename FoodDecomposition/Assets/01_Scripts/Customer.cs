@@ -25,10 +25,11 @@ namespace GM
 
         public float GetSellPrice()
         {
-            if (_orderData == null)
+            /* if (_orderData == null)
                 return _orderData.recipe.sellPrice;
             else
-                return 0;
+                return 0; */
+            return 0;
         }
 
         //test
