@@ -37,26 +37,26 @@ namespace GM.Managers
             // TODO : counter는 연속 처리 되게 만들어야 함
             if (_counterList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.COUNT, GetOrderData(OrderDataType.Count));
+                CheckWorking()?.StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
             }
 
             if (_orderList.Count > 0)
             {
-                CheckWorking()?.StartWork(WaiterState.ORDER, GetOrderData(OrderDataType.Order));
+                CheckWorking()?.StartWork(WaiterState.ORDER, DequeueOrderData(OrderType.Order));
             }
         }
 
         private Waiter CheckWorking() =>
             waiterList.FirstOrDefault(x => x.IsWorking == false);
 
-        public OrderData GetOrderData(OrderDataType type)
+        public OrderData DequeueOrderData(OrderType type)
         {
             switch (type)
             {
-                case OrderDataType.Order:
-                    return GetOrderListData(_orderList);
-                case OrderDataType.Count:
-                    return GetOrderListData(_counterList);
+                case OrderType.Order:
+                    return DequeueOrderListData(_orderList);
+                case OrderType.Count:
+                    return DequeueOrderListData(_counterList);
                 default:
                     return default;
             }
@@ -67,7 +67,7 @@ namespace GM.Managers
         /// </summary>
         /// <param name="list">Ordet data Queue</param>
         /// <returns></returns>
-        private OrderData GetOrderListData(Queue<OrderData> list)
+        private OrderData DequeueOrderListData(Queue<OrderData> list)
         {
             if (list.Count <= 0)
             {
@@ -83,15 +83,17 @@ namespace GM.Managers
         /// <param name="data">Order data</param>
         public void AddOrderData(OrderData data)
         {
+            Debug.Assert(data.type != OrderType.Null, "OrderData Type is Null");
+
             switch (data.type)
             {
-                case OrderDataType.Order:
+                case OrderType.Order:
                     _orderList.Enqueue(data);
                     break;
-                case OrderDataType.Serving:
+                case OrderType.Serving:
                     // TODO : Serving 처리
                     break;
-                case OrderDataType.Count:
+                case OrderType.Count:
                     _counterList.Enqueue(data);
                     break;
             }

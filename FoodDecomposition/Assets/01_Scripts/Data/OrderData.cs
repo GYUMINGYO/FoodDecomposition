@@ -1,6 +1,6 @@
 namespace GM.Data
 {
-    public enum OrderDataType
+    public enum OrderType
     {
         Null,
         Order,
@@ -11,7 +11,7 @@ namespace GM.Data
     public struct OrderData
     {
         public Customer orderCustomer;
-        public OrderDataType type;
+        public OrderType type;
         public Recipe recipe;
     }
 }
