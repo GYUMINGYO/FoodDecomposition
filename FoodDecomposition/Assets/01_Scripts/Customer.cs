@@ -24,7 +24,7 @@ namespace GM
 
         public float GetSellPrice()
         {
-            if (_orderData)
+            if (_orderData == null)
                 return _orderData.recipe.sellPrice;
             else
                 return 0;
