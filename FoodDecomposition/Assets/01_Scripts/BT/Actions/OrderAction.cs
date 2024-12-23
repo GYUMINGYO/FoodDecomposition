@@ -21,7 +21,7 @@ public partial class OrderAction : Action
         order.recipe = RecipeManager.Instance.GetRecipe();
 
         Customer.Value.SetOrderData(order);
-        ManagerHub.WaiterManager.AddOrderData(order);
+        ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
         Debug.Log("order");
 
         return Status.Success;
