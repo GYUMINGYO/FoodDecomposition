@@ -11,20 +11,23 @@ namespace GM.Staffs
         public bool IsWorking => _isWorking;
         protected bool _isWorking = false;
 
-        protected BehaviorGraphAgent _myBTAgent;
+        public OrderData CurrentData => _currentData;
         protected OrderData _currentData;
-        protected Transform _waitTrm;
+        protected BehaviorGraphAgent _myBTAgent;
 
         protected override void Awake()
         {
             base.Awake();
+            InitializedBT();
+        }
 
+        protected virtual void InitializedBT()
+        {
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
         }
 
         public void FinishWork()
         {
-            _myBTAgent.SetVariableValue("MoveTarget", _waitTrm);
             _isWorking = false;
         }
     }

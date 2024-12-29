@@ -11,12 +11,14 @@ namespace GM.Managers
         public List<Waiter> waiterList;
         private Queue<OrderData> _orderList;
         private Queue<OrderData> _counterList;
+        private Queue<OrderData> _servingList;
 
         public void Initialized()
         {
             waiterList = new List<Waiter>();
             _orderList = new Queue<OrderData>();
             _counterList = new Queue<OrderData>();
+            _servingList = new Queue<OrderData>();
 
             foreach (var waiter in MonoBehaviour.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
             {
@@ -29,6 +31,7 @@ namespace GM.Managers
             waiterList.Clear();
             _orderList.Clear();
             _counterList.Clear();
+            _servingList.Clear();
         }
 
         public void Update()
@@ -46,17 +49,26 @@ namespace GM.Managers
                 var waiter = waiterList.Where(x => x.IsWorking == true && x.currentWaiterState == WaiterState.COUNT);
                 if (waiter.Count() <= 0)
                 {
+                    // 현재 계산을 하고 있는 직원이 없다
                     CheckWorking()?.StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
                 }
                 else
                 {
-                    waiter.First().StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
+                    if (waiter.First().IsWorking == false)
+                    {
+                        waiter.First().StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
+                    }
                 }
             }
 
             if (_orderList.Count > 0)
             {
                 CheckWorking()?.StartWork(WaiterState.ORDER, DequeueOrderData(OrderType.Order));
+            }
+
+            if (_servingList.Count > 0)
+            {
+                CheckWorking()?.StartWork(WaiterState.SERVING, DequeueOrderData(OrderType.Serving));
             }
         }
 
@@ -71,6 +83,8 @@ namespace GM.Managers
                     return DequeueOrderListData(_orderList);
                 case OrderType.Count:
                     return DequeueOrderListData(_counterList);
+                case OrderType.Serving:
+                    return DequeueOrderListData(_servingList);
                 default:
                     return default;
             }
@@ -105,7 +119,7 @@ namespace GM.Managers
                     _orderList.Enqueue(data);
                     break;
                 case OrderType.Serving:
-                    // TODO : Serving 처리
+                    _servingList.Enqueue(data);
                     break;
                 case OrderType.Count:
                     _counterList.Enqueue(data);

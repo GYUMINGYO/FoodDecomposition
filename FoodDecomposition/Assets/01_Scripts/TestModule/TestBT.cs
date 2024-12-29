@@ -9,6 +9,8 @@ namespace GM
         public Customer _customer;
         OrderData order;
 
+        private bool _isPress = false;
+
         private void Start()
         {
             order = new OrderData();
@@ -18,18 +20,38 @@ namespace GM
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
+                if (_isPress == true) return;
+                _isPress = true;
+
+                order = new OrderData();
+                order.orderCustomer = _customer;
+                order.type = OrderType.Order;
                 ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                _isPress = false;
+
             }
-            else if (Input.GetKeyDown(KeyCode.R))
+            else if (Input.GetKeyDown(KeyCode.W))
             {
+                if (_isPress == true) return;
+                _isPress = true;
+
                 order.type = OrderType.Count;
 
-                for (int i = 0; i < 3; ++i)
-                {
-                    ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
-                }
+                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                _isPress = false;
+
+            }
+            else if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (_isPress == true) return;
+                _isPress = true;
+
+                order.type = OrderType.Serving;
+
+                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                _isPress = false;
             }
         }
     }

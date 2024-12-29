@@ -1,5 +1,4 @@
 using GM.Data;
-using Unity.Behavior;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -9,43 +8,25 @@ namespace GM.Staffs
         public WaiterState currentWaiterState;
         [SerializeField] private StateChange _stateChangeEvent;
 
-        protected override void Awake()
+        protected override void InitializedBT()
         {
-            base.Awake();
-            InitializedBT();
-        }
-
-        private void InitializedBT()
-        {
+            base.InitializedBT();
             _stateChangeEvent = _stateChangeEvent.Clone() as StateChange;
             _myBTAgent.SetVariableValue("StateChange", _stateChangeEvent);
-        }
-
-        private void Update()
-        {
-            //????
-            /* if (Input.GetKeyDown(KeyCode.P))
-            {
-                Customer counterCustomer = ManagerHub.WaiterManager.GetOrderData();
-                float sellPrice = counterCustomer.GetSellPrice();
-                Debug.Log($"+{sellPrice}");
-
-                counterCustomer.ChangeState(CustomerState.CounterComplete);
-            } */
-        }
-
-
-        public void SetTarget()
-        {
-            _myBTAgent.SetVariableValue("MoveTarget", _currentData.orderCustomer.transform);
         }
 
         public void StartWork(WaiterState workType, OrderData data)
         {
             currentWaiterState = workType;
             _currentData = data;
+            SetTarget();
             _stateChangeEvent.SendEventMessage(workType);
             _isWorking = true;
+        }
+
+        public void SetTarget()
+        {
+            _myBTAgent.SetVariableValue("MoveTarget", _currentData.orderCustomer.transform);
         }
     }
 }
