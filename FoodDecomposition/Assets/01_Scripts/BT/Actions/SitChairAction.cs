@@ -1,17 +1,17 @@
-using GM;
 using DG.Tweening;
+using GM;
 using System;
 using Unity.Behavior;
-using UnityEngine;
-using Action = Unity.Behavior.Action;
 using Unity.Properties;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
+using UnityEngine;
+using UnityEngine.AI;
+using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "SitChair", story: "[customer] sits on a [chair]", category: "Action", id: "8fea6602a0afc066868a92075dabf51d")]
+[NodeDescription(name: "SitChair", story: "[self] sits on a [chair]", category: "Action", id: "8fea6602a0afc066868a92075dabf51d")]
 public partial class SitChairAction : Action
 {
-    [SerializeReference] public BlackboardVariable<Customer> Customer;
+    [SerializeReference] public BlackboardVariable<Customer> Self;
     [SerializeReference] public BlackboardVariable<Transform> Chair;
 
     private float _jumpPower = 0.7f;
@@ -19,16 +19,17 @@ public partial class SitChairAction : Action
 
     protected override Status OnStart()
     {
+        Chair.Value.GetComponent<NavMeshObstacle>().enabled = false;
+
         Vector3 movePos = Chair.Value.transform.position;
-        movePos.y = Customer.Value.transform.position.y;
+        movePos.y = Self.Value.transform.position.y;
         Vector3 lookDir = Chair.Value.transform.localRotation * Vector3.forward;
 
         Sequence seq = DOTween.Sequence()
         .OnStart(() =>
         {
-            Customer.Value.transform.DOJump(movePos, _jumpPower, 1, 0.5f);
+            Self.Value.transform.DOJump(movePos, _jumpPower, 1, 0.5f);
         })
-        .Append(Customer.Value.transform.DORotate(lookDir, 0.5f))
         .OnComplete(() =>
         {
             _status = Status.Success;

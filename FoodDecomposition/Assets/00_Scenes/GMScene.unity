@@ -431,7 +431,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361158594}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -444,8 +444,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2cd19a8850461c145b2b9600390d92a4, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 185929297, guid: 2cd19a8850461c145b2b9600390d92a4, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -475,6 +475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1103590799}
+  image: {fileID: 361158596}
 --- !u!114 &361158599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -958,6 +959,7 @@ GameObject:
   - component: {fileID: 641601088}
   - component: {fileID: 641601091}
   - component: {fileID: 641601089}
+  - component: {fileID: 641601092}
   - component: {fileID: 641601090}
   m_Layer: 0
   m_Name: Customer
@@ -1002,6 +1004,7 @@ MonoBehaviour:
   - rid: 8818507951928770650
   - rid: 8818507951928770651
   - rid: 8818508179139985544
+  - rid: 8818508335819259954
   references:
     version: 2
     RefIds:
@@ -1045,6 +1048,14 @@ MonoBehaviour:
           m_Value1: 11467059966275114733
         Name: DebugBubble
         m_Value: {fileID: 361158598}
+    - rid: 8818508335819259954
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15186603887009484654
+          m_Value1: 2219988459707107098
+        Name: MainAnimator
+        m_Value: {fileID: 919132148676705257}
 --- !u!114 &641601090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1067,7 +1078,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 10
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1079,6 +1090,33 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &641601092
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641601087}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &677448732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3653,7 +3691,7 @@ Transform:
   - {fileID: 8891244130909677152}
   - {fileID: 1812433027721224108}
   m_Father: {fileID: 4436805663150500550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0, y: 0, z: 0}
 --- !u!4 &543450651596827432
 Transform:
   m_ObjectHideFlags: 0
@@ -4330,7 +4368,7 @@ GameObject:
   - component: {fileID: 3469287837694420212}
   m_Layer: 7
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: Chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4472,6 +4510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450653137330514}
+  - component: {fileID: 919132148676705257}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -4479,6 +4518,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &919132148676705257
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148676705256}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4fa6610c9ba6574a9898f05fae7c26a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &919132148754543668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4511,7 +4572,7 @@ GameObject:
   - component: {fileID: 3469287836728180796}
   m_Layer: 7
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: Chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4549,7 +4610,7 @@ GameObject:
   - component: {fileID: 3469287836612659055}
   m_Layer: 7
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: Chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4568,7 +4629,7 @@ GameObject:
   - component: {fileID: 3469287836602055060}
   m_Layer: 7
   m_Name: chair
-  m_TagString: Untagged
+  m_TagString: Chair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6311,7 +6372,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 445712794317574836}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 5.6586857, y: 0, z: 0}
 --- !u!1 &2088977252277783557
 GameObject:
   m_ObjectHideFlags: 0
@@ -6367,18 +6428,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148961701004}
   m_Mesh: {fileID: 6449288739317159836, guid: 2094b0b883b45f7429716e7d9d696fbb, type: 3}
---- !u!114 &3469287836602055060
-MonoBehaviour:
+--- !u!208 &3469287836602055060
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148961701004}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0177303552f37249b66db77618fccc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.37500003, y: 0.60400003, z: 0.39800003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.60400003, z: -0.023000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &3469287836612659054
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6387,18 +6452,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148959466097}
   m_Mesh: {fileID: 6449288739317159836, guid: 2094b0b883b45f7429716e7d9d696fbb, type: 3}
---- !u!114 &3469287836612659055
-MonoBehaviour:
+--- !u!208 &3469287836612659055
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148959466097}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0177303552f37249b66db77618fccc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.37500003, y: 0.60400003, z: 0.39800003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.60400003, z: -0.023000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &3469287836612690229
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6431,18 +6500,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148944540964}
   m_Mesh: {fileID: 6449288739317159836, guid: 2094b0b883b45f7429716e7d9d696fbb, type: 3}
---- !u!114 &3469287836728180796
-MonoBehaviour:
+--- !u!208 &3469287836728180796
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148944540964}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0177303552f37249b66db77618fccc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.37500003, y: 0.60400003, z: 0.39800003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.60400003, z: -0.023000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &3469287836809208107
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6547,18 +6620,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147911274988}
   m_Mesh: {fileID: 6449288739317159836, guid: 2094b0b883b45f7429716e7d9d696fbb, type: 3}
---- !u!114 &3469287837694420212
-MonoBehaviour:
+--- !u!208 &3469287837694420212
+NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132147911274988}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0177303552f37249b66db77618fccc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.37500003, y: 0.60400003, z: 0.39800003}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.60400003, z: -0.023000002}
+  m_TimeToStationary: 0.5
 --- !u!33 &3469287837695048972
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -6885,7 +6962,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 445712794317574836}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -4.257523e-13, y: 60.00003, z: -3.901066}
 --- !u!1 &4361710835250117732
 GameObject:
   m_ObjectHideFlags: 0
@@ -7228,7 +7305,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 445712794317574836}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.0000009881628, y: -60, z: 3.9010994}
 --- !u!1 &8908311948175199659
 GameObject:
   m_ObjectHideFlags: 0

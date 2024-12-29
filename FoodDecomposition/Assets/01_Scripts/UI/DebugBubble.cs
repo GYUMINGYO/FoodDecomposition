@@ -1,11 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GM
 {
     public class DebugBubble : MonoBehaviour
     {
         [SerializeField] private TextMeshPro text;
+        [SerializeField] private Image image;
 
         private void Update()
         {
@@ -14,13 +16,13 @@ namespace GM
 
         public void Show(string msg)
         {
+            image.enabled = true;
             text.text = msg;
-
-            float size = (8f * text.preferredWidth) / 0.33f;
         }
 
         public void Hide()
         {
+            image.enabled = false;
             text.text = string.Empty;
         }
     }

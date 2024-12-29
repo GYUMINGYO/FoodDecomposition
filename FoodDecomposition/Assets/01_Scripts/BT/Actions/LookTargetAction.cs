@@ -1,34 +1,21 @@
 using System;
 using Unity.Behavior;
+using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
-using Unity.Properties;
-using GM;
-using DG.Tweening;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "LookTarget", story: "[customer] look at [target]", category: "Action", id: "0c59cf14010832474b2de51dcf27c342")]
+[NodeDescription(name: "LookTarget", story: "[self] looks at [target] for [speed]", category: "Action", id: "bc23f46567b4bd64814a625ba0cb6bc7")]
 public partial class LookTargetAction : Action
 {
-    [SerializeReference] public BlackboardVariable<Customer> Customer;
+    [SerializeReference] public BlackboardVariable<GameObject> Self;
     [SerializeReference] public BlackboardVariable<Transform> Target;
-
-    Status status = Status.Running;
+    [SerializeReference] public BlackboardVariable<float> Speed;
 
     protected override Status OnStart()
     {
-        Customer.Value.transform.DORotate(Target.Value.localRotation * Vector3.forward, 0.1f)
-            .OnComplete(() =>
-            {
-                status = Status.Success;
-            });
-
-        return status;
-    }
-
-    protected override Status OnUpdate()
-    {
-        return status;
+        Vector3 dir = Target.Value.transform.localRotation * Vector3.forward;
+        Self.Value.transform.forward = dir;
+        return Status.Success;
     }
 }
-
