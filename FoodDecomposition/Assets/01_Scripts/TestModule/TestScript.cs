@@ -9,22 +9,24 @@ namespace GM
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetKeyDown(KeyCode.O))
             {
-                Customer counterCustomer;
                 if (isTwo)
                 {
-                    counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Count).orderCustomer;
+                    Customer counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Count).orderCustomer;
+
                     float sellPrice = counterCustomer.GetSellPrice();
                     Debug.Log($"+{sellPrice}");
+
+                    counterCustomer.SetWait(false);
                 }
                 else
                 {
-                    counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Order).orderCustomer;
+                    Customer counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Order).orderCustomer;
                     isTwo = true;
-                }
 
-                counterCustomer.SetWait(false);
+                    counterCustomer.SetWait(false);
+                }
             }
         }
     }

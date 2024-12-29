@@ -19,6 +19,7 @@ namespace GM
         public float sellPrice;
         public float researchPrice;
         public bool unLock = false;
+        public GameObject foodPrefab;
 
         // todo : 요리 경로 지정
     }

@@ -12,7 +12,7 @@ namespace GM.Managers
         {
             chairDictionary = new Dictionary<Transform, Customer>();
 
-            foreach (var chair in ManagerHub.FindObjectsByType<Chair>(FindObjectsSortMode.None))
+            foreach (var chair in GameObject.FindGameObjectsWithTag("Chair"))
             {
                 chairDictionary.Add(chair.transform, null);
             }
@@ -25,7 +25,20 @@ namespace GM.Managers
 
         public Transform GetChiar()
         {
-            return chairDictionary.FirstOrDefault(x => x.Value == null).Key;
+            List<Transform> nullValueList = new List<Transform>();
+            foreach(var pair in chairDictionary)
+            {
+                if(pair.Value == null)
+                {
+                    nullValueList.Add(pair.Key);
+                }
+            }
+
+            if (nullValueList.Count == 0)
+                return default;
+
+            int randIdx = Random.Range(0, nullValueList.Count);
+            return nullValueList[randIdx];
         }
     }
 }
