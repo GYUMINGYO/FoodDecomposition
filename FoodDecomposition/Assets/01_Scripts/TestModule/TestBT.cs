@@ -1,4 +1,5 @@
 using GM.Data;
+using GM.Manager;
 using GM.Managers;
 using UnityEngine;
 
@@ -51,6 +52,16 @@ namespace GM
                 order.type = OrderType.Serving;
 
                 ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                _isPress = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                if (_isPress == true) return;
+                _isPress = true;
+
+                order.type = OrderType.Order;
+
+                ManagerHub.Instance.GetManager<ChefManager>().AddOrderData(order);
                 _isPress = false;
             }
         }

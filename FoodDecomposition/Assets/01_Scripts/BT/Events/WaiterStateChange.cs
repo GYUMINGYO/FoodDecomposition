@@ -5,14 +5,14 @@ using UnityEngine;
 using Unity.Properties;
 
 #if UNITY_EDITOR
-[CreateAssetMenu(menuName = "Behavior/Event Channels/StateChange")]
+[CreateAssetMenu(menuName = "Behavior/Event Channels/WaiterStateChange")]
 #endif
 [Serializable, GeneratePropertyBag]
-[EventChannelDescription(name: "StateChange", message: "change to [state]", category: "Events", id: "4a450d351caf103bb71687852b05cb37")]
-public partial class StateChange : EventChannelBase, ICloneable
+[EventChannelDescription(name: "WaiterStateChange", message: "change to [state]", category: "Events", id: "4a450d351caf103bb71687852b05cb37")]
+public partial class WaiterStateChange : EventChannelBase, ICloneable
 {
-    public delegate void StateChangeEventHandler(WaiterState state);
-    public event StateChangeEventHandler Event;
+    public delegate void WaiterStateChangeEventHandler(WaiterState state);
+    public event WaiterStateChangeEventHandler Event;
 
     public void SendEventMessage(WaiterState state)
     {
@@ -29,7 +29,7 @@ public partial class StateChange : EventChannelBase, ICloneable
 
     public override Delegate CreateEventHandler(BlackboardVariable[] vars, System.Action callback)
     {
-        StateChangeEventHandler del = (state) =>
+        WaiterStateChangeEventHandler del = (state) =>
         {
             BlackboardVariable<WaiterState> var0 = vars[0] as BlackboardVariable<WaiterState>;
             if (var0 != null)
@@ -42,12 +42,12 @@ public partial class StateChange : EventChannelBase, ICloneable
 
     public override void RegisterListener(Delegate del)
     {
-        Event += del as StateChangeEventHandler;
+        Event += del as WaiterStateChangeEventHandler;
     }
 
     public override void UnregisterListener(Delegate del)
     {
-        Event -= del as StateChangeEventHandler;
+        Event -= del as WaiterStateChangeEventHandler;
     }
 
     public object Clone()
