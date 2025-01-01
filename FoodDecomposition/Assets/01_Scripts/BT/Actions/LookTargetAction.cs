@@ -1,7 +1,9 @@
+using DG.Tweening;
 using System;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
+using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
@@ -12,10 +14,20 @@ public partial class LookTargetAction : Action
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<float> Speed;
 
+    Status status = Status.Running;
+
     protected override Status OnStart()
     {
-        //Vector3 dir = Target.Value.transform.localRotation * Vector3.forward;
-        Self.Value.transform.forward = Target.Value.transform.forward;
-        return Status.Success;
+        Self.Value.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+
+        Self.Value.transform.DORotateQuaternion(Target.Value.rotation, 0.5f)
+            .OnComplete(() => status = Status.Success);
+
+        return Status.Running;
+    }
+
+    protected override Status OnUpdate()
+    {
+        return status;
     }
 }
