@@ -13,9 +13,17 @@ public partial class LookTargetAction : Action
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<float> Speed;
 
+    Status status = Status.Running;
+
     protected override Status OnStart()
     {
-        Self.Value.transform.DORotate(Target.Value.forward, 0.5f);
-        return Status.Success;
+        Self.Value.transform.DORotate(Target.Value.forward, 0.5f)
+            .OnComplete(() => status = Status.Success);
+        return Status.Running;
+    }
+
+    protected override Status OnUpdate()
+    {
+        return status;
     }
 }
