@@ -11,6 +11,11 @@ public partial class IsCompleteCookCondition : Condition
 
     public override bool IsTrue()
     {
+        if (Chef.Value.CurrentData.recipe.IsCookingPathComplete())
+        {
+            // 레시피 항목을 모두 완료했다면 중지
+            return true;
+        }
         return false;
     }
 }
