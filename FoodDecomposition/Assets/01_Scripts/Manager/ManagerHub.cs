@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace GM.Managers
 {
+    [DefaultExecutionOrder(-1)]
     public class ManagerHub : MonoSingleton<ManagerHub>
     {
         private Dictionary<Type, IManagerable> _managers;

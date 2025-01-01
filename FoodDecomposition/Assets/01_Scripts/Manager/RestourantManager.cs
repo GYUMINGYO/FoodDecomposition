@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace GM.Managers
@@ -8,13 +7,21 @@ namespace GM.Managers
     {
         public Dictionary<Transform, Customer> chairDictionary;
 
+        private Dictionary<CookingTableType, CookingTable> _cookingTableDictionary;
+
         public void Initialized()
         {
             chairDictionary = new Dictionary<Transform, Customer>();
+            _cookingTableDictionary = new Dictionary<CookingTableType, CookingTable>();
 
             foreach (var chair in GameObject.FindGameObjectsWithTag("Chair"))
             {
                 chairDictionary.Add(chair.transform, null);
+            }
+
+            foreach (var table in GameObject.FindObjectsByType<CookingTable>(FindObjectsSortMode.None))
+            {
+                _cookingTableDictionary.Add(table.Type, table);
             }
         }
 
@@ -26,9 +33,9 @@ namespace GM.Managers
         public Transform GetChiar()
         {
             List<Transform> nullValueList = new List<Transform>();
-            foreach(var pair in chairDictionary)
+            foreach (var pair in chairDictionary)
             {
-                if(pair.Value == null)
+                if (pair.Value == null)
                 {
                     nullValueList.Add(pair.Key);
                 }
@@ -39,6 +46,16 @@ namespace GM.Managers
 
             int randIdx = Random.Range(0, nullValueList.Count);
             return nullValueList[randIdx];
+        }
+
+        public CookingTable GetCookingTable(CookingTableType type)
+        {
+            if (_cookingTableDictionary.TryGetValue(type, out CookingTable table))
+            {
+                return table;
+            }
+
+            return default;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace GM.Managers
         public Recipe GetRecipe()
         {
             int idx = Random.Range(0, recipeList.Count);
-            return recipeList[idx];
+            return recipeList[idx].Clone() as Recipe;
         }
     }
 }

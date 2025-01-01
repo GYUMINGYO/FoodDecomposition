@@ -4,11 +4,13 @@ namespace GM
 {
     public enum CookingTableType
     {
-        Oven,
+        Stove,
         CuttingBoard,
         Sink
     }
     public class CookingTable : MonoBehaviour
     {
+        public CookingTableType Type => _type;
+        [SerializeField] private CookingTableType _type;
     }
 }
