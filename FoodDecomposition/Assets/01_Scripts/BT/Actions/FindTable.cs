@@ -24,7 +24,6 @@ public partial class FindChairAction : Action
         else
         {
             Table.Value = Chair.Value.GetComponentInParent<Table>();
-            Debug.Log(Table.Value);
             return Status.Success;
         }
     }

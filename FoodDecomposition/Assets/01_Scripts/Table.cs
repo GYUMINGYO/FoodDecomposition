@@ -1,35 +1,64 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+
+public struct SeatData
+{
+    public NavMeshObstacle obstacle;
+    public Transform foodPos;
+}
 
 namespace GM
 {
     public class Table : MonoBehaviour
     {
-        private Dictionary<Transform, NavMeshObstacle> chairDictionary;
+        private Dictionary<Transform, SeatData> chairDictionary;
 
-        [SerializeField] private Transform foodPos;
         private GameObject foodObj;
 
         private void Awake()
         {
-            chairDictionary = new Dictionary<Transform, NavMeshObstacle>();
+            chairDictionary = new Dictionary<Transform, SeatData>();
 
-            Transform[] chairs = GetComponentsInChildren<Transform>();
-            for (int i = 1; i < chairs.Length; i++)
-                chairDictionary[chairs[i]] = chairs[i].GetComponent<NavMeshObstacle>();
+            Transform[] chairs = GetComponentsInChildren<Transform>().Where(x => x.CompareTag("Chair")).ToArray();
+            for (int i = 0; i < chairs.Length; i++)
+            {
+                SeatData seatData = new SeatData
+                {
+                    obstacle = chairs[i].GetComponentInParent<NavMeshObstacle>(),
+                    foodPos = chairs[i].GetChild(0)
+                };
+
+                chairDictionary[chairs[i]] = seatData;
+            }
         }
 
         public void OffObstacle(Transform chairTrm)
-            => chairDictionary[chairTrm].enabled = false;
+        {
+            if (chairDictionary.ContainsKey(chairTrm))
+            {
+                chairDictionary[chairTrm].obstacle.enabled = false;
+            }
+        }
 
-        public void CreateFood(GameObject foodPrefab)
-            => foodObj = Instantiate(foodPrefab, foodPos.position, Quaternion.identity);
+        public void CreateFood(Transform chairTrm, GameObject foodPrefab)
+        {
+            Vector3 foodPos = chairDictionary[chairTrm].foodPos.position;
+            foodObj = Instantiate(foodPrefab, foodPos, Quaternion.identity);
+        }
 
         public void StandChair(Transform chairTrm)
         {
-            chairDictionary[chairTrm].enabled = true;
-            Destroy(foodObj);
+            if (chairDictionary.ContainsKey(chairTrm))
+            {
+                chairDictionary[chairTrm].obstacle.enabled = true;
+            }
+
+            if (foodObj != null)
+            {
+                Destroy(foodObj);
+            }
         }
     }
 }
