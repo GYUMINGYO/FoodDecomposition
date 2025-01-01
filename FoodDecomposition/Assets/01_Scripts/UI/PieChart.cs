@@ -36,7 +36,6 @@ namespace GM
             }
 
             _isChartFilling = true;
-            Debug.Log("이거 한 번 만 되는 거잖아?");
             StartCoroutine(FillPieChart(duration));
         }
 
