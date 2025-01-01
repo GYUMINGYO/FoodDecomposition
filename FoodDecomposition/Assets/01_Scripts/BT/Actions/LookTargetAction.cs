@@ -14,8 +14,8 @@ public partial class LookTargetAction : Action
 
     protected override Status OnStart()
     {
-        Vector3 dir = Target.Value.transform.localRotation * Vector3.forward;
-        Self.Value.transform.forward = dir;
+        //Vector3 dir = Target.Value.transform.localRotation * Vector3.forward;
+        Self.Value.transform.forward = Target.Value.transform.forward;
         return Status.Success;
     }
 }
