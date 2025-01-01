@@ -13,6 +13,9 @@ namespace GM.Managers
         private Queue<OrderData> _counterList;
         private Queue<OrderData> _servingList;
 
+        // TODO : 지금 생각해보니까 굳이 타입을 나눠서 저장할 필요도 없을 거 같은데
+        // * 탐색만 잘해서 하면 되지 않나? => 링큐는 느리긴한데 -> 괜찮지 않을까? (그렇게 성능 저하가 심할려나?)
+
         public void Initialized()
         {
             waiterList = new List<Waiter>();

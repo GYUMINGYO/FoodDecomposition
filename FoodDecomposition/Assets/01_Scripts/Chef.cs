@@ -19,16 +19,8 @@ namespace GM.Staffs
         {
             currentWaiterState = workType;
             _currentData = data;
-            SetTarget();
             _stateChangeEvent.SendEventMessage(workType);
             _isWorking = true;
-        }
-
-        public void SetTarget()
-        {
-            // TODO : 이거 레시피 경로로 바꿔야 함
-            //! 임시 변수
-            _myBTAgent.SetVariableValue("MoveTarget", _currentData.orderCustomer.transform);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GM.Data;
 using UnityEngine;
 
@@ -20,7 +21,6 @@ namespace GM
         public float researchPrice;
         public bool unLock = false;
         public GameObject foodPrefab;
-
-        // todo : 요리 경로 지정
+        public List<CookingTableType> CookingPathList = new List<CookingTableType>();
     }
 }
