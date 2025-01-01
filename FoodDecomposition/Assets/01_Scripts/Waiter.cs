@@ -6,12 +6,12 @@ namespace GM.Staffs
     public class Waiter : Staff
     {
         public WaiterState currentWaiterState;
-        [SerializeField] private StateChange _stateChangeEvent;
+        [SerializeField] private WaiterStateChange _stateChangeEvent;
 
         protected override void InitializedBT()
         {
             base.InitializedBT();
-            _stateChangeEvent = _stateChangeEvent.Clone() as StateChange;
+            _stateChangeEvent = _stateChangeEvent.Clone() as WaiterStateChange;
             _myBTAgent.SetVariableValue("StateChange", _stateChangeEvent);
         }
 
