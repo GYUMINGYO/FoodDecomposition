@@ -22,7 +22,6 @@ public partial class OrderAction : Action
 
         Customer.Value.SetOrderData(order);
         ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
-        Debug.Log("order");
 
         return Status.Success;
     }

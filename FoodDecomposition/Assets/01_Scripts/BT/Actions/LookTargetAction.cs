@@ -3,6 +3,7 @@ using System;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
+using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
@@ -17,8 +18,11 @@ public partial class LookTargetAction : Action
 
     protected override Status OnStart()
     {
-        Self.Value.transform.DORotate(Target.Value.forward, 0.5f)
+        Self.Value.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
+
+        Self.Value.transform.DORotateQuaternion(Target.Value.rotation, 0.5f)
             .OnComplete(() => status = Status.Success);
+
         return Status.Running;
     }
 

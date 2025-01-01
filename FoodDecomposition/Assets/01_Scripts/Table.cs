@@ -23,8 +23,8 @@ namespace GM
         public void OffObstacle(Transform chairTrm)
             => chairDictionary[chairTrm].enabled = false;
 
-        public void CreateFood(Recipe recipe)
-            => foodObj = Instantiate(foodObj, foodPos.position, Quaternion.identity);
+        public void CreateFood(GameObject foodPrefab)
+            => foodObj = Instantiate(foodPrefab, foodPos.position, Quaternion.identity);
 
         public void StandChair(Transform chairTrm)
         {
