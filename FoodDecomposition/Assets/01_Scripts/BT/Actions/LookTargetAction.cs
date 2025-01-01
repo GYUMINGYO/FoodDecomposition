@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using Unity.Behavior;
 using Unity.Properties;
@@ -14,8 +15,7 @@ public partial class LookTargetAction : Action
 
     protected override Status OnStart()
     {
-        Vector3 dir = Target.Value.transform.localRotation * Vector3.forward;
-        Self.Value.transform.forward = dir;
+        Self.Value.transform.DORotate(Target.Value.forward, 0.5f);
         return Status.Success;
     }
 }

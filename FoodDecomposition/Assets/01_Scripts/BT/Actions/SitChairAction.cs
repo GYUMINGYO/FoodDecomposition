@@ -19,11 +19,10 @@ public partial class SitChairAction : Action
 
     protected override Status OnStart()
     {
-        Chair.Value.GetComponent<NavMeshObstacle>().enabled = false;
+        Chair.Value.GetComponentInParent<Table>().OffObstacle(Chair.Value);
 
         Vector3 movePos = Chair.Value.transform.position;
         movePos.y = Self.Value.transform.position.y;
-        Vector3 lookDir = Chair.Value.transform.localRotation * Vector3.forward;
 
         Sequence seq = DOTween.Sequence()
         .OnStart(() =>
