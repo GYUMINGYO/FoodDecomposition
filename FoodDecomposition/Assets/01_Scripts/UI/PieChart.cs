@@ -24,7 +24,7 @@ namespace GM
         public void SetPieChart(int pieCount)
         {
             _pieChartImage.fillAmount = 0f;
-            _pieValue = 1f / pieCount;
+            _pieValue = 1f / (pieCount + 1);
             _pieVisual.SetActive(true);
         }
 
