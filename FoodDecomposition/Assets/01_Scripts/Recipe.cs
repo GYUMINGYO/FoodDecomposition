@@ -40,6 +40,16 @@ namespace GM
             return nextTable;
         }
 
+        public int GetCookingTableCount()
+        {
+            return _cookingPathList.Count;
+        }
+
+        public float GetCookingTableTime()
+        {
+            return ManagerHub.Instance.GetManager<RestourantManager>().GetCookingTable(_cookingPathList[_index - 1]).CookingTime;
+        }
+
         public bool IsCookingPathComplete()
         {
             return _index > _cookingPathList.Count;
