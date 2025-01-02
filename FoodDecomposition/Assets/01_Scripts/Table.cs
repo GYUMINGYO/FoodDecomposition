@@ -15,7 +15,7 @@ namespace GM
     {
         private Dictionary<Transform, SeatData> chairDictionary;
 
-        private GameObject foodObj;
+        private Food foodObj;
 
         private void Awake()
         {
@@ -42,10 +42,12 @@ namespace GM
             }
         }
 
-        public void CreateFood(Transform chairTrm, GameObject foodPrefab)
+        public void CreateFood(Transform chairTrm, PoolTypeSO poolType)
         {
             Vector3 foodPos = chairDictionary[chairTrm].foodPos.position;
-            foodObj = Instantiate(foodPrefab, foodPos, Quaternion.identity);
+
+            foodObj = SingletonePoolManager.Instance.Pop(poolType) as Food;
+            foodObj.transform.position = foodPos;
         }
 
         public void StandChair(Transform chairTrm)
@@ -57,7 +59,7 @@ namespace GM
 
             if (foodObj != null)
             {
-                Destroy(foodObj);
+                SingletonePoolManager.Instance.Push(foodObj);
             }
         }
     }

@@ -21,7 +21,7 @@ namespace GM
         public float sellPrice;
         public float researchPrice;
         public bool unLock = false;
-        public GameObject foodPrefab;
+        public PoolTypeSO poolType;
 
         [SerializeField] private List<CookingTableType> _cookingPathList = new List<CookingTableType>();
 

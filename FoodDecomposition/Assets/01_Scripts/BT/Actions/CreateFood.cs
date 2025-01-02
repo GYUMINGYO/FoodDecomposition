@@ -14,8 +14,8 @@ public partial class CreateFoodAction : Action
     [SerializeReference] public BlackboardVariable<Table> Table;
     protected override Status OnStart()
     {
-        GameObject foodPrefab = Customer.Value.GetOrderData().recipe.foodPrefab;
-        Table.Value.CreateFood(Chair.Value, foodPrefab);
+        PoolTypeSO poolType = Customer.Value.GetOrderData().recipe.poolType;
+        Table.Value.CreateFood(Chair.Value, poolType);
 
         return Status.Success;
     }
