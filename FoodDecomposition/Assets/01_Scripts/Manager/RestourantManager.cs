@@ -1,22 +1,24 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GM.Managers
 {
-    public class RestourantManager : IManagerable
+    public class RestourantManager : 
+        IManagerable
     {
-        public Dictionary<Transform, Customer> chairDictionary;
+        public Dictionary<Transform, bool> chairDictionary;
 
         private Dictionary<CookingTableType, CookingTable> _cookingTableDictionary;
 
         public void Initialized()
         {
-            chairDictionary = new Dictionary<Transform, Customer>();
+            chairDictionary = new Dictionary<Transform, bool>();
             _cookingTableDictionary = new Dictionary<CookingTableType, CookingTable>();
 
             foreach (var chair in GameObject.FindGameObjectsWithTag("Chair"))
             {
-                chairDictionary.Add(chair.transform, null);
+                chairDictionary.Add(chair.transform, false);
             }
 
             foreach (var table in GameObject.FindObjectsByType<CookingTable>(FindObjectsSortMode.None))
@@ -35,7 +37,7 @@ namespace GM.Managers
             List<Transform> nullValueList = new List<Transform>();
             foreach (var pair in chairDictionary)
             {
-                if (pair.Value == null)
+                if (!pair.Value)
                 {
                     nullValueList.Add(pair.Key);
                 }
@@ -45,6 +47,7 @@ namespace GM.Managers
                 return default;
 
             int randIdx = Random.Range(0, nullValueList.Count);
+            chairDictionary[nullValueList[randIdx]] = true;
             return nullValueList[randIdx];
         }
 

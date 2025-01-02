@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10baa84e00fbcf344a1991efb8286eed, type: 3}
-  m_Name: PoolManager
+  m_Script: {fileID: 11500000, guid: befe42bd555ff6d489e056e33c9f16c0, type: 3}
+  m_Name: Customer
   m_EditorClassIdentifier: 
-  poolList:
-  - {fileID: 11400000, guid: b42fe4860d9950d49a0af0df222914c9, type: 2}
-  - {fileID: 11400000, guid: 18fa159155bdfc148b2d9d206cbbd7bf, type: 2}
+  typeName: Customer
+  assetRef:
+    m_AssetGUID: 2fa54d5f5f4c9d144b67601ea5a9811f
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  initCount: 10
