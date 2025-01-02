@@ -7,7 +7,7 @@ public class PoolManagerSO : ScriptableObject
 {
     public List<PoolTypeSO> poolList = new();
     private Dictionary<PoolTypeSO, Pool> _pools;
-    [SerializeField] private Transform _rootTrm;
+    private Transform _rootTrm;
 
     public event Action<int> LoadCountEvent;
     public event Action<int, string> LoadMessageEvent;
