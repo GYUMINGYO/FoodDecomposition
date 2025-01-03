@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using GM.CookWare;
+using GM.Entities;
 using GM.Managers;
 using UnityEngine;
 
@@ -23,21 +25,31 @@ namespace GM
         public bool unLock = false;
         public PoolTypeSO poolType;
 
-        [SerializeField] private List<CookingTableType> _cookingPathList = new List<CookingTableType>();
+        [SerializeField] private List<Enums.InteractableEntityType> _cookingPathList = new List<Enums.InteractableEntityType>();
 
         private int _index = 0;
 
-        public CookingTable GetNextCookingTable()
+        public CookingTable GetNextCookingTable(Entity owner)
         {
             if (_index >= _cookingPathList.Count)
             {
-                return default;
+                return null;
             }
 
-            CookingTable nextTable = ManagerHub.Instance.GetManager<RestourantManager>().GetCookingTable(_cookingPathList[_index]);
-            _index++;
+            InteractableEntity interactableEntity;
 
-            return nextTable;
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(_cookingPathList[_index], out interactableEntity, owner))
+            {
+                CookingTable nextTable = interactableEntity as CookingTable;
+                return nextTable;
+            }
+
+            return null;
+        }
+
+        public void NextCookingTable()
+        {
+            _index++;
         }
 
         public int GetCookingTableCount()
@@ -47,12 +59,21 @@ namespace GM
 
         public float GetCookingTableTime()
         {
-            return ManagerHub.Instance.GetManager<RestourantManager>().GetCookingTable(_cookingPathList[_index - 1]).CookingTime;
+            InteractableEntity interactableEntity;
+
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index - 1], out interactableEntity))
+            {
+                CookingTable cookingTable = interactableEntity as CookingTable;
+                // TODO : animation 걸리는 시간 찾아보기
+                return cookingTable.CookAnimation.clip.length;
+            }
+
+            return default;
         }
 
         public bool IsCookingPathComplete()
         {
-            return _index > _cookingPathList.Count;
+            return _index >= _cookingPathList.Count;
         }
 
         public object Clone()

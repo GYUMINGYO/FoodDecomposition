@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GM.Staffs
 {
-    public class Staff : Entity
+    public abstract class Staff : Entity
     {
         // TODO : 직원 스탯
         public bool IsWorking => _isWorking;
@@ -14,6 +14,9 @@ namespace GM.Staffs
         public OrderData CurrentData => _currentData;
         protected OrderData _currentData;
         protected BehaviorGraphAgent _myBTAgent;
+
+        public Transform SenderTransform { get; set; }
+        public Transform ReceiverTransform { get; set; }
 
         protected override void Awake()
         {
@@ -30,5 +33,7 @@ namespace GM.Staffs
         {
             _isWorking = false;
         }
+
+        public abstract Transform GetTarget(Enums.InteractableEntityType type);
     }
 }

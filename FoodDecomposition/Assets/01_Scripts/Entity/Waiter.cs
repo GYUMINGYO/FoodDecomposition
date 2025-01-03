@@ -1,4 +1,6 @@
+using GM.CookWare;
 using GM.Data;
+using GM.Managers;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -19,14 +21,36 @@ namespace GM.Staffs
         {
             currentWaiterState = workType;
             _currentData = data;
-            SetTarget();
             _stateChangeEvent.SendEventMessage(workType);
             _isWorking = true;
         }
 
-        public void SetTarget()
+        public override Transform GetTarget(Enums.InteractableEntityType type)
         {
-            _myBTAgent.SetVariableValue("MoveTarget", _currentData.orderCustomer.transform);
+            // TODO : Rest는 Staff 타입에 맞게 할당하기
+            InteractableEntity moveTarget;
+
+            if (type == Enums.InteractableEntityType.Order)
+            {
+                // TODO : 테이블 갖고 와서 테이블 위치로 바꾸기
+                return _currentData.orderCustomer.transform;
+            }
+            else if (type == Enums.InteractableEntityType.FoodOut)
+            {
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+                {
+                    SharedTableEntity foodOut = moveTarget as SharedTableEntity;
+                    return foodOut.ReceiverTransform;
+                }
+            }
+
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+            {
+                SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
+                return singleTableEntity.EntityTransform;
+            }
+
+            return null;
         }
     }
 }
