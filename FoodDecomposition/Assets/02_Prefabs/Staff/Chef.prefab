@@ -237,7 +237,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5326403337306933820}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -29.796446, y: 0, z: 0}
 --- !u!1 &3119928319000802024
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +302,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6579330636084258944}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.22190338, y: -33.458042, z: 25.623896}
 --- !u!1 &3794265169954338578
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +333,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5326403337306933820}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.796436, y: 0, z: 0}
 --- !u!1 &4324662874381806928
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +364,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6579330636084258944}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -7.656912, z: 0}
 --- !u!1 &4400504339877730268
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1355758991848359618}
+  - component: {fileID: 1529812323731924603}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -399,6 +400,28 @@ Transform:
   - {fileID: 5326403337306933820}
   m_Father: {fileID: 7403427531689753955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1529812323731924603
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4400504339877730268}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c7cce60ac4b29c7438b9fef36993a15f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4443774922058960958
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,9 +591,6 @@ MonoBehaviour:
   m_Graph: {fileID: -5676346939297224409, guid: 8bb3acc99c9078145907ec7d947e62e8, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 103145856679543318
-  - rid: 103145856679543340
-  - rid: 103145856953484246
-  - rid: 103145865645392749
   - rid: 5780493295002845204
   references:
     version: 2
@@ -583,30 +603,6 @@ MonoBehaviour:
           m_Value1: 0
         Name: Self
         m_Value: {fileID: 6364070335064377634}
-    - rid: 103145856679543340
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 17495128012136674530
-          m_Value1: 3198063046946979895
-        Name: RestRoom
-        m_Value: {fileID: 0}
-    - rid: 103145856953484246
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 2422648514206491369
-          m_Value1: 13424932108703624409
-        Name: Refrigerator
-        m_Value: {fileID: 0}
-    - rid: 103145865645392749
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 4386342999031923134
-          m_Value1: 8229966071905246289
-        Name: FoodOutlet
-        m_Value: {fileID: 0}
     - rid: 5780493295002845204
       type: {class: 'BlackboardVariable`1[[GM.PieChart, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -742,7 +738,6 @@ GameObject:
   - component: {fileID: 8788387048377452284}
   - component: {fileID: 5315113107584370322}
   - component: {fileID: 2582498839086533346}
-  - component: {fileID: 2384503718082872729}
   m_Layer: 0
   m_Name: PieChartCanvas
   m_TagString: Untagged
@@ -816,23 +811,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &2384503718082872729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6707657264184145441}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &7467897260084386940
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +844,7 @@ Transform:
   - {fileID: 7043692584697745629}
   - {fileID: 4625329672522283191}
   m_Father: {fileID: 5326403337306933820}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 11.159998, z: 0}
 --- !u!1 &7547109917368953691
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +875,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6579330636084258944}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.22190437, y: -33.458042, z: -25.623903}
 --- !u!1 &7865437069352958347
 GameObject:
   m_ObjectHideFlags: 0
