@@ -230,6 +230,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1151710256379545188}
+  - component: {fileID: 340404810999421791}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -255,6 +256,28 @@ Transform:
   - {fileID: 4221953448072710599}
   m_Father: {fileID: 7613970666293927604}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &340404810999421791
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584219015983380869}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0555714e29e74d64a8f70c5513d2b65e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &4034320892490468676
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,36 +480,9 @@ MonoBehaviour:
   m_Graph: {fileID: 5638439492761268877, guid: a645b4b7c5bf4bb49a33380240488ad3, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8818507951928770561
-  - rid: 103145854364549985
-  - rid: 103145854364549986
-  - rid: 103145854364549987
   references:
     version: 2
     RefIds:
-    - rid: 103145854364549985
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 10784385197743768671
-          m_Value1: 11103067903971621307
-        Name: Counter
-        m_Value: {fileID: 0}
-    - rid: 103145854364549986
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 17346953033694973407
-          m_Value1: 15543720606932064308
-        Name: RestRoom
-        m_Value: {fileID: 0}
-    - rid: 103145854364549987
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Transform, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 1334000513869865960
-          m_Value1: 18067276648786650080
-        Name: FoodOutlet
-        m_Value: {fileID: 0}
     - rid: 8818507951928770561
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:

@@ -5,6 +5,5 @@ using Unity.Behavior;
 public enum ChefState
 {
     IDLE,
-    COOK,
-    COOKINGTABLE
+    COOK
 }
