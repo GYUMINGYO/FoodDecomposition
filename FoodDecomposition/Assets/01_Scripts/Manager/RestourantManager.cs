@@ -44,7 +44,7 @@ namespace GM.Managers
             List<Transform> nullValueList = new List<Transform>();
             foreach (var pair in chairDictionary)
             {
-                if (pair.Value == null)
+                if (!pair.Value)
                 {
                     nullValueList.Add(pair.Key);
                 }
@@ -54,6 +54,7 @@ namespace GM.Managers
                 return default;
 
             int randIdx = Random.Range(0, nullValueList.Count);
+            chairDictionary[nullValueList[randIdx]] = true;
             return nullValueList[randIdx];
         }
 
