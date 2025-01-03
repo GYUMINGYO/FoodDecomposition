@@ -1,5 +1,6 @@
 using GM.CookWare;
 using GM.Data;
+using GM.InteractableEntitys;
 using GM.Managers;
 using UnityEngine;
 
@@ -30,7 +31,15 @@ namespace GM.Staffs
             // TODO : Rest는 Staff 타입에 맞게 할당하기
             InteractableEntity moveTarget;
 
-            if (type == Enums.InteractableEntityType.Order)
+            if (type == Enums.InteractableEntityType.Rest)
+            {
+                RestRoom waiterRest;
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetRestEntity(type, out waiterRest, this, StaffType.Waiter))
+                {
+                    return waiterRest.EntityTransform;
+                }
+            }
+            else if (type == Enums.InteractableEntityType.Order)
             {
                 // TODO : 테이블 갖고 와서 테이블 위치로 바꾸기
                 return _currentData.orderCustomer.transform;

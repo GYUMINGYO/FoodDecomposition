@@ -1,5 +1,5 @@
-using GM.CookWare;
 using GM.Data;
+using GM.InteractableEntitys;
 using GM.Managers;
 using UnityEngine;
 
@@ -30,11 +30,18 @@ namespace GM.Staffs
             // TODO : Rest는 Staff 타입에 맞게 할당하기
             InteractableEntity moveTarget;
 
-            if (type == Enums.InteractableEntityType.FoodOut)
+            if (type == Enums.InteractableEntityType.Rest)
+            {
+                RestRoom chefRest;
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetRestEntity(type, out chefRest, this, StaffType.Chef))
+                {
+                    return chefRest.EntityTransform;
+                }
+            }
+            else if (type == Enums.InteractableEntityType.FoodOut)
             {
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
-                    Debug.Log("지금 이거 맞는데");
                     SharedTableEntity foodOut = moveTarget as SharedTableEntity;
                     return foodOut.SenderTransform;
                 }
