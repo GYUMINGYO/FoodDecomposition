@@ -14,7 +14,6 @@ public partial class ExitAction : Action
     protected override Status OnStart()
     {
         SingletonePoolManager.Instance.Push(Customer.Value);
-        MapManager.Instance.ReleaseCount();
 
         return Status.Success;
     }

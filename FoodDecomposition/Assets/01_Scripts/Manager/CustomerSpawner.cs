@@ -6,15 +6,13 @@ namespace GM
     public class CustomerSpawner : MonoBehaviour
     {
         [SerializeField] private PoolTypeSO customerPoolType;
-        private Transform extrenceTrm;
+        [SerializeField] private Transform extrenceTrm;
 
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
 
         private void Start()
         {
-            extrenceTrm = MapManager.Instance.ExtrenceAndExitTrm;
-
             StartCoroutine(CustomerSpawnCoroutine());
         }
         

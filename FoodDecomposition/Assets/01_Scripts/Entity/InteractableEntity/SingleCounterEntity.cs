@@ -1,4 +1,5 @@
 using GM.CookWare;
+using GM.InteractableEntitys;
 using System.Collections.Generic;
 using UnityEngine;
 

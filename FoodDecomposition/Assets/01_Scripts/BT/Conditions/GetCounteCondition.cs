@@ -1,5 +1,6 @@
 using GM;
 using GM.CookWare;
+using GM.InteractableEntitys;
 using GM.Managers;
 using System;
 using Unity.Behavior;

@@ -52,6 +52,14 @@ namespace GM.Staffs
                     return foodOut.ReceiverTransform;
                 }
             }
+            else if(type == Enums.InteractableEntityType.Counter)
+            {
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+                {
+                    SingleCounterEntity foodOut = moveTarget as SingleCounterEntity;
+                    return foodOut.SenderTransform;
+                }
+            }
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
