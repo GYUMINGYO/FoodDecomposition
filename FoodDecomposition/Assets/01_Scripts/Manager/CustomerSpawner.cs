@@ -6,13 +6,15 @@ namespace GM
     public class CustomerSpawner : MonoBehaviour
     {
         [SerializeField] private PoolTypeSO customerPoolType;
-        [SerializeField] private Transform ExtrenceTrm;
+        private Transform extrenceTrm;
 
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
 
         private void Start()
         {
+            extrenceTrm = MapManager.Instance.ExtrenceAndExitTrm;
+
             StartCoroutine(CustomerSpawnCoroutine());
         }
         
@@ -24,7 +26,7 @@ namespace GM
                 yield return new WaitForSeconds(spawnTime);
 
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
-                customer.transform.position = ExtrenceTrm.position;
+                customer.transform.position = extrenceTrm.position;
             }
         }
     }

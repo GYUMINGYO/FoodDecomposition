@@ -26,6 +26,8 @@ namespace GM
 
     public class Customer : Entity, IPoolable
     {
+        public Action<Transform> updateLineEvent;
+
         [SerializeField] private PoolTypeSO poolType;
         [SerializeField] private List<MeshData> meshList;
 
@@ -74,6 +76,11 @@ namespace GM
 
             headRenderer.sharedMesh = meshList[randIdx].head;
             bodyRenderer.sharedMesh = meshList[randIdx].body;
+        }
+
+        public void UpdateLine(Transform lineTrm)
+        {
+            updateLineEvent?.Invoke(lineTrm);
         }
     }
 }

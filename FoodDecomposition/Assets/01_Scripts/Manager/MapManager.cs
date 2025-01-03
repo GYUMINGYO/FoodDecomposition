@@ -15,7 +15,7 @@ namespace GM
         
         public Transform GetCountTrm()
         {
-            if(counterTrmList.Count == counterCnt)
+            if(counterTrmList.Count >= counterCnt)
                 return null;
 
             return counterTrmList[counterCnt++];
