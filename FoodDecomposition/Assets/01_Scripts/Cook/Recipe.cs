@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using GM.CookWare;
 using GM.Entities;
+using GM.InteractableEntitys;
 using GM.Managers;
 using UnityEngine;
 

@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace GM.Staffs
 {
+    public enum StaffType
+    {
+        Waiter,
+        Chef
+    }
+
     public abstract class Staff : Entity
     {
         // TODO : 직원 스탯

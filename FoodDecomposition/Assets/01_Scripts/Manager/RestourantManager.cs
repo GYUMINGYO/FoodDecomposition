@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using GM.CookWare;
 using GM.Entities;
+using GM.InteractableEntitys;
+using GM.Staffs;
+using Unity.Mathematics;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -75,6 +77,35 @@ namespace GM.Managers
                 foreach (var table in tables)
                 {
                     if (table.InUse == false)
+                    {
+                        float distance = Vector3.Distance(owner.transform.position, table.transform.position);
+                        if (distance < minimumDistance)
+                        {
+                            minimumDistance = distance;
+                            tableEntity = table;
+                        }
+                    }
+                }
+
+                if (tableEntity != null)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool GetRestEntity(Enums.InteractableEntityType type, out RestRoom tableEntity, Entity owner, StaffType staffType)
+        {
+            float minimumDistance = float.MaxValue;
+            tableEntity = default;
+
+            if (_interactableEntityDictionary.TryGetValue(type, out List<InteractableEntity> tables) && tables.Count > 0)
+            {
+                foreach (RestRoom table in tables)
+                {
+                    if (table.InUse == false && table.StaffType == staffType)
                     {
                         float distance = Vector3.Distance(owner.transform.position, table.transform.position);
                         if (distance < minimumDistance)

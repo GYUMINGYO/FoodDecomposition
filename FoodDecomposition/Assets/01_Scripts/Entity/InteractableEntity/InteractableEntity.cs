@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GM.CookWare
+namespace GM.InteractableEntitys
 {
     public class InteractableEntity : MonoBehaviour
     {

@@ -20,6 +20,7 @@ namespace GM.Managers
             _managers = new Dictionary<Type, IManagerable>();
             _updateManagers = new List<IManagerUpdateable>();
 
+            GetComponents<IManagerable>().ToList().ForEach(manager => _managers.Add(manager.GetType(), manager));
             FindAndAddManagerToDictionary();
             ManagerInitialize();
             AddUpdateManager();
@@ -59,7 +60,7 @@ namespace GM.Managers
                 try
                 {
                     var manager = Activator.CreateInstance(type) as IManagerable;
-                    _managers.Add(type, manager);
+                    _managers.TryAdd(type, manager);
                 }
                 catch (Exception ex)
                 {
