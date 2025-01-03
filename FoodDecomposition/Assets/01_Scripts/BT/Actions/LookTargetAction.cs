@@ -20,7 +20,7 @@ public partial class LookTargetAction : Action
     {
         Self.Value.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
 
-        Self.Value.transform.DORotateQuaternion(Target.Value.rotation, 0.5f)
+        Self.Value.transform.DORotateQuaternion(Target.Value.rotation, Speed.Value)
             .OnComplete(() => status = Status.Success);
 
         return Status.Running;

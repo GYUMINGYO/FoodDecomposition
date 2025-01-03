@@ -63,13 +63,11 @@ namespace GM.Managers
                     }
                 }
             }
-
-            if (_orderList.Count > 0)
+            else if (_orderList.Count > 0)
             {
                 CheckWorking()?.StartWork(WaiterState.ORDER, DequeueOrderData(OrderType.Order));
             }
-
-            if (_servingList.Count > 0)
+            else if (_servingList.Count > 0)
             {
                 CheckWorking()?.StartWork(WaiterState.SERVING, DequeueOrderData(OrderType.Serving));
             }
