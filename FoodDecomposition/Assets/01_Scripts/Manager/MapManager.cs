@@ -1,4 +1,4 @@
-using GM.Managers;
+using System.Collections.Generic;
 using MKDir;
 using UnityEngine;
 
@@ -7,9 +7,26 @@ namespace GM
     public class MapManager : MonoSingleton<MapManager>
     {
         [SerializeField] private Transform extrenceAndExitTrm;
-        [SerializeField] private Transform counterTrm;
+        [SerializeField] private List<Transform> counterTrmList;
 
         public Transform ExtrenceAndExitTrm => extrenceAndExitTrm;
-        public Transform CounterTrm => counterTrm;
+
+        private int counterCnt = 0;
+        
+        public Transform GetCountTrm()
+        {
+            if(counterTrmList.Count == counterCnt)
+                return null;
+
+            return counterTrmList[counterCnt++];
+        }
+
+        public void ReleaseCount() => counterCnt--;
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.H))
+                ReleaseCount();
+        }
     }
 }

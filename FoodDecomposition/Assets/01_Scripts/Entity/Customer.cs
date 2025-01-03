@@ -39,10 +39,14 @@ namespace GM
         public PoolTypeSO PoolType => poolType;
         public GameObject GameObject => gameObject;
 
+        public bool isTest = false;
+
         protected override void Awake()
         {
             base.Awake();
-            gameObject.SetActive(false);
+
+            if(!isTest)
+                gameObject.SetActive(false);
         }
 
         public void SetOrderData(OrderData orderData) => _orderData = orderData;

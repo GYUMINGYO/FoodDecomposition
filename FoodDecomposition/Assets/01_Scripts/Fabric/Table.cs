@@ -34,11 +34,11 @@ namespace GM
             }
         }
 
-        public void OffObstacle(Transform chairTrm)
+        public void SetObstacle(Transform chairTrm, bool value)
         {
             if (chairDictionary.ContainsKey(chairTrm))
             {
-                chairDictionary[chairTrm].obstacle.enabled = false;
+                chairDictionary[chairTrm].obstacle.enabled = value;
             }
         }
 
@@ -50,13 +50,8 @@ namespace GM
             foodObj.transform.position = foodPos;
         }
 
-        public void StandChair(Transform chairTrm)
+        public void DestroyFood()
         {
-            if (chairDictionary.ContainsKey(chairTrm))
-            {
-                chairDictionary[chairTrm].obstacle.enabled = true;
-            }
-
             if (foodObj != null)
             {
                 SingletonePoolManager.Instance.Push(foodObj);

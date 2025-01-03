@@ -1,9 +1,7 @@
+using GM;
 using System;
 using Unity.Behavior;
 using UnityEngine;
-using Action = Unity.Behavior.Action;
-using Unity.Properties;
-using GM;
 
 [BlackboardEnum]
 public enum MoveTargetType
@@ -12,25 +10,27 @@ public enum MoveTargetType
     Exit
 }
 
-[Serializable, GeneratePropertyBag]
-[NodeDescription(name: "GetMoveTarget", story: "get [target] for [type]", category: "Action", id: "34eef2556090225664411bdf4cea9ee3")]
-public partial class GetMoveTargetAction : Action
+[Serializable, Unity.Properties.GeneratePropertyBag]
+[Condition(name: "GetMoveTarget", story: "get [target] for [type]", category: "Conditions", id: "0d5316b5fcbe73dd4830370e6a551abc")]
+public partial class GetMoveTargetCondition : Condition
 {
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<MoveTargetType> Type;
 
-    protected override Status OnStart()
+    public override bool IsTrue()
     {
         switch (this.Type.Value)
         {
             case MoveTargetType.Counter:
-                Target.Value = MapManager.Instance.CounterTrm;
+                {
+                    Target.Value = MapManager.Instance.GetCountTrm();
+                }
                 break;
             case MoveTargetType.Exit:
                 Target.Value = MapManager.Instance.ExtrenceAndExitTrm;
                 break;
         }
 
-        return Status.Success;
+        return !(Target.Value == null);
     }
 }

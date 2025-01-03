@@ -16,7 +16,7 @@ public partial class StandChairAction : Action
     protected override Status OnStart()
     {
         ManagerHub.Instance.GetManager<RestourantManager>().chairDictionary[Chair.Value] = false;
-        Table.Value.StandChair(Chair.Value);
+        Table.Value.SetObstacle(Chair.Value, true);
 
         return Status.Success;
     }
