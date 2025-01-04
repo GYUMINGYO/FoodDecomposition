@@ -1,4 +1,3 @@
-using GM.CookWare;
 using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
@@ -52,7 +51,7 @@ namespace GM.Staffs
                     return foodOut.ReceiverTransform;
                 }
             }
-            else if(type == Enums.InteractableEntityType.Counter)
+            else if (type == Enums.InteractableEntityType.Counter)
             {
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {

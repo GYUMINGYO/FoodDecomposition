@@ -21,9 +21,6 @@ namespace GM.Staffs
         protected OrderData _currentData;
         protected BehaviorGraphAgent _myBTAgent;
 
-        public Transform SenderTransform { get; set; }
-        public Transform ReceiverTransform { get; set; }
-
         protected override void Awake()
         {
             base.Awake();
