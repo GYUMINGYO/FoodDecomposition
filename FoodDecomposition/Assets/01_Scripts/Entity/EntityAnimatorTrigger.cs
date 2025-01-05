@@ -1,10 +1,9 @@
 using System;
-using GM.Entities;
 using UnityEngine;
 
-namespace GM.Animations
+namespace GM.Entities
 {
-    public class EntityAnimationTrigger : MonoBehaviour, IEntityComponent
+    public class EntityAnimatorTrigger : MonoBehaviour, IEntityComponent
     {
         public event Action OnAnimationEnd;
 

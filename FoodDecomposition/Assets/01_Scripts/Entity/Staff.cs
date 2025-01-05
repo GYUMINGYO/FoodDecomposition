@@ -32,6 +32,22 @@ namespace GM.Staffs
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
         }
 
+        public BlackboardVariable<T> GetVariable<T>(string variableName)
+        {
+            if (_myBTAgent.GetVariable(variableName, out BlackboardVariable<T> variable))
+            {
+                return variable;
+            }
+            return null;
+        }
+
+        public void SetVariable<T>(string variableName, T value)
+        {
+            BlackboardVariable<T> variable = GetVariable<T>(variableName);
+            Debug.Assert(variable != null, $"Variable {variableName} not found");
+            variable.Value = value;
+        }
+
         public void FinishWork()
         {
             _isWorking = false;
