@@ -24,7 +24,8 @@ namespace GM
         public void SetPieChart(int pieCount)
         {
             _pieChartImage.fillAmount = 0f;
-            _pieValue = 1f / (pieCount + 1);
+            // TODO : 이거 냉장고 애니메이션 추가하면 바꿔야 함
+            _pieValue = 1f / pieCount;
             _pieVisual.SetActive(true);
         }
 

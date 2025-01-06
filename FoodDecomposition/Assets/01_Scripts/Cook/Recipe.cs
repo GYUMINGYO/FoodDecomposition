@@ -58,19 +58,32 @@ namespace GM
             return _cookingPathList.Count;
         }
 
-        public float GetCookingTableTime()
-        {
+        public float GetCurrentCookingTableTime()
+        {   
             InteractableEntity interactableEntity;
 
-            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index - 1], out interactableEntity))
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
             {
                 CookingTable cookingTable = interactableEntity as CookingTable;
-                // TODO : animation 걸리는 시간 찾아보기
-                return cookingTable.CookAnimation.clip.length;
+                return cookingTable.CookAnimation.length;
             }
 
             return default;
         }
+
+        public AnimationClip GetCurrentCookingTableAnimation()
+        {
+            InteractableEntity interactableEntity;
+
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
+            {
+                CookingTable cookingTable = interactableEntity as CookingTable;
+                return cookingTable.CookAnimation;
+            }
+
+            return default;
+        }
+            
 
         public bool IsCookingPathComplete()
         {

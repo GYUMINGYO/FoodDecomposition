@@ -15,9 +15,7 @@ public partial class CalculatePieChartAction : Action
 
     protected override Status OnStart()
     {
-        // TODO : 이거 아직 해결 안됐으니 주석처리
-        //PieChart.Value.StartFillPieChart(Chef.Value.CurrentData.recipe.GetCookingTableTime());
-        PieChart.Value.StartFillPieChart(1f);
+        PieChart.Value.StartFillPieChart(Chef.Value.CurrentData.recipe.GetCurrentCookingTableTime());
         return Status.Success;
     }
 }
