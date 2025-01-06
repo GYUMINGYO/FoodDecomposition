@@ -48,7 +48,7 @@ namespace GM.Staffs
             }
             else if (type == Enums.InteractableEntityType.Recipe)
             {
-                return _currentData.recipe.GetNextCookingTable(this).transform;
+                return _currentData.recipe.GetNextCookingTable(this).EntityTransform;
             }
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
