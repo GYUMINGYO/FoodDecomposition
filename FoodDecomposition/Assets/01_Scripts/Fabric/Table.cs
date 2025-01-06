@@ -7,6 +7,7 @@ public struct SeatData
 {
     public NavMeshObstacle obstacle;
     public Transform foodPos;
+    public bool isSit;
 }
 
 namespace GM
@@ -27,18 +28,24 @@ namespace GM
                 SeatData seatData = new SeatData
                 {
                     obstacle = chairs[i].GetComponentInParent<NavMeshObstacle>(),
-                    foodPos = chairs[i].GetChild(0)
+                    foodPos = chairs[i].GetChild(0),
+                    isSit = false
                 };
 
                 chairDictionary[chairs[i]] = seatData;
             }
         }
 
-        public void SetObstacle(Transform chairTrm, bool value)
+        public void ChangeChairState(Transform chairTrm, bool isSit)
         {
             if (chairDictionary.ContainsKey(chairTrm))
             {
-                chairDictionary[chairTrm].obstacle.enabled = value;
+                SeatData seatData = chairDictionary[chairTrm];
+
+                seatData.obstacle.enabled = !isSit;
+                seatData.isSit = isSit;
+
+                chairDictionary[chairTrm] = seatData;
             }
         }
 
@@ -56,6 +63,18 @@ namespace GM
             {
                 SingletonePoolManager.Instance.Push(foodObj);
             }
+        }
+
+        public Transform GetChair()
+        {
+            List<Transform> chairList = chairDictionary
+                .Where(kv => !kv.Value.isSit)
+                .Select(kv => kv.Key)
+                .ToList();
+
+            if (chairList.Count == 0) return null;
+
+            return chairList[Random.Range(0, chairList.Count)];
         }
     }
 }

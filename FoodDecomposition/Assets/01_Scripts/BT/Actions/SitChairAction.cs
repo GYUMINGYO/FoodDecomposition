@@ -19,7 +19,7 @@ public partial class SitChairAction : Action
 
     protected override Status OnStart()
     {
-        Chair.Value.GetComponentInParent<Table>().SetObstacle(Chair.Value, false);
+        Chair.Value.GetComponentInParent<Table>().ChangeChairState(Chair.Value, true);
 
         Vector3 movePos = Chair.Value.transform.position;
         movePos.y = Customer.Value.transform.position.y;

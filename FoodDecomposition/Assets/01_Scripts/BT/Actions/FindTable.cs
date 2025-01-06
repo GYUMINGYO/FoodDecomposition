@@ -21,16 +21,15 @@ public partial class FindChairAction : Action
             Exit.Value = MapManager.Instance.ExtrenceAndExitTrm;
         }
 
-        Chair.Value = ManagerHub.Instance.GetManager<RestourantManager>().GetChiar();
-
-        if (Chair.Value == null)
+        Table.Value = ManagerHub.Instance.GetManager<RestourantManager>().GetTable();
+        if (Table.Value != null)
         {
-            return Status.Failure;
+            Chair.Value = Table.Value.GetChair();
+            return Status.Success;
         }
         else
         {
-            Table.Value = Chair.Value.GetComponentInParent<Table>();
-            return Status.Success;
+            return Status.Failure;
         }
     }
 }
