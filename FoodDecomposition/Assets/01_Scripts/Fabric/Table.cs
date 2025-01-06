@@ -13,13 +13,16 @@ namespace GM
 {
     public class Table : MonoBehaviour
     {
-        private Dictionary<Transform, SeatData> chairDictionary;
+        public List<Transform> WaiterWaitTransform { get; }
+        [SerializeField] private List<Transform> _waiterWaitTransform;
 
+        private Dictionary<Transform, SeatData> _chairDictionary;
         private Food foodObj;
 
         private void Awake()
         {
-            chairDictionary = new Dictionary<Transform, SeatData>();
+            _chairDictionary = new Dictionary<Transform, SeatData>();
+            _waiterWaitTransform = new List<Transform>();
 
             Transform[] chairs = GetComponentsInChildren<Transform>().Where(x => x.CompareTag("Chair")).ToArray();
             for (int i = 0; i < chairs.Length; i++)
@@ -30,21 +33,21 @@ namespace GM
                     foodPos = chairs[i].GetChild(0)
                 };
 
-                chairDictionary[chairs[i]] = seatData;
+                _chairDictionary[chairs[i]] = seatData;
             }
         }
 
         public void SetObstacle(Transform chairTrm, bool value)
         {
-            if (chairDictionary.ContainsKey(chairTrm))
+            if (_chairDictionary.ContainsKey(chairTrm))
             {
-                chairDictionary[chairTrm].obstacle.enabled = value;
+                _chairDictionary[chairTrm].obstacle.enabled = value;
             }
         }
 
         public void CreateFood(Transform chairTrm, PoolTypeSO poolType)
         {
-            Vector3 foodPos = chairDictionary[chairTrm].foodPos.position;
+            Vector3 foodPos = _chairDictionary[chairTrm].foodPos.position;
 
             foodObj = SingletonePoolManager.Instance.Pop(poolType) as Food;
             foodObj.transform.position = foodPos;

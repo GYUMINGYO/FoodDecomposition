@@ -10,6 +10,7 @@ namespace GM.Data
 
     public struct OrderData
     {
+        public Table orderTable;
         public Customer orderCustomer;
         public OrderType type;
         public Recipe recipe;
