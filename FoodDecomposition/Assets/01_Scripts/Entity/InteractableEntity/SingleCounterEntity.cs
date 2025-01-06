@@ -1,4 +1,3 @@
-using GM.CookWare;
 using GM.InteractableEntitys;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +28,7 @@ namespace GM
 
         public void ReleaseLine(Customer customer)
         {
+            lineIdx--;
             lineDictionary.Remove(customer);
 
             foreach (var key in lineDictionary.Keys)

@@ -8,14 +8,16 @@ using GM.Data;
 using GM.Managers;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "Order", story: "[customer] order", category: "Action", id: "738c202e4ec81fbb8f0171d342c291cd")]
+[NodeDescription(name: "Order", story: "[Customer] places order at the [table]", category: "Action", id: "738c202e4ec81fbb8f0171d342c291cd")]
 public partial class OrderAction : Action
 {
     [SerializeReference] public BlackboardVariable<Customer> Customer;
+    [SerializeReference] public BlackboardVariable<Table> Table;
 
     protected override Status OnStart()
     {
         OrderData order = new OrderData();
+        order.orderTable = Table.Value;
         order.orderCustomer = Customer.Value;
         order.type = OrderType.Order;
         order.recipe = ManagerHub.Instance.GetManager<RecipeManager>().GetRecipe();

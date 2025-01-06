@@ -10,18 +10,18 @@ namespace GM.Managers
 {
     public class RestourantManager : IManagerable
     {
-        public Dictionary<Transform, bool> chairDictionary;
+        public List<Table> TableList;
 
         private Dictionary<Enums.InteractableEntityType, List<InteractableEntity>> _interactableEntityDictionary;
 
         public void Initialized()
         {
-            chairDictionary = new Dictionary<Transform, bool>();
+            TableList = new();
             _interactableEntityDictionary = new Dictionary<Enums.InteractableEntityType, List<InteractableEntity>>();
 
-            foreach (var chair in GameObject.FindGameObjectsWithTag("Chair"))
+            foreach (Table Table in GameObject.FindObjectsByType<Table>(FindObjectsSortMode.None))
             {
-                chairDictionary.Add(chair.transform, false);
+                TableList.Add(Table);
             }
 
             foreach (var table in GameObject.FindObjectsByType<InteractableEntity>(FindObjectsSortMode.None))
@@ -36,18 +36,18 @@ namespace GM.Managers
 
         public void Clear()
         {
-            chairDictionary.Clear();
+            TableList.Clear();
             _interactableEntityDictionary.Clear();
         }
 
-        public Transform GetChiar()
+        public Table GetTable()
         {
-            List<Transform> nullValueList = new List<Transform>();
-            foreach (var pair in chairDictionary)
+            List<Table> nullValueList = new();
+            foreach(Table table in TableList)
             {
-                if (!pair.Value)
+                if (table.GetChair() != null)
                 {
-                    nullValueList.Add(pair.Key);
+                    nullValueList.Add(table);
                 }
             }
 
@@ -55,7 +55,6 @@ namespace GM.Managers
                 return default;
 
             int randIdx = Random.Range(0, nullValueList.Count);
-            chairDictionary[nullValueList[randIdx]] = true;
             return nullValueList[randIdx];
         }
 

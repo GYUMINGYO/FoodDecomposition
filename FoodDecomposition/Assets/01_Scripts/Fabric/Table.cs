@@ -7,22 +7,20 @@ public struct SeatData
 {
     public NavMeshObstacle obstacle;
     public Transform foodPos;
+    public bool isSit;
 }
 
 namespace GM
 {
     public class Table : MonoBehaviour
     {
-        public List<Transform> WaiterWaitTransform { get; }
-        [SerializeField] private List<Transform> _waiterWaitTransform;
+        private Dictionary<Transform, SeatData> chairDictionary;
 
-        private Dictionary<Transform, SeatData> _chairDictionary;
         private Food foodObj;
 
         private void Awake()
         {
-            _chairDictionary = new Dictionary<Transform, SeatData>();
-            _waiterWaitTransform = new List<Transform>();
+            chairDictionary = new Dictionary<Transform, SeatData>();
 
             Transform[] chairs = GetComponentsInChildren<Transform>().Where(x => x.CompareTag("Chair")).ToArray();
             for (int i = 0; i < chairs.Length; i++)
@@ -30,24 +28,30 @@ namespace GM
                 SeatData seatData = new SeatData
                 {
                     obstacle = chairs[i].GetComponentInParent<NavMeshObstacle>(),
-                    foodPos = chairs[i].GetChild(0)
+                    foodPos = chairs[i].GetChild(0),
+                    isSit = false
                 };
 
-                _chairDictionary[chairs[i]] = seatData;
+                chairDictionary[chairs[i]] = seatData;
             }
         }
 
-        public void SetObstacle(Transform chairTrm, bool value)
+        public void ChangeChairState(Transform chairTrm, bool isSit)
         {
-            if (_chairDictionary.ContainsKey(chairTrm))
+            if (chairDictionary.ContainsKey(chairTrm))
             {
-                _chairDictionary[chairTrm].obstacle.enabled = value;
+                SeatData seatData = chairDictionary[chairTrm];
+
+                seatData.obstacle.enabled = !isSit;
+                seatData.isSit = isSit;
+
+                chairDictionary[chairTrm] = seatData;
             }
         }
 
         public void CreateFood(Transform chairTrm, PoolTypeSO poolType)
         {
-            Vector3 foodPos = _chairDictionary[chairTrm].foodPos.position;
+            Vector3 foodPos = chairDictionary[chairTrm].foodPos.position;
 
             foodObj = SingletonePoolManager.Instance.Pop(poolType) as Food;
             foodObj.transform.position = foodPos;
@@ -59,6 +63,18 @@ namespace GM
             {
                 SingletonePoolManager.Instance.Push(foodObj);
             }
+        }
+
+        public Transform GetChair()
+        {
+            List<Transform> chairList = chairDictionary
+                .Where(kv => !kv.Value.isSit)
+                .Select(kv => kv.Key)
+                .ToList();
+
+            if (chairList.Count == 0) return null;
+
+            return chairList[Random.Range(0, chairList.Count)];
         }
     }
 }
