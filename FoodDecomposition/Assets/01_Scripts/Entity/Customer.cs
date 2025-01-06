@@ -26,8 +26,6 @@ namespace GM
 
     public class Customer : Entity, IPoolable
     {
-        public Action<Transform> updateLineEvent;
-
         [SerializeField] private PoolTypeSO poolType;
         [SerializeField] private List<MeshData> meshList;
 
@@ -36,6 +34,7 @@ namespace GM
 
         private OrderData _orderData;
         private bool isWait = false;
+        private bool isLine = false;
 
         public bool IsWait => isWait;
         public PoolTypeSO PoolType => poolType;
@@ -78,9 +77,6 @@ namespace GM
             bodyRenderer.sharedMesh = meshList[randIdx].body;
         }
 
-        public void UpdateLine(Transform lineTrm)
-        {
-            updateLineEvent?.Invoke(lineTrm);
-        }
+        public void SetIsLine(bool value) => isLine = value;
     }
 }

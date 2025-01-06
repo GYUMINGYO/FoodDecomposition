@@ -1,12 +1,14 @@
 using GM.InteractableEntitys;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 namespace GM
 {
     public class SingleCounterEntity : InteractableEntity
     {
-        private Dictionary<Customer, int> lineDictionary = new();
+        private List<Customer> lineCustomerList = new();
 
         public Transform SenderTransform => _senderTransform;
         [SerializeField] protected Transform _senderTransform;
@@ -15,26 +17,51 @@ namespace GM
 
         int lineIdx = 0;
 
+        private void Awake()
+        {
+            for(int i = 0; i < 3; ++i)
+            {
+                lineCustomerList.Add(null);
+            }
+        }
+
         public Transform GetLineTrm(Customer customer)
         {
-            if (lineIdx >= lineTrmList.Count)
+            if (lineIdx >= lineCustomerList.Count)
             {
                 return null;
             }
 
-            lineDictionary[customer] = lineIdx + 1;
+            lineCustomerList[lineIdx] = customer;
             return lineTrmList[lineIdx++];
         }
 
-        public void ReleaseLine(Customer customer)
+        public void ExitLine(Customer customer)
         {
-            lineIdx--;
-            lineDictionary.Remove(customer);
+            int idx = lineCustomerList.IndexOf(customer);
 
-            foreach (var key in lineDictionary.Keys)
+            if(idx >=0 )
+                lineCustomerList[idx] = null;
+            lineIdx--;
+        }
+
+        public Transform CheckEmptyFront(Customer customer)
+        {
+            int idx = lineCustomerList.IndexOf(customer);
+            if (idx <= 0)
             {
-                lineDictionary[key]--;
-                key.UpdateLine(lineTrmList[lineDictionary[key]]);
+                return null;
+            }
+
+            idx--;
+            if (lineCustomerList[idx] == null)
+            {
+                lineCustomerList[idx] = customer;
+                return lineTrmList[idx];
+            }
+            else
+            {
+                return null;
             }
         }
     }

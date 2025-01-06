@@ -16,13 +16,7 @@ public partial class RequstForCountAction : Action
 
     protected override Status OnStart()
     {
-        InteractableEntity entity = null;
-
-        if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(Enums.InteractableEntityType.Counter, out entity, Customer.Value))
-        {
-            SingleCounterEntity counter = entity as SingleCounterEntity;
-            counter.ReleaseLine(Customer.Value);
-        }
+        this.Customer.Value.SetIsLine(false);
 
         OrderData order = Customer.Value.GetOrderData();
         order.type = OrderType.Count;

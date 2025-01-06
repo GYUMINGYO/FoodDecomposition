@@ -267,7 +267,7 @@ Animator:
   m_GameObject: {fileID: 2584219015983380869}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 0555714e29e74d64a8f70c5513d2b65e, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7ac0b9203c296b7438d401f9eea4483e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -493,9 +493,18 @@ MonoBehaviour:
   m_Graph: {fileID: 5638439492761268877, guid: a645b4b7c5bf4bb49a33380240488ad3, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8818507951928770561
+  - rid: 286774767465005267
   references:
     version: 2
     RefIds:
+    - rid: 286774767465005267
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 3261157843147987050
+          m_Value1: 17457817653852026203
+        Name: MainAnimator
+        m_Value: {fileID: 340404810999421791}
     - rid: 8818507951928770561
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:

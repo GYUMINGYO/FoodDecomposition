@@ -65,6 +65,8 @@ namespace GM
             }
         }
 
+        public bool HasEmptyChair() => chairDictionary.Any(x => !x.Value.isSit);
+
         public Transform GetChair()
         {
             List<Transform> chairList = chairDictionary
@@ -74,7 +76,11 @@ namespace GM
 
             if (chairList.Count == 0) return null;
 
-            return chairList[Random.Range(0, chairList.Count)];
+            Transform chair = chairList[Random.Range(0, chairList.Count)];
+            SeatData seatData = chairDictionary[chair];
+            seatData.isSit = true;
+            chairDictionary[chair] = seatData;
+            return chair;
         }
     }
 }
