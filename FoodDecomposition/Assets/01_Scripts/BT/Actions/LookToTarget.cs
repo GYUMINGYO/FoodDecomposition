@@ -17,6 +17,8 @@ public partial class LookTargetAction : Action
 
     protected override Status OnStart()
     {
+        status = Status.Running;
+
         Self.Value.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
 
         Self.Value.transform.DORotateQuaternion(Target.Value.rotation, Duration.Value).SetEase(Ease.Linear)

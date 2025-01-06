@@ -45,7 +45,7 @@ namespace GM.Managers
             List<Table> nullValueList = new();
             foreach(Table table in TableList)
             {
-                if (table.GetChair() != null)
+                if (table.HasEmptyChair())
                 {
                     nullValueList.Add(table);
                 }

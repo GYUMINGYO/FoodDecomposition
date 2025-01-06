@@ -1,8 +1,8 @@
+using GM.Data;
+using GM.Staffs;
 using System.Collections.Generic;
 using System.Linq;
-using GM.Data;
 using UnityEngine;
-using GM.Staffs;
 
 namespace GM.Managers
 {
@@ -12,6 +12,8 @@ namespace GM.Managers
         private Queue<OrderData> _orderList;
         private Queue<OrderData> _counterList;
         private Queue<OrderData> _servingList;
+
+        private bool isTest = false;
 
         // TODO : 지금 생각해보니까 굳이 타입을 나눠서 저장할 필요도 없을 거 같은데
         // * 탐색만 잘해서 하면 되지 않나? => 링큐는 느리긴한데 -> 괜찮지 않을까? (그렇게 성능 저하가 심할려나?)
@@ -39,6 +41,11 @@ namespace GM.Managers
 
         public void Update()
         {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                isTest = !isTest;
+            }
+
             GiveWork();
         }
 
@@ -47,7 +54,7 @@ namespace GM.Managers
             if (waiterList.Count <= 0) return;
 
             // TODO : counter는 연속 처리 되게 만들어야 함
-            if (_counterList.Count > 0)
+            if (_counterList.Count > 0 && !isTest)
             {
                 var waiter = waiterList.Where(x => x.IsWorking == true && x.currentWaiterState == WaiterState.COUNT);
                 if (waiter.Count() <= 0)

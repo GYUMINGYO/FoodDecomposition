@@ -6,7 +6,7 @@ namespace GM
 {
     public class MapManager : MonoSingleton<MapManager>
     {
-        [SerializeField] private Transform extrenceAndExitTrm;
-        public Transform ExtrenceAndExitTrm => extrenceAndExitTrm;
+        [SerializeField] private Transform exitTrm;
+        public Transform ExitTrm => exitTrm;
     }
 }
