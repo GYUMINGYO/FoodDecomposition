@@ -623,6 +623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipeList:
   - {fileID: 11400000, guid: 9005271e69911c8449919c3529ceb597, type: 2}
+  - {fileID: 11400000, guid: 74f52674c69ed3c48b222847cff66de4, type: 2}
 --- !u!114 &168886310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2778,7 +2779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1166702100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2926,6 +2927,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1890183857}
     m_Modifications:
+    - target: {fileID: 714074986070052913, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
+      propertyPath: _cookAnimation
+      value: 
+      objectReference: {fileID: 7400000, guid: 6d560071669fba94b9c40f8c02ad9786, type: 2}
     - target: {fileID: 1174925889737947169, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
       propertyPath: m_Name
       value: Refrigerator
@@ -3176,19 +3181,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 941496603292999683, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 941496603292999683, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 941496603292999683, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 941496603292999683, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 2175426367741816791, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3232,39 +3237,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3235377937585075903, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3235377937585075903, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3235377937585075903, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3235377937585075903, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -30
       objectReference: {fileID: 0}
     - target: {fileID: 3269345615914890116, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_Name
       value: Customer
       objectReference: {fileID: 0}
-    - target: {fileID: 4360342884384615925, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
-      propertyPath: m_SizeDelta.x
+    - target: {fileID: 3269345615914890116, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4360342884384615925, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4360342884384615925, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3636070594973166736, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fa54d5f5f4c9d144b67601ea5a9811f, type: 3}
 --- !u!1 &1358665285
 GameObject:

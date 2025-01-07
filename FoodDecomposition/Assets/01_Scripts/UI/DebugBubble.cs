@@ -13,7 +13,7 @@ namespace GM
         private Customer customer;
         private void Awake()
         {
-            customer = transform.root.GetComponent<Customer>();
+            customer = GetComponentInParent<Customer>();
         }
 
         [ContextMenu("lookCamera")]
