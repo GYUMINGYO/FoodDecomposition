@@ -1,9 +1,10 @@
 using GM.Data;
 using GM.Entities;
+using System;
+using System.Collections.Generic;
 using Unity.Behavior;
 using UnityEngine;
-using System.Collections.Generic;
-using System;
+using Action = System.Action;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -26,6 +27,8 @@ namespace GM
 
     public class Customer : Entity, IPoolable
     {
+        public Action customerExitEvent;
+
         [SerializeField] private PoolTypeSO poolType;
         [SerializeField] private List<MeshData> meshList;
 
@@ -46,7 +49,7 @@ namespace GM
         {
             base.Awake();
 
-            if(!isTest)
+            if (!isTest)
                 gameObject.SetActive(false);
         }
 
