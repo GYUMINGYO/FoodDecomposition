@@ -291,6 +291,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19babb86f54a064aa57bb75e1a2748a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3521553752566783167
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 628525015389921698}
+  m_Layer: 0
+  m_Name: FoodHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &628525015389921698
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3521553752566783167}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.15, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6774465890442870761}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4034320892490468676
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +352,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6774465890442870761}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -0.0000010435011, y: -60, z: 8.975657}
 --- !u!1 &5314270140764514399
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,8 +385,9 @@ Transform:
   - {fileID: 1700632231142710957}
   - {fileID: 4896657175953438503}
   - {fileID: 737548167733782793}
+  - {fileID: 628525015389921698}
   m_Father: {fileID: 4221953448072710599}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -13.106994, y: 0, z: 0}
 --- !u!1 &5854232735637603103
 GameObject:
   m_ObjectHideFlags: 0
@@ -420,7 +452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6774465890442870761}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 13.106995, y: 0, z: 0}
 --- !u!1 &7368042543877228967
 GameObject:
   m_ObjectHideFlags: 0
@@ -467,7 +499,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
-  m_Acceleration: 8
+  m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 300
   m_StoppingDistance: 0
@@ -493,11 +525,12 @@ MonoBehaviour:
   m_Graph: {fileID: 5638439492761268877, guid: a645b4b7c5bf4bb49a33380240488ad3, type: 2}
   m_BlackboardVariableOverridesList:
   - rid: 8818507951928770561
-  - rid: 286774767465005267
+  - rid: 5780493339265073619
+  - rid: 5780493390188118559
   references:
     version: 2
     RefIds:
-    - rid: 286774767465005267
+    - rid: 5780493339265073619
       type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
         GUID:
@@ -505,6 +538,14 @@ MonoBehaviour:
           m_Value1: 17457817653852026203
         Name: MainAnimator
         m_Value: {fileID: 340404810999421791}
+    - rid: 5780493390188118559
+      type: {class: 'BlackboardVariable`1[[System.Single, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 13018054331856060737
+          m_Value1: 16234090448767240372
+        Name: RotateDuration
+        m_Value: 0.5
     - rid: 8818507951928770561
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -525,6 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6379d3e55bd94733b2889de095c7cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _foodHandTrm: {fileID: 628525015389921698}
   currentWaiterState: 0
   _stateChangeEvent: {fileID: 11400000, guid: a9760d8f690d5974c893811d83109b01, type: 2}
 --- !u!1 &7491125446201780054
@@ -557,7 +599,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6774465890442870761}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 59.999992, z: -8.975667}
 --- !u!1 &7551747547667458079
 GameObject:
   m_ObjectHideFlags: 0
