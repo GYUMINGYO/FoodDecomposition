@@ -72,14 +72,14 @@ namespace GM
             return default;
         }
 
-        public AnimationClip GetCurrentCookingTableAnimation()
+        public CookingTable GetCurrentCookingTable()
         {
             InteractableEntity interactableEntity;
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
             {
                 CookingTable cookingTable = interactableEntity as CookingTable;
-                return cookingTable.CookAnimation;
+                return cookingTable;
             }
 
             return default;

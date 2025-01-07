@@ -1,6 +1,8 @@
 using GM.Staffs;
 using System;
+using GM.CookWare;
 using GM.Entities;
+using GM.InteractableEntitys;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
@@ -12,10 +14,18 @@ public partial class SetRecipeAnimationActionAction : Action
 {
     [SerializeReference] public BlackboardVariable<Chef> Chef;
     [SerializeReference] public BlackboardVariable<EntityAnimator> EntityAnimator;
-
+    
     protected override Status OnStart()
     {
-        EntityAnimator.Value.SetCookingAnimation(Chef.Value.CurrentData.recipe.GetCurrentCookingTableAnimation());
+        // TODO : 일단 if문을 때우고 나중에 구조 잡기
+        
+        CookingTable cookingTable = Chef.Value.CurrentData.recipe.GetCurrentCookingTable();
+        if (cookingTable is Refrigerator refrigerator)
+        {
+            refrigerator.SetChef(Chef.Value);
+        }
+
+        EntityAnimator.Value.SetCookingAnimation(cookingTable.CookAnimation);
         return Status.Running;
     }
 }

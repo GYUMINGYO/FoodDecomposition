@@ -12,6 +12,7 @@ public partial class WaitForAnimationAction : Action
     [SerializeReference] public BlackboardVariable<EntityAnimatorTrigger> AnimationTrigger;
 
     private bool _isTriggered;
+    
     protected override Status OnStart()
     {
         _isTriggered = false;

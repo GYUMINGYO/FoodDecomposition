@@ -6,8 +6,7 @@ namespace GM
 {
     public class PieChart : MonoBehaviour
     {
-        // TODO : 이미지로 요리상태 표시
-        // TODO : 파이 차트 만들기
+        // TODO : 이미지로 요리상태 표시?
 
         [SerializeField] private Image _pieChartImage;
         [SerializeField] private GameObject _pieVisual;
@@ -24,7 +23,6 @@ namespace GM
         public void SetPieChart(int pieCount)
         {
             _pieChartImage.fillAmount = 0f;
-            // TODO : 이거 냉장고 애니메이션 추가하면 바꿔야 함
             _pieValue = 1f / pieCount;
             _pieVisual.SetActive(true);
         }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace GM.Entities
@@ -6,7 +7,7 @@ namespace GM.Entities
     {
         private Entity _entity;
         
-        [SerializeField] private AnimationClip _currentAnimationClip;
+        [SerializeField] private AnimationClip _originalChangeClip;
         
         private Animator _animator;
         private AnimatorOverrideController _animatorOverrideController;
@@ -21,8 +22,7 @@ namespace GM.Entities
 
         public void SetCookingAnimation(AnimationClip nextClip)
         {
-            _animatorOverrideController[_currentAnimationClip.name] = nextClip;
-            _currentAnimationClip = nextClip;
+            _animatorOverrideController[_originalChangeClip.name] = nextClip;
         }
     }
 }

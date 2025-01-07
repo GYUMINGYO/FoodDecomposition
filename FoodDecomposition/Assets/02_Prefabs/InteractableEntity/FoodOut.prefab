@@ -149,6 +149,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2401044562318961856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5557957391485161800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2701302715461162817}
+  m_Layer: 0
+  m_Name: FoodTrm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2701302715461162817
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557957391485161800}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2401044562318961856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5859311294905104040
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +189,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2401044562318961856}
-  - component: {fileID: 3513248459364275610}
+  - component: {fileID: 7444107388946735147}
   m_Layer: 0
   m_Name: FoodOut
   m_TagString: Untagged
@@ -182,9 +213,10 @@ Transform:
   - {fileID: 5698538099495779848}
   - {fileID: 8848623868602434119}
   - {fileID: 2314587753173969522}
+  - {fileID: 2701302715461162817}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3513248459364275610
+--- !u!114 &7444107388946735147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -193,12 +225,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5859311294905104040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2812f4df36351624d9ac3db1e40585f2, type: 3}
+  m_Script: {fileID: 11500000, guid: 2904731bcd0eff64eaa49818e4f887ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 4
   _senderTransform: {fileID: 8848623868602434119}
   _receiverTransform: {fileID: 2314587753173969522}
+  _foodTrm: {fileID: 2701302715461162817}
 --- !u!1 &6895093695809867427
 GameObject:
   m_ObjectHideFlags: 0
