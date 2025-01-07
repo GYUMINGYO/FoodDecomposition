@@ -8,10 +8,11 @@ using UnityEngine;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "SitChair", story: "[customer] sits on a [chair]", category: "Action", id: "8fea6602a0afc066868a92075dabf51d")]
+[NodeDescription(name: "SitChair", story: "[customer] sits on a [table] fornt [chair]", category: "Action", id: "8fea6602a0afc066868a92075dabf51d")]
 public partial class SitChairAction : Action
 {
     [SerializeReference] public BlackboardVariable<Customer> Customer;
+    [SerializeReference] public BlackboardVariable<Table> Table;
     [SerializeReference] public BlackboardVariable<Transform> Chair;
 
     private float _jumpPower = 0.7f;
@@ -19,7 +20,7 @@ public partial class SitChairAction : Action
 
     protected override Status OnStart()
     {
-        Chair.Value.GetComponentInParent<Table>().ChangeChairState(Chair.Value, true);
+        Table.Value.ChangeChairState(Chair.Value, true, Customer.Value);
 
         Vector3 movePos = Chair.Value.transform.position;
         movePos.y = Customer.Value.transform.position.y;

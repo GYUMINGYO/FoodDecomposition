@@ -1,10 +1,14 @@
+using GM;
+using GM.Staffs;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public struct SeatData
 {
+    public Customer customer;
     public NavMeshObstacle obstacle;
     public Transform foodPos;
     public bool isSit;
@@ -16,6 +20,7 @@ namespace GM
     {
         private Dictionary<Transform, SeatData> chairDictionary;
 
+        [SerializeField] private List<Transform> standTrmList;
         private Food foodObj;
 
         private void Awake()
@@ -27,6 +32,7 @@ namespace GM
             {
                 SeatData seatData = new SeatData
                 {
+                    customer = null,
                     obstacle = chairs[i].GetComponentInParent<NavMeshObstacle>(),
                     foodPos = chairs[i].GetChild(0),
                     isSit = false
@@ -36,7 +42,7 @@ namespace GM
             }
         }
 
-        public void ChangeChairState(Transform chairTrm, bool isSit)
+        public void ChangeChairState(Transform chairTrm, bool isSit, Customer customer = null)
         {
             if (chairDictionary.ContainsKey(chairTrm))
             {
@@ -44,6 +50,8 @@ namespace GM
 
                 seatData.obstacle.enabled = !isSit;
                 seatData.isSit = isSit;
+                if(isSit)
+                    seatData.customer = customer;
 
                 chairDictionary[chairTrm] = seatData;
             }
@@ -81,6 +89,48 @@ namespace GM
             seatData.isSit = true;
             chairDictionary[chair] = seatData;
             return chair;
+        }
+
+        public Transform GetWaiterStandTrm(Transform waiterTrm)
+        {
+            if (standTrmList.Count == 1)
+                return standTrmList[0];
+
+            Transform closeTrm = null;
+            float shorTime = Mathf.Infinity;
+
+            foreach (Transform standTrm in standTrmList)
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (NavMesh.CalculatePath(waiterTrm.position, standTrm.position, NavMesh.AllAreas, path))
+                {
+                    float pathLength = 0;
+                    for (int i = 1; i < path.corners.Length; i++)
+                    {
+                        pathLength += Vector3.Distance(path.corners[i - 1], path.corners[i]);
+                    }
+
+                    if (pathLength < shorTime)
+                    {
+                        shorTime = pathLength;
+                        closeTrm = standTrm;
+                    }
+                }
+            }
+
+            return closeTrm;
+        }
+
+        public Transform GetFoodPos(Customer customer)
+        {
+            foreach(var pair in chairDictionary)
+            {
+                if(pair.Value.customer == customer)
+                {
+                    return pair.Value.foodPos;
+                }
+            }
+            return null;
         }
     }
 }
