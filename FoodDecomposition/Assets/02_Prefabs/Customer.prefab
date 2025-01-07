@@ -235,11 +235,27 @@ MonoBehaviour:
   m_BlackboardVariableOverridesList:
   - rid: 8818507951928770561
   - rid: 8818507951928770562
-  - rid: 8818508179139985544
-  - rid: 8818508335819259954
+  - rid: 286774791516979263
+  - rid: 286774791516979264
   references:
     version: 2
     RefIds:
+    - rid: 286774791516979263
+      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 15186603887009484654
+          m_Value1: 2219988459707107098
+        Name: MainAnimator
+        m_Value: {fileID: 5969713079545553091}
+    - rid: 286774791516979264
+      type: {class: 'BlackboardVariable`1[[GM.SpeakBubble, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
+      data:
+        GUID:
+          m_Value0: 7611202756748973999
+          m_Value1: 995029968140138201
+        Name: SpeakBubble
+        m_Value: {fileID: 6337867729335167583}
     - rid: 8818507951928770561
       type: {class: 'BlackboardVariable`1[[UnityEngine.GameObject, UnityEngine.CoreModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -256,22 +272,6 @@ MonoBehaviour:
           m_Value1: 5351948129675254611
         Name: Customer
         m_Value: {fileID: 6148903818223718171}
-    - rid: 8818508179139985544
-      type: {class: 'BlackboardVariable`1[[GM.DebugBubble, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 7023851302064344122
-          m_Value1: 11467059966275114733
-        Name: DebugBubble
-        m_Value: {fileID: 6337867729335167583}
-    - rid: 8818508335819259954
-      type: {class: 'BlackboardVariable`1[[UnityEngine.Animator, UnityEngine.AnimationModule]]', ns: Unity.Behavior, asm: Unity.Behavior}
-      data:
-        GUID:
-          m_Value0: 15186603887009484654
-          m_Value1: 2219988459707107098
-        Name: MainAnimator
-        m_Value: {fileID: 5969713079545553091}
 --- !u!54 &2333094276111308904
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 2966575675268059697}
   - component: {fileID: 1909053839021876955}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: SpeakBubbleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -886,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9064733075855311425}
   - component: {fileID: 5969713079545553091}
+  - component: {fileID: 8645116094189408259}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -933,6 +934,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8645116094189408259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7279418236838198081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d37004add7adcba4bad396c95b34705a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7373624651459106367
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,7 +992,7 @@ GameObject:
   - component: {fileID: 282638811279845000}
   - component: {fileID: 6337867729335167583}
   m_Layer: 0
-  m_Name: DebugBubble
+  m_Name: SpeakBubble
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

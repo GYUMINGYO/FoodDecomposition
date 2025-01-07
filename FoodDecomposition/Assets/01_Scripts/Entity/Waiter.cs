@@ -40,7 +40,7 @@ namespace GM.Staffs
             else if (type == Enums.InteractableEntityType.Order)
             {
                 // TODO : 테이블 갖고 와서 테이블 위치로 바꾸기
-                return _currentData.orderCustomer.transform;
+                return _currentData.orderTable.GetWaiterStandTrm(transform);
             }
             else if (type == Enums.InteractableEntityType.FoodOut)
             {
