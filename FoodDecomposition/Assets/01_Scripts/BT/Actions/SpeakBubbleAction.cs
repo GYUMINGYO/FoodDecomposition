@@ -16,10 +16,10 @@ public enum SpeakBubbleType
 }
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "DebugBubble", story: "show [debugBubble] with a [message] of [type]", category: "Action", id: "1362a4e3ae67b3f9f2b3cedc92268f2d")]
-public partial class DebugBubbleAction : Action
+[NodeDescription(name: "DebugBubble", story: "show [speakBubble] with a [message] of [type]", category: "Action", id: "1362a4e3ae67b3f9f2b3cedc92268f2d")]
+public partial class SpeakBubbleAction : Action
 {
-    [SerializeReference] public BlackboardVariable<DebugBubble> DebugBubble;
+    [SerializeReference] public BlackboardVariable<SpeakBubble> SpeakBubble;
     [SerializeReference] public BlackboardVariable<string> Message;
     [SerializeReference] public BlackboardVariable<SpeakBubbleType> Type;
 
@@ -28,17 +28,17 @@ public partial class DebugBubbleAction : Action
         switch (this.Type.Value)
         {
             case SpeakBubbleType.message:
-                DebugBubble.Value.TextShow(Message.Value);
+                SpeakBubble.Value.TextShow(Message.Value);
                 break;
             case SpeakBubbleType.order:
-                DebugBubble.Value.OrderShow();
+                SpeakBubble.Value.OrderShow();
                 break;
             case SpeakBubbleType.wait:
                 break;
             case SpeakBubbleType.count:
                 break;
             case SpeakBubbleType.hide:
-                DebugBubble.Value.Hide();
+                SpeakBubble.Value.Hide();
                 break;
         }
 

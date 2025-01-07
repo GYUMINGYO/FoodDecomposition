@@ -14,6 +14,8 @@ namespace GM.Managers
 
         private Dictionary<Enums.InteractableEntityType, List<InteractableEntity>> _interactableEntityDictionary;
 
+        private float money = 0;
+
         public void Initialized()
         {
             TableList = new();
@@ -134,6 +136,12 @@ namespace GM.Managers
             }
 
             return false;
+        }
+
+        public void AddMoney(float money)
+        {
+            this.money += money;
+            ManagerHub.Instance.GetManager<UIManager>().SetMoneyUI(this.money);
         }
     }
 }

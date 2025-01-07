@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace GM
 {
-    public class DebugBubble : MonoBehaviour
+    public class SpeakBubble : MonoBehaviour
     {
         [SerializeField] private TextMeshPro text;
         [SerializeField] private Image image;

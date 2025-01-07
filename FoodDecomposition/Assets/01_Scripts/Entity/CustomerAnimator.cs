@@ -1,0 +1,21 @@
+using GM.Managers;
+using UnityEngine;
+
+namespace GM
+{
+    public class CustomerAnimator : MonoBehaviour
+    {
+        Customer customer;
+
+        private void Awake()
+        {
+            customer = GetComponentInParent<Customer>();
+        }
+
+        public void Count()
+        {
+            float price = customer.GetOrderData().recipe.sellPrice;
+            ManagerHub.Instance.GetManager<RestourantManager>().AddMoney(price);
+        }
+    }
+}
