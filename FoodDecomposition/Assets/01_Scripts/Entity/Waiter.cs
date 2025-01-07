@@ -27,7 +27,6 @@ namespace GM.Staffs
 
         public override Transform GetTarget(Enums.InteractableEntityType type)
         {
-            // TODO : Rest는 Staff 타입에 맞게 할당하기
             InteractableEntity moveTarget;
 
             if (type == Enums.InteractableEntityType.Rest)

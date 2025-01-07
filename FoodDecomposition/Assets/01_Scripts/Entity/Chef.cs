@@ -2,6 +2,7 @@ using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GM.Staffs
 {
@@ -10,6 +11,9 @@ namespace GM.Staffs
         public ChefState currentWaiterState;
         [SerializeField] private ChefStateChannel _stateChangeEvent;
 
+        public Transform FoodTrm => _foodTrm;
+        [SerializeField] private Transform _foodTrm;
+        
         protected override void InitializedBT()
         {
             base.InitializedBT();
@@ -27,7 +31,6 @@ namespace GM.Staffs
 
         public override Transform GetTarget(Enums.InteractableEntityType type)
         {
-            // TODO : Rest는 Staff 타입에 맞게 할당하기
             InteractableEntity moveTarget;
 
             if (type == Enums.InteractableEntityType.Rest)
@@ -42,7 +45,8 @@ namespace GM.Staffs
             {
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
-                    SharedTableEntity foodOut = moveTarget as SharedTableEntity;
+                    FoodOut foodOut = moveTarget as FoodOut;
+                    _myBTAgent.SetVariableValue("FoodTrm", foodOut.FoodTrm);
                     return foodOut.SenderTransform;
                 }
             }
