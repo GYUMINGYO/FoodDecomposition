@@ -24,6 +24,7 @@ namespace GM
         public float sellPrice;
         public float researchPrice;
         public bool unLock = false;
+        public Sprite icon;
         public PoolTypeSO poolType;
 
         [SerializeField] private List<Enums.InteractableEntityType> _cookingPathList = new List<Enums.InteractableEntityType>();

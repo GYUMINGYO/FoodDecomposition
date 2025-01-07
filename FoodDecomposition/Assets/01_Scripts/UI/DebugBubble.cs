@@ -8,21 +8,45 @@ namespace GM
     {
         [SerializeField] private TextMeshPro text;
         [SerializeField] private Image image;
+        [SerializeField] private Image iconImage;
 
+        private Customer customer;
+        private void Awake()
+        {
+            customer = transform.root.GetComponent<Customer>();
+        }
+
+        [ContextMenu("lookCamera")]
         private void Update()
         {
             transform.LookAt(Camera.main.transform);
         }
 
-        public void Show(string msg)
+        public void TextShow(string msg)
         {
-            image.enabled = true;
+            Show();
+
             text.text = msg;
+        }
+
+        public void OrderShow()
+        {
+            Show();
+
+            iconImage.enabled = true;
+            iconImage.sprite = customer.GetOrderData().recipe.icon;
+        }
+
+        private void Show()
+        {
+            Hide();
+            image.enabled = true;
         }
 
         public void Hide()
         {
             image.enabled = false;
+            iconImage.enabled = false;
             text.text = string.Empty;
         }
     }
