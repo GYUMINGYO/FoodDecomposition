@@ -1,16 +1,16 @@
 using DG.Tweening;
 using System;
+using GM.Entities;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
-using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "LookToTarget", story: "[self] looks at [target] for [duration] with [lookAt]", category: "Action", id: "bc23f46567b4bd64814a625ba0cb6bc7")]
+[NodeDescription(name: "LookToTarget", story: "[entity] looks at [target] for [duration] with [lookAt]", category: "Action", id: "bc23f46567b4bd64814a625ba0cb6bc7")]
 public partial class LookTargetAction : Action
 {
-    [SerializeReference] public BlackboardVariable<GameObject> Self;
+    [SerializeReference] public BlackboardVariable<Entity> Entity;
     [SerializeReference] public BlackboardVariable<Transform> Target;
     [SerializeReference] public BlackboardVariable<float> Duration;
     [SerializeReference] public BlackboardVariable<bool> LookAt;
@@ -21,20 +21,21 @@ public partial class LookTargetAction : Action
     {
         status = Status.Running;
 
-        Self.Value.GetComponent<NavMeshAgent>().velocity = Vector3.zero;
-
+        Entity.Value.NavAgent.velocity = Vector3.zero;
         Quaternion targetQuaternion;
+        
         if (LookAt == true)
         {
-            Vector3 dir = Target.Value.position - Self.Value.transform.position;
-            targetQuaternion = Quaternion.Euler(dir);
+            Debug.Log(Target.Value.name);
+            Vector3 direction = Target.Value.position - Entity.Value.transform.position;
+            targetQuaternion = Quaternion.LookRotation(direction);
         }
         else
         {
             targetQuaternion = Target.Value.rotation;
         }
 
-        Self.Value.transform.DORotateQuaternion(targetQuaternion, Duration.Value).SetEase(Ease.Linear)
+        Entity.Value.transform.DORotateQuaternion(targetQuaternion, Duration.Value).SetEase(Ease.Linear)
             .OnComplete(() => status = Status.Success);
 
         return Status.Running;
