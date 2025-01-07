@@ -15,8 +15,8 @@ public partial class MakeRecipeFoodAction : Action
     protected override Status OnStart()
     {
         Food food = SingletonePoolManager.Instance.Pop(Chef.Value.CurrentData.recipe.poolType) as Food;
-        food.transform.position = Chef.Value.FoodTrm.position;
-        food.transform.parent = Chef.Value.FoodTrm;
+        food.transform.position = Chef.Value.FoodHandTrm.position;
+        food.transform.parent = Chef.Value.FoodHandTrm;
         return Status.Running;
     }
 }

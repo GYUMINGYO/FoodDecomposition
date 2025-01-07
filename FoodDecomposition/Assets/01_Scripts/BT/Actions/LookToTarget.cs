@@ -27,6 +27,7 @@ public partial class LookTargetAction : Action
         if (LookAt == true)
         {
             Vector3 direction = Target.Value.position - Entity.Value.transform.position;
+            direction.y = 0;
             targetQuaternion = Quaternion.LookRotation(direction);
         }
         else

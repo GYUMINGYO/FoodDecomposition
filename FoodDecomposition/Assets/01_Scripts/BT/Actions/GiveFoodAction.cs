@@ -1,22 +1,21 @@
+using GM.Entities;
 using GM.Staffs;
 using System;
 using DG.Tweening;
-using GM.Entities;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "GetFood", story: "[waiter] get food of [foodTrm] with [animationTrigger] and [duration]", category: "Action", id: "ccb2e62da11c583649de765aa614dec9")]
-public partial class GetFoodAction : Action
+[NodeDescription(name: "GiveFood", story: "[waiter] give food with [animationTrigger] and [duration]", category: "Action", id: "aeacfc1ffaf5865bcd0446d18642713b")]
+public partial class GiveFoodAction : Action
 {
-    // TODO : 이거 쉐프 음식 두는 거랑 겹친다 수정하셈
     [SerializeReference] public BlackboardVariable<Waiter> Waiter;
-    [SerializeReference] public BlackboardVariable<Transform> FoodTrm;
     [SerializeReference] public BlackboardVariable<EntityAnimatorTrigger> AnimationTrigger;
     [SerializeReference] public BlackboardVariable<float> Duration;
 
+    private Transform _tableFoodTrm;
     private bool _isTriggered;
     private Sequence _sequence;
     
@@ -25,6 +24,7 @@ public partial class GetFoodAction : Action
         _isTriggered = false;
         AnimationTrigger.Value.OnAnimationEnd += HandleAnimationEnd;
         AnimationTrigger.Value.OnEventAnimationEnd += HandleEventAnimationEnd;
+        _tableFoodTrm = Waiter.Value.CurrentData.orderTable.GetFoodPos(Waiter.Value.CurrentData.orderCustomer);
         return Status.Running;
     }
 
@@ -42,13 +42,13 @@ public partial class GetFoodAction : Action
 
     private void HandleEventAnimationEnd()
     {
-        Transform food = FoodTrm.Value.GetChild(0);
+        Transform food = Waiter.Value.FoodHandTrm.GetChild(0);
         _sequence = DOTween.Sequence().OnStart(() =>
             {
-                food.DOMove(Waiter.Value.FoodHandTrm.position, Duration.Value);
-                food.parent = Waiter.Value.FoodHandTrm;
+                food.DOMove(_tableFoodTrm.position, Duration.Value);
+                food.parent = _tableFoodTrm;
             })
-            .Join(food.DORotateQuaternion(Waiter.Value.FoodHandTrm.rotation, Duration.Value));
+            .Join(food.DORotateQuaternion(_tableFoodTrm.rotation, Duration.Value));
     }
     
     private void HandleAnimationEnd()
