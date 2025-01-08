@@ -2,7 +2,6 @@ using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace GM.Staffs
 {
@@ -10,9 +9,6 @@ namespace GM.Staffs
     {
         public ChefState currentWaiterState;
         [SerializeField] private ChefStateChannel _stateChangeEvent;
-
-        public Transform FoodTrm => _foodTrm;
-        [SerializeField] private Transform _foodTrm;
         
         protected override void InitializedBT()
         {

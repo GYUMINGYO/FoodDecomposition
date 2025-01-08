@@ -39,14 +39,16 @@ namespace GM.Staffs
             }
             else if (type == Enums.InteractableEntityType.Order)
             {
-                // TODO : 테이블 갖고 와서 테이블 위치로 바꾸기
+                _myBTAgent.SetVariableValue("OrderCustomerTrm", _currentData.orderCustomer.transform);
                 return _currentData.orderTable.GetWaiterStandTrm(transform);
             }
             else if (type == Enums.InteractableEntityType.FoodOut)
             {
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
-                    SharedTableEntity foodOut = moveTarget as SharedTableEntity;
+                    FoodOut foodOut = moveTarget as FoodOut;
+                    _myBTAgent.SetVariableValue("FoodTrm", foodOut.FoodTrm);
+                    _myBTAgent.SetVariableValue("TableFoodTrm", _currentData.orderTable.GetFoodPos(_currentData.orderCustomer));
                     return foodOut.ReceiverTransform;
                 }
             }
@@ -61,7 +63,7 @@ namespace GM.Staffs
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
-                SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
+                SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity; 
                 return singleTableEntity.EntityTransform;
             }
 
