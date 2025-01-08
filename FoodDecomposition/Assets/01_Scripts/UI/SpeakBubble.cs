@@ -80,6 +80,7 @@ namespace GM
             isWaiting = true;
 
             customer.customerExitEvent?.Invoke();
+            customer.IsOut = true;
         }
 
         private void Show()

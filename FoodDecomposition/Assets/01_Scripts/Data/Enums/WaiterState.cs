@@ -9,5 +9,6 @@ namespace GM
         ORDER,
         COUNT,
         SERVING,
+        FoodTrash
     }
 }
