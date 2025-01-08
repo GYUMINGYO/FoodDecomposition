@@ -1,11 +1,12 @@
+using DG.Tweening;
+using GM;
 using GM.Entities;
 using GM.Staffs;
 using System;
-using DG.Tweening;
 using Unity.Behavior;
+using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
-using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "GiveFood", story: "[waiter] give food with [animationTrigger] and [duration]", category: "Action", id: "aeacfc1ffaf5865bcd0446d18642713b")]
@@ -18,13 +19,19 @@ public partial class GiveFoodAction : Action
     private Transform _tableFoodTrm;
     private bool _isTriggered;
     private Sequence _sequence;
-    
+    private Table table;
+    private Customer customer;
+
     protected override Status OnStart()
     {
         _isTriggered = false;
         AnimationTrigger.Value.OnAnimationEnd += HandleAnimationEnd;
         AnimationTrigger.Value.OnEventAnimationEnd += HandleEventAnimationEnd;
-        _tableFoodTrm = Waiter.Value.CurrentData.orderTable.GetFoodPos(Waiter.Value.CurrentData.orderCustomer);
+
+        table = Waiter.Value.CurrentData.orderTable;
+        customer = Waiter.Value.CurrentData.orderCustomer;
+        _tableFoodTrm = table.GetFoodPos(customer);
+
         return Status.Running;
     }
 
@@ -47,10 +54,11 @@ public partial class GiveFoodAction : Action
             {
                 food.DOMove(_tableFoodTrm.position, Duration.Value);
                 food.parent = _tableFoodTrm;
+                table.PutFood(customer, food.gameObject);
             })
             .Join(food.DORotateQuaternion(_tableFoodTrm.rotation, Duration.Value));
     }
-    
+
     private void HandleAnimationEnd()
     {
         _isTriggered = true;

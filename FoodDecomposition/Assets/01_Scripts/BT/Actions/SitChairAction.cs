@@ -5,6 +5,7 @@ using System;
 using Unity.Behavior;
 using Unity.Properties;
 using UnityEngine;
+using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]

@@ -9,8 +9,8 @@ using UnityEngine.UIElements;
 public struct SeatData
 {
     public Customer customer;
-    public NavMeshObstacle obstacle;
     public Transform foodPos;
+    public Food food;
     public bool isSit;
 }
 
@@ -31,8 +31,8 @@ namespace GM
                 SeatData seatData = new SeatData
                 {
                     customer = null,
-                    obstacle = chairs[i].GetComponentInParent<NavMeshObstacle>(),
                     foodPos = chairs[i].GetChild(0),
+                    food = null,
                     isSit = false
                 };
 
@@ -46,10 +46,12 @@ namespace GM
             {
                 SeatData seatData = chairDictionary[chairTrm];
 
-                seatData.obstacle.enabled = !isSit;
                 seatData.isSit = isSit;
                 if(isSit)
+                {
                     seatData.customer = customer;
+                }
+                seatData.customer.GetComponent<NavMeshAgent>().enabled = !isSit;
 
                 chairDictionary[chairTrm] = seatData;
             }
@@ -113,6 +115,34 @@ namespace GM
                 }
             }
             return null;
+        }
+
+        public void PutFood(Customer customer, GameObject foodObj)
+        {
+            foreach (var pair in chairDictionary)
+            {
+                if (pair.Value.customer == customer)
+                {
+                    SeatData data = pair.Value;
+                    data.food = foodObj.GetComponent<Food>();
+                    chairDictionary[pair.Key] = data;
+                    return;
+                }
+            }
+
+            //test
+            RemoveFood(customer);
+        }
+
+        public void RemoveFood(Customer customer)
+        {
+            foreach (var pair in chairDictionary)
+            {
+                if (pair.Value.customer == customer)
+                {
+                    SingletonePoolManager.Instance.Push(pair.Value.food);
+                }
+            }
         }
     }
 }
