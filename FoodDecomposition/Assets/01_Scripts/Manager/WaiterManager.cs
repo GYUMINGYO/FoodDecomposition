@@ -54,7 +54,11 @@ namespace GM.Managers
             if (waiterList.Count <= 0) return;
 
             // TODO : counter는 연속 처리 되게 만들어야 함
-            if (_counterList.Count > 0 && !isTest)
+            if (_servingList.Count > 0)
+            {
+                CheckWorking()?.StartWork(WaiterState.SERVING, DequeueOrderData(OrderType.Serving));
+            }
+            else if (_counterList.Count > 0 && !isTest)
             {
                 var waiter = waiterList.Where(x => x.IsWorking == true && x.currentWaiterState == WaiterState.COUNT);
                 if (waiter.Count() <= 0)
@@ -73,10 +77,6 @@ namespace GM.Managers
             else if (_orderList.Count > 0)
             {
                 CheckWorking()?.StartWork(WaiterState.ORDER, DequeueOrderData(OrderType.Order));
-            }
-            else if (_servingList.Count > 0)
-            {
-                CheckWorking()?.StartWork(WaiterState.SERVING, DequeueOrderData(OrderType.Serving));
             }
         }
 

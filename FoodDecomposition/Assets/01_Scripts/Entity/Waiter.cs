@@ -1,3 +1,4 @@
+using System;
 using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
@@ -9,6 +10,8 @@ namespace GM.Staffs
     {
         public WaiterState currentWaiterState;
         [SerializeField] private WaiterStateChange _stateChangeEvent;
+
+        private bool _isFoodTrash;
 
         protected override void InitializedBT()
         {
@@ -22,7 +25,27 @@ namespace GM.Staffs
             currentWaiterState = workType;
             _currentData = data;
             _stateChangeEvent.SendEventMessage(workType);
+            _currentData.orderCustomer.customerExitEvent += HandleExitEvent;
             _isWorking = true;
+        }
+
+        private void Update()
+        {
+            if (_isFoodTrash == true)
+            {
+                Debug.Log("음식 버리러 가기");
+                _stateChangeEvent.SendEventMessage(WaiterState.FoodTrash);
+                _isFoodTrash = false;
+            }
+        }
+
+        public override void FinishWork()
+        {
+            if (_currentData.orderCustomer != null)
+            {
+                _currentData.orderCustomer.customerExitEvent -= HandleExitEvent;
+            }
+            base.FinishWork();
         }
 
         public override Transform GetTarget(Enums.InteractableEntityType type)
@@ -39,6 +62,10 @@ namespace GM.Staffs
             }
             else if (type == Enums.InteractableEntityType.Order)
             {
+                if (_currentData.orderCustomer.IsOut == true)
+                {
+                    _stateChangeEvent.SendEventMessage(WaiterState.FoodTrash);
+                }
                 _myBTAgent.SetVariableValue("OrderCustomerTrm", _currentData.orderCustomer.transform);
                 return _currentData.orderTable.GetWaiterStandTrm(transform);
             }
@@ -60,6 +87,16 @@ namespace GM.Staffs
                     return foodOut.SenderTransform;
                 }
             }
+            else if (type == Enums.InteractableEntityType.FoodTrashContainer)
+            {
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+                {
+                    FoodTrashContainer foodTrash = moveTarget as FoodTrashContainer;
+                    _myBTAgent.SetVariableValue("FoodTrashTrm", foodTrash.FoodTrashTransform);
+                    _isWorking = true;
+                    return foodTrash.EntityTransform;
+                }
+            }
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
@@ -68,6 +105,12 @@ namespace GM.Staffs
             }
 
             return null;
+        }
+
+        private void HandleExitEvent()
+        {
+            Debug.Log("손님 나감");
+            _isFoodTrash = true;
         }
     }
 }

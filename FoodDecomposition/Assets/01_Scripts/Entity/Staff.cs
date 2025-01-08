@@ -52,7 +52,7 @@ namespace GM.Staffs
             variable.Value = value;
         }
 
-        public void FinishWork()
+        public virtual void FinishWork()
         {
             _isWorking = false;
         }

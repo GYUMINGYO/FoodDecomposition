@@ -13,6 +13,7 @@ public static class Enums
         Rest,
         Counter,
         FoodOut,
+        FoodTrashContainer,
 
         // CookWare
         Refrigerator,
