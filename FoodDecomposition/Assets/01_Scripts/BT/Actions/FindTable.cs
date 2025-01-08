@@ -18,7 +18,7 @@ public partial class FindChairAction : Action
     {
         if(Exit.Value == null)
         {
-            Exit.Value = MapManager.Instance.ExitTrm;
+            Exit.Value = ManagerHub.Instance.GetManager<MapManager>().ExitTrm;
         }
 
         Table.Value = ManagerHub.Instance.GetManager<RestourantManager>().GetTable();

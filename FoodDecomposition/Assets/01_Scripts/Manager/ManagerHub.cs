@@ -59,8 +59,20 @@ namespace GM.Managers
             {
                 try
                 {
-                    var manager = Activator.CreateInstance(type) as IManagerable;
-                    _managers.TryAdd(type, manager);
+                    IManagerable manager;
+                    if (typeof(MonoBehaviour).IsAssignableFrom(type))
+                    {
+                        manager = GetComponent(type) as IManagerable;
+                    }
+                    else
+                    {
+                        manager = Activator.CreateInstance(type) as IManagerable;
+                    }
+
+                    if (manager != null)
+                    {
+                        _managers.TryAdd(type, manager);
+                    }
                 }
                 catch (Exception ex)
                 {

@@ -1,3 +1,4 @@
+using GM.Managers;
 using System.Collections;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ namespace GM
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
 
+        private float time = 0;
+
         private void Start()
         {
             StartCoroutine(CustomerSpawnCoroutine());
@@ -18,13 +21,28 @@ namespace GM
         
         private IEnumerator CustomerSpawnCoroutine()
         {
+            time = Time.time;
             while (true)
             {
                 float spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
-                yield return new WaitForSeconds(spawnTime);
+                float timer = 0;
+                while (timer <= spawnTime)
+                {
+                    timer += Time.deltaTime;
+                    if(ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
+                    {
+                        yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<MapManager>().IsSeatFull);
+                        timer = 0;
+                        time = Time.time;
+                    }
+
+                    yield return null;
+                }
 
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
+
+                time = Time.time;
             }
         }
     }
