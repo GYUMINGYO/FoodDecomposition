@@ -5,7 +5,8 @@ namespace GM
 {
     public class CustomerAnimator : MonoBehaviour
     {
-        Customer customer;
+        [SerializeField] private MoneyText moneyText;
+        private Customer customer;
 
         private void Awake()
         {
@@ -16,6 +17,7 @@ namespace GM
         {
             float price = customer.GetOrderData().recipe.sellPrice;
             ManagerHub.Instance.GetManager<RestourantManager>().AddMoney(price);
+            moneyText.UpText(price);
         }
     }
 }
