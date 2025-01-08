@@ -1,3 +1,4 @@
+using GM.Managers;
 using System.Collections;
 using UnityEngine;
 
@@ -22,6 +23,12 @@ namespace GM
             {
                 float spawnTime = Random.Range(minSpawnTime, maxSpawnTime);
                 yield return new WaitForSeconds(spawnTime);
+
+                if(ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
+                {
+                    yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<MapManager>().IsSeatFull);
+                    yield return new WaitForSeconds(spawnTime);
+                }
 
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
