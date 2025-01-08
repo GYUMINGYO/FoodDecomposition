@@ -172,10 +172,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 411194977}
     m_Modifications:
-    - target: {fileID: 399917805932093356, guid: 4b5213cd3bec04d44a92a41913863bda, type: 3}
-      propertyPath: _cookAnimation
-      value: 
-      objectReference: {fileID: 7400000, guid: 6d560071669fba94b9c40f8c02ad9786, type: 2}
     - target: {fileID: 2153449779505544118, guid: 4b5213cd3bec04d44a92a41913863bda, type: 3}
       propertyPath: m_Name
       value: Stove_single
@@ -598,10 +594,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: KitchenTable_Sink
       objectReference: {fileID: 0}
-    - target: {fileID: 6263137113087538206, guid: 14b0e55134d257f49b8bb01feccd858e, type: 3}
-      propertyPath: _cookAnimation
-      value: 
-      objectReference: {fileID: 7400000, guid: 6d560071669fba94b9c40f8c02ad9786, type: 2}
     - target: {fileID: 8221395636925172274, guid: 14b0e55134d257f49b8bb01feccd858e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -704,30 +696,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CuttingBoardTable
       objectReference: {fileID: 0}
-    - target: {fileID: 4991585753460807631, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991585753460807631, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991585753460807631, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991585753460807631, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4991585753460807631, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 7396022216985635529, guid: 843f9a1be6bbb514583f3141268d35ea, type: 3}
-      propertyPath: _cookAnimation
-      value: 
-      objectReference: {fileID: 7400000, guid: 6d560071669fba94b9c40f8c02ad9786, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2901,18 +2869,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Refrigerator
       objectReference: {fileID: 0}
-    - target: {fileID: 1460779365370848282, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460779365370848282, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1460779365370848282, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4734348464133612475, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -2952,10 +2908,6 @@ PrefabInstance:
     - target: {fileID: 4734348464133612475, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9048074842376951992, guid: f62397c41c84bb84bba96dc3845793d5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6106,6 +6058,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4625329672522283191, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5315113107584370322, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
       propertyPath: m_Camera
       value: 
@@ -6113,6 +6069,34 @@ PrefabInstance:
     - target: {fileID: 6364070335064377634, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
       propertyPath: m_Name
       value: Chef
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579330636084258944, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809092473210377056, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809092473210377056, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6809092473210377056, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 45.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043692584697745629, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043692584697745629, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043692584697745629, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7403427531689753955, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
       propertyPath: m_LocalPosition.x
