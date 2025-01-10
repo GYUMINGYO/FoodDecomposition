@@ -2,7 +2,6 @@ using GM.Data;
 using GM.Entities;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Unity.Behavior;
 using UnityEngine;
 using Action = System.Action;
@@ -36,6 +35,7 @@ namespace GM
         [SerializeField] private SkinnedMeshRenderer headRenderer;
         [SerializeField] private SkinnedMeshRenderer bodyRenderer;
 
+        public OrderData OrderData => _orderData;
         private OrderData _orderData;
         private bool isWait = false;
         private bool isLine = false;
@@ -45,8 +45,6 @@ namespace GM
         public GameObject GameObject => gameObject;
 
         public bool isTest = false;
-        
-        public bool IsOut { get; set; }
 
         protected override void Awake()
         {
@@ -73,7 +71,6 @@ namespace GM
             SetMesh();
             SetWait(false);
             transform.rotation = Quaternion.Euler(0, 180, 0);
-            IsOut = false;
         }
 
         private void SetMesh()

@@ -78,9 +78,8 @@ namespace GM
 
             waitSlider.value = 0;
             isWaiting = true;
-
-            customer.customerExitEvent?.Invoke();
-            customer.IsOut = true;
+            
+            customer.OrderData.isCustomerOut = true;
         }
 
         private void Show()

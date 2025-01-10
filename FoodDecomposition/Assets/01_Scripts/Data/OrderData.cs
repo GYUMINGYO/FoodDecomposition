@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace GM.Data
 {
     public enum OrderType
@@ -8,11 +10,12 @@ namespace GM.Data
         Serving
     }
 
-    public struct OrderData
+    public class OrderData
     {
         public Table orderTable;
         public Customer orderCustomer;
         public OrderType type;
         public Recipe recipe;
+        public bool isCustomerOut;
     }
 }
