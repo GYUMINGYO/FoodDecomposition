@@ -6,20 +6,33 @@ namespace GM
 {
     public class MoneyText : MonoBehaviour
     {
-        [SerializeField] private TextMeshProUGUI moneyText;
         [SerializeField] private float duration = 0.5f;
+        private TextMeshPro moneyText;
+
+        private void Awake()
+        {
+            moneyText = GetComponent<TextMeshPro>();
+        }
 
         public void UpText(float price)
         {
-            moneyText.text = price.ToString();
+            Transform parent = transform.parent;
+            transform.parent = null;
+            transform.position = new Vector3(parent.position.x, transform.position.y, parent.position.z);
 
-            moneyText.transform.localPosition = new Vector3(0, -100, 0);
+            moneyText.text = "+" + price.ToString();
             moneyText.enabled = true;
 
             moneyText.transform
-                .DOLocalMoveY(100, duration)
+                .DOMoveY(transform.position.y + 2, duration)
                 .SetEase(Ease.OutCubic)
-                .OnComplete(() => moneyText.enabled = false);
+                .OnComplete(() =>
+                {
+                    moneyText.enabled = false;
+                    transform.parent = parent;
+                    transform.localPosition = new Vector3(0, 3, 0);
+                    transform.localRotation = Quaternion.identity;
+                });
         }
     }
 }
