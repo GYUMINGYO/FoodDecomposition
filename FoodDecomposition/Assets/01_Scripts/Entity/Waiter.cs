@@ -84,7 +84,7 @@ namespace GM.Staffs
 
         public void ChangeStatePriority(OrderType workType)
         {
-            Debug.Log(transform.name);
+            // TODO : WorkPriority 순서 바꾸기 로직
             Debug.Log(workType);
         }
     }

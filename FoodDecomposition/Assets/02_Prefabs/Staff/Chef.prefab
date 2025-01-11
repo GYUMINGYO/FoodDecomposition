@@ -588,6 +588,7 @@ GameObject:
   - component: {fileID: 335948896275611566}
   - component: {fileID: 6928262414721968056}
   - component: {fileID: 2660943399462966928}
+  - component: {fileID: 3672523670282927114}
   m_Layer: 8
   m_Name: Chef
   m_TagString: Untagged
@@ -720,6 +721,29 @@ MonoBehaviour:
   _foodHandTrm: {fileID: 3505561630977843576}
   currentWaiterState: 0
   _stateChangeEvent: {fileID: 11400000, guid: 26845b6a5816cb74395b8df56afd1ed7, type: 2}
+--- !u!136 &3672523670282927114
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364070335064377634}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2.8
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.4, z: 0}
 --- !u!1 &6628909219209083486
 GameObject:
   m_ObjectHideFlags: 0
