@@ -39,6 +39,7 @@ namespace GM.Players.Pickers
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.cyan;
+            if (_player == null) return;
             Gizmos.DrawRay(Camera.main.ScreenPointToRay(_player.Input.MousePosition));
         }
     }
