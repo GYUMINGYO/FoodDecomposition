@@ -1,41 +1,55 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReaderSO")]
-public class InputReaderSO : ScriptableObject, InputSystem_Actions.IPlayerActions
+public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions
 {
-    private InputSystem_Actions _inputSystem_Actions;
-    public Vector3 Movement => movement;
+    private Controlls _controlls;
 
-    private Vector3 movement;
+    public event Action OnPickEvent;
+
+    public Vector3 Movement => _movement;
+    private Vector3 _movement;
+
+    public Vector3 MousePosition => _mousePosition;
+    private Vector3 _mousePosition;
 
     private void OnEnable()
     {
-        if (_inputSystem_Actions == null)
+        if (_controlls == null)
         {
-            _inputSystem_Actions = new InputSystem_Actions();
-            _inputSystem_Actions.Player.SetCallbacks(this);
+            _controlls = new Controlls();
+            _controlls.Player.SetCallbacks(this);
         }
-        _inputSystem_Actions.Enable();
+        _controlls.Enable();
     }
 
     private void OnDisable()
     {
-        _inputSystem_Actions.Disable();
+        _controlls.Disable();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        movement = context.ReadValue<Vector3>();
+        _movement = context.ReadValue<Vector3>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-
+        _mousePosition = context.ReadValue<Vector3>();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
 
+    }
+
+    public void OnPick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnPickEvent?.Invoke();
+        }
     }
 }

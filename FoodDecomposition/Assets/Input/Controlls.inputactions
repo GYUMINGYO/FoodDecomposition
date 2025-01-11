@@ -1,5 +1,5 @@
 {
-    "name": "InputSystem_Actions",
+    "name": "Controlls",
     "maps": [
         {
             "name": "Player",
@@ -30,6 +30,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Hold",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pick",
+                    "type": "Button",
+                    "id": "80fbe839-55a5-40e9-a79a-773b518ae6fa",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
                     "initialStateCheck": false
                 }
             ],
@@ -152,6 +161,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbe65015-269e-477c-8dc5-7ad968fd0a67",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
