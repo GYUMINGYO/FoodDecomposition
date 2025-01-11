@@ -9,11 +9,11 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions
 
     public event Action OnPickEvent;
 
-    public Vector3 Movement => _movement;
-    private Vector3 _movement;
+    public Vector2 Movement => _movement;
+    private Vector2 _movement;
 
-    public Vector3 MousePosition => _mousePosition;
-    private Vector3 _mousePosition;
+    public Vector2 MousePosition => _mousePosition;
+    private Vector2 _mousePosition;
 
     private void OnEnable()
     {
@@ -32,12 +32,12 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        _movement = context.ReadValue<Vector3>();
+        _movement = context.ReadValue<Vector2>();
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        _mousePosition = context.ReadValue<Vector3>();
+        _mousePosition = context.ReadValue<Vector2>();
     }
 
     public void OnInteract(InputAction.CallbackContext context)
