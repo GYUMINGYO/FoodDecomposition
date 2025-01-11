@@ -25,7 +25,7 @@ namespace GM
         Exit
     }
 
-    public class Customer : Entity, IPoolable
+    public class Customer : Unit, IPoolable
     {
         public Action customerExitEvent;
 

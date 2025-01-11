@@ -11,7 +11,7 @@ namespace GM.Staffs
         Chef
     }
 
-    public abstract class Staff : Entity
+    public abstract class Staff : Unit
     {
         // TODO : 직원 스탯
         public bool IsWorking => _isWorking;
@@ -19,10 +19,10 @@ namespace GM.Staffs
 
         public OrderData CurrentData => _currentData;
         protected OrderData _currentData;
-        
+
         public Transform FoodHandTrm => _foodHandTrm;
         [SerializeField] protected Transform _foodHandTrm;
-        
+
         protected BehaviorGraphAgent _myBTAgent;
 
         protected override void Awake()

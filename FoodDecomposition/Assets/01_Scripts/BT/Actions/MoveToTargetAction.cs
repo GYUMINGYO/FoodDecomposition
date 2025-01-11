@@ -7,18 +7,18 @@ using UnityEngine.AI;
 using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
-[NodeDescription(name: "MoveToTarget", story: "[entity] move to [target]", category: "Action", id: "d0d3edfff31fee69d64e268c987e512f")]
+[NodeDescription(name: "MoveToTarget", story: "[unit] move to [target]", category: "Action", id: "d0d3edfff31fee69d64e268c987e512f")]
 public partial class MoveToTargetAction : Action
 {
-    [SerializeReference] public BlackboardVariable<Entity> Entity;
+    [SerializeReference] public BlackboardVariable<Unit> Unit;
     [SerializeReference] public BlackboardVariable<Transform> Target;
 
     private NavMeshAgent _navMeshAgent;
 
     protected override Status OnStart()
     {
-        Entity.Value.SetMovement(Target.Value);
-        _navMeshAgent = Entity.Value.NavAgent;
+        Unit.Value.SetMovement(Target.Value);
+        _navMeshAgent = Unit.Value.NavAgent;
 
         if (_navMeshAgent == null)
         {

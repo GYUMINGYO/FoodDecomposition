@@ -2,25 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 namespace GM.Entities
 {
-    [RequireComponent(typeof(NavMeshAgent))]
     public abstract class Entity : MonoBehaviour
     {
         protected Dictionary<Type, IEntityComponent> _components;
 
-        public NavMeshAgent NavAgent => _navAgent;
-        protected NavMeshAgent _navAgent;
-
-        public bool CanManualMove => _canManualMove;
-        protected bool _canManualMove = false;
-
         protected virtual void Awake()
         {
-            _navAgent = GetComponent<NavMeshAgent>();
-
             _components = new Dictionary<Type, IEntityComponent>();
             AddComponentToDictionary();
             ComponentInitialize();
@@ -63,22 +53,5 @@ namespace GM.Entities
         }
 
         #endregion
-
-        /// <summary>
-        /// Set Movement Destination
-        /// </summary>
-        /// <param name="targetTrm">target Transform to move</param>
-        public virtual void SetMovement(Transform targetTrm)
-        {
-            _navAgent.SetDestination(targetTrm.position);
-        }
-
-        /// <summary>
-        /// Move Stop
-        /// </summary>
-        public void StopImmediately()
-        {
-            _navAgent.isStopped = true;
-        }
     }
 }
