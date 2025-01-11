@@ -10,8 +10,6 @@ namespace GM.Staffs
         public WaiterState currentWaiterState;
         [SerializeField] private WaiterStateChange _stateChangeEvent;
 
-        private bool _isFoodTrash;
-
         protected override void InitializedBT()
         {
             base.InitializedBT();
@@ -23,8 +21,8 @@ namespace GM.Staffs
         {
             currentWaiterState = workType;
             _currentData = data;
-            _stateChangeEvent.SendEventMessage(workType);
             _isWorking = true;
+            _stateChangeEvent.SendEventMessage(workType);
         }
 
         public override Transform GetTarget(Enums.InteractableEntityType type)
@@ -75,11 +73,19 @@ namespace GM.Staffs
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
-                SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity; 
+                SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
                 return singleTableEntity.EntityTransform;
             }
 
             return null;
+        }
+
+        public OrderType[] WorkPriority = { OrderType.Serving, OrderType.Count, OrderType.Order };
+
+        public void ChangeStatePriority(OrderType workType)
+        {
+            Debug.Log(transform.name);
+            Debug.Log(workType);
         }
     }
 }

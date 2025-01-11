@@ -2,41 +2,33 @@ using GM.Data;
 using GM.Staffs;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 
 namespace GM.Managers
 {
     public class WaiterManager : IManagerable, IManagerUpdateable
     {
-        public List<Waiter> waiterList;
-        private Queue<OrderData> _orderList;
-        private Queue<OrderData> _counterList;
-        private Queue<OrderData> _servingList;
+        private List<Waiter> _waiterList;
+        private LinkedList<OrderData> _orderList;
 
         private bool isTest = false;
 
-        // TODO : 지금 생각해보니까 굳이 타입을 나눠서 저장할 필요도 없을 거 같은데
-        // * 탐색만 잘해서 하면 되지 않나? => 링큐는 느리긴한데 -> 괜찮지 않을까? (그렇게 성능 저하가 심할려나?)
-
         public void Initialized()
         {
-            waiterList = new List<Waiter>();
-            _orderList = new Queue<OrderData>();
-            _counterList = new Queue<OrderData>();
-            _servingList = new Queue<OrderData>();
+            _waiterList = new List<Waiter>();
+            _orderList = new LinkedList<OrderData>();
 
             foreach (var waiter in MonoBehaviour.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
             {
-                waiterList.Add(waiter);
+                _waiterList.Add(waiter);
             }
         }
 
         public void Clear()
         {
-            waiterList.Clear();
+            _waiterList.Clear();
             _orderList.Clear();
-            _counterList.Clear();
-            _servingList.Clear();
         }
 
         public void Update()
@@ -49,70 +41,6 @@ namespace GM.Managers
             GiveWork();
         }
 
-        private void GiveWork()
-        {
-            if (waiterList.Count <= 0) return;
-
-            // TODO : counter는 연속 처리 되게 만들어야 함
-            if (_servingList.Count > 0)
-            {
-                CheckWorking()?.StartWork(WaiterState.SERVING, DequeueOrderData(OrderType.Serving));
-            }
-            else if (_counterList.Count > 0 && !isTest)
-            {
-                var waiter = waiterList.Where(x => x.IsWorking == true && x.currentWaiterState == WaiterState.COUNT);
-                if (waiter.Count() <= 0)
-                {
-                    // 현재 계산을 하고 있는 직원이 없다
-                    CheckWorking()?.StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
-                }
-                else
-                {
-                    if (waiter.First().IsWorking == false)
-                    {
-                        waiter.First().StartWork(WaiterState.COUNT, DequeueOrderData(OrderType.Count));
-                    }
-                }
-            }
-            else if (_orderList.Count > 0)
-            {
-                CheckWorking()?.StartWork(WaiterState.ORDER, DequeueOrderData(OrderType.Order));
-            }
-        }
-
-        private Waiter CheckWorking() =>
-            waiterList.FirstOrDefault(x => x.IsWorking == false);
-
-        public OrderData DequeueOrderData(OrderType type)
-        {
-            switch (type)
-            {
-                case OrderType.Order:
-                    return DequeueOrderListData(_orderList);
-                case OrderType.Count:
-                    return DequeueOrderListData(_counterList);
-                case OrderType.Serving:
-                    return DequeueOrderListData(_servingList);
-                default:
-                    return default;
-            }
-        }
-
-        /// <summary>
-        /// Get Data for WaiterManager Field Queue
-        /// </summary>
-        /// <param name="list">Ordet data Queue</param>
-        /// <returns></returns>
-        private OrderData DequeueOrderListData(Queue<OrderData> list)
-        {
-            if (list.Count <= 0)
-            {
-                return default;
-            }
-
-            return list.Dequeue();
-        }
-
         /// <summary>
         /// Add Data for WaiterManager Order
         /// </summary>
@@ -121,18 +49,47 @@ namespace GM.Managers
         {
             Debug.Assert(data.type != OrderType.Null, "OrderData Type is Null");
 
-            switch (data.type)
+            _orderList.AddLast(data);
+        }
+
+        private void GiveWork()
+        {
+            if (_waiterList.Count <= 0 || _orderList.Count <= 0) return;
+
+            Waiter waiter = CheckWorking();
+            if (waiter == default) return;
+
+            foreach (OrderType workType in waiter.WorkPriority)
             {
-                case OrderType.Order:
-                    _orderList.Enqueue(data);
-                    break;
-                case OrderType.Serving:
-                    _servingList.Enqueue(data);
-                    break;
-                case OrderType.Count:
-                    _counterList.Enqueue(data);
-                    break;
+                if (waiter.IsWorking == true) break;
+
+                // Continuous calculation processing 
+                if (workType == OrderType.Count)
+                {
+                    waiter = _waiterList.FirstOrDefault(x => x.IsWorking == false && x.currentWaiterState == WaiterState.COUNT) ?? waiter;
+                }
+
+                OrderData data = _orderList.FirstOrDefault(x => x.type == workType);
+                if (data != default)
+                {
+                    switch (data.type)
+                    {
+                        case OrderType.Order:
+                            waiter.StartWork(WaiterState.ORDER, data);
+                            break;
+                        case OrderType.Count:
+                            waiter.StartWork(WaiterState.COUNT, data);
+                            break;
+                        case OrderType.Serving:
+                            waiter.StartWork(WaiterState.SERVING, data);
+                            break;
+                    }
+                    _orderList.Remove(data);
+                }
             }
         }
+
+        private Waiter CheckWorking() =>
+            _waiterList.FirstOrDefault(x => x.IsWorking == false);
     }
 }
