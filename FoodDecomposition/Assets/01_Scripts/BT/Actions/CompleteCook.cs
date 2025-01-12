@@ -18,17 +18,17 @@ public partial class CompleteCookAction : Action
     [SerializeReference] public BlackboardVariable<Transform> FoodTrm;
     [SerializeReference] public BlackboardVariable<EntityAnimatorTrigger> AnimationTrigger;
     [SerializeReference] public BlackboardVariable<float> Duration;
-    
+
     private bool _isTriggered;
     private Sequence _sequence;
-    
+
     protected override Status OnStart()
     {
         _isTriggered = false;
         AnimationTrigger.Value.OnEventAnimationEnd += HandleEventAnimationEnd;
         return Status.Running;
     }
-    
+
     protected override Status OnUpdate()
     {
         return _isTriggered ? Status.Success : Status.Running;
@@ -53,7 +53,7 @@ public partial class CompleteCookAction : Action
         {
             OrderData data = Chef.Value.CurrentData;
             data.type = OrderType.Serving;
-            ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(data);
+            ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(data);
             _isTriggered = true;
         });
     }

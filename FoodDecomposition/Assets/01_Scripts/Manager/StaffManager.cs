@@ -6,38 +6,37 @@ using UnityEngine;
 
 namespace GM.Managers
 {
-    public class WaiterManager : IManagerable, IManagerUpdateable
+    public class StaffManager : IManagerable, IManagerUpdateable
     {
-        private List<Waiter> _waiterList;
+        private List<Staff> _staffList;
         private LinkedList<OrderData> _orderList;
-
-        private bool isTest = false;
+        private Queue<OrderData> _recipeList;
 
         public void Initialized()
         {
-            _waiterList = new List<Waiter>();
+            _staffList = new List<Staff>();
             _orderList = new LinkedList<OrderData>();
+            _recipeList = new Queue<OrderData>();
 
-            foreach (var waiter in MonoBehaviour.FindObjectsByType<Waiter>(FindObjectsSortMode.None))
+            foreach (var staff in MonoBehaviour.FindObjectsByType<Staff>(FindObjectsSortMode.None))
             {
-                _waiterList.Add(waiter);
+                _staffList.Add(staff);
             }
         }
 
         public void Clear()
         {
-            _waiterList.Clear();
+            _staffList.Clear();
             _orderList.Clear();
+            _recipeList.Clear();
         }
 
         public void Update()
         {
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                isTest = !isTest;
-            }
+            if (_staffList.Count <= 0) return;
 
-            GiveWork();
+            ChefGiveWork();
+            WaiterGiveWork();
         }
 
         /// <summary>
@@ -48,14 +47,39 @@ namespace GM.Managers
         {
             Debug.Assert(data.type != OrderType.Null, "OrderData Type is Null");
 
+            if (data.type == OrderType.Cook)
+            {
+                _recipeList.Enqueue(data);
+            }
+
             _orderList.AddLast(data);
         }
 
-        private void GiveWork()
+        public void AddStaff(Staff staff)
         {
-            if (_waiterList.Count <= 0 || _orderList.Count <= 0) return;
+            _staffList.Add(staff);
+        }
 
-            Waiter waiter = CheckWorking();
+        public void RemoveStaff(Staff staff)
+        {
+            _staffList.Remove(staff);
+        }
+
+        private void ChefGiveWork()
+        {
+            if (_recipeList.Count <= 0) return;
+
+            if (_recipeList.Count > 0)
+            {
+                CheckWorking<Chef>()?.StartWork(ChefState.COOK, _recipeList.Dequeue());
+            }
+        }
+
+        private void WaiterGiveWork()
+        {
+            if (_orderList.Count <= 0) return;
+
+            Waiter waiter = CheckWorking<Waiter>();
             if (waiter == default) return;
 
             foreach (OrderType workType in waiter.WorkPriority)
@@ -65,7 +89,7 @@ namespace GM.Managers
                 // Continuous calculation processing 
                 if (workType == OrderType.Count)
                 {
-                    waiter = _waiterList.FirstOrDefault(x => x.IsWorking == false && x.currentWaiterState == WaiterState.COUNT) ?? waiter;
+                    waiter = _staffList.OfType<Waiter>().FirstOrDefault(x => x.IsWorking == false && x.currentWaiterState == WaiterState.COUNT) ?? waiter;
                 }
 
                 OrderData data = _orderList.FirstOrDefault(x => x.type == workType);
@@ -88,7 +112,7 @@ namespace GM.Managers
             }
         }
 
-        private Waiter CheckWorking() =>
-            _waiterList.FirstOrDefault(x => x.IsWorking == false);
+        private T CheckWorking<T>() where T : Staff =>
+            _staffList.OfType<T>().FirstOrDefault(x => x.IsWorking == false);
     }
 }

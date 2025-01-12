@@ -20,7 +20,7 @@ public partial class RequstForCountAction : Action
 
         OrderData order = Customer.Value.GetOrderData();
         order.type = OrderType.Count;
-        ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+        ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
         return Status.Success;
     }
 }

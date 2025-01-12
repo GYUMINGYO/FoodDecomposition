@@ -29,7 +29,7 @@ namespace GM
                 order = new OrderData();
                 order.orderCustomer = _customer;
                 order.type = OrderType.Order;
-                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
                 _isPress = false;
 
             }
@@ -40,7 +40,7 @@ namespace GM
 
                 order.type = OrderType.Count;
 
-                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
                 _isPress = false;
 
             }
@@ -51,7 +51,7 @@ namespace GM
 
                 order.type = OrderType.Serving;
 
-                ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+                ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
                 _isPress = false;
             }
             else if (Input.GetKeyDown(KeyCode.R))
@@ -59,9 +59,9 @@ namespace GM
                 if (_isPress == true) return;
                 _isPress = true;
 
-                order.type = OrderType.Order;
+                order.type = OrderType.Cook;
 
-                ManagerHub.Instance.GetManager<ChefManager>().AddOrderData(order);
+                ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
                 _isPress = false;
             }
         }

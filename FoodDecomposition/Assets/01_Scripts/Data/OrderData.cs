@@ -7,7 +7,8 @@ namespace GM.Data
         Null,
         Order,
         Count,
-        Serving
+        Serving,
+        Cook
     }
 
     public class OrderData
