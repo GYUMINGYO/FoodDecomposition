@@ -1,3 +1,5 @@
+using System;
+using GM.Core.StatSystem;
 using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
@@ -9,7 +11,7 @@ namespace GM.Staffs
     {
         public ChefState currentWaiterState;
         [SerializeField] private ChefStateChannel _stateChangeEvent;
-        
+
         protected override void InitializedBT()
         {
             base.InitializedBT();

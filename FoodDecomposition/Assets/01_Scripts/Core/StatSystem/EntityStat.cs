@@ -6,12 +6,12 @@ namespace GM.Entities
 {
     public class EntityStat : MonoBehaviour, IEntityComponent
     {
-        [SerializeField] private StatOverride[] _statOverrides;
+        [SerializeField] protected StatOverride[] _statOverrides;
 
-        private StatSO[] _stats;
+        protected StatSO[] _stats;
+        protected Entity _entity;
 
-        private Entity _entity;
-        public void Initialize(Entity entity)
+        public virtual void Initialize(Entity entity)
         {
             _entity = entity;
             _stats = _statOverrides.Select(x => x.CreateStat()).ToArray();
