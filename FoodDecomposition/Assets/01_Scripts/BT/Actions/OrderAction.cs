@@ -23,7 +23,7 @@ public partial class OrderAction : Action
         order.recipe = ManagerHub.Instance.GetManager<RecipeManager>().GetRecipe();
 
         Customer.Value.SetOrderData(order);
-        ManagerHub.Instance.GetManager<WaiterManager>().AddOrderData(order);
+        ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
 
         return Status.Success;
     }

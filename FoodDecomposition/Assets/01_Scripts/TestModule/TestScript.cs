@@ -11,7 +11,8 @@ namespace GM
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
-                if (isTwo)
+                Debug.LogError("Warring Change This method");
+                /* if (isTwo)
                 {
                     Customer counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Count).orderCustomer;
 
@@ -26,7 +27,7 @@ namespace GM
                     isTwo = true;
 
                     counterCustomer.SetWait(false);
-                }
+                } */
             }
         }
     }
