@@ -17,7 +17,7 @@ namespace GM
         public void UpText(float price)
         {
             Transform parent = transform.parent;
-            transform.parent = null;
+            transform.SetParent(null);
             transform.position = new Vector3(parent.position.x, transform.position.y, parent.position.z);
 
             moneyText.text = "+" + price.ToString();
@@ -29,7 +29,7 @@ namespace GM
                 .OnComplete(() =>
                 {
                     moneyText.enabled = false;
-                    transform.parent = parent;
+                    transform.SetParent(parent);
                     transform.localPosition = new Vector3(0, 3, 0);
                     transform.localRotation = Quaternion.identity;
                 });

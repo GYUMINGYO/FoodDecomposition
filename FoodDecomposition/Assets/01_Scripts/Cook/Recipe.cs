@@ -95,5 +95,7 @@ namespace GM
         {
             return Instantiate(this);
         }
+
+        public void SetPrice(float price) => sellPrice = price;
     }
 }
