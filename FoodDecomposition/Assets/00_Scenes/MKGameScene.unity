@@ -5881,6 +5881,22 @@ PrefabInstance:
       value: 8.13
       objectReference: {fileID: 0}
     - target: {fileID: 7613970666293927604, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613970666293927604, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613970666293927604, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613970666293927604, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7613970666293927604, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
@@ -5905,16 +5921,20 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5091322716057139300, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
-      propertyPath: _statOverrides.Array.data[0]._overrideValue
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5091322716057139300, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
-      propertyPath: _statOverrides.Array.data[1]._isUseOverride
+    - target: {fileID: 1428980589971048311, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 5091322716057139300, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
-      propertyPath: _statOverrides.Array.data[1]._overrideValue
+    - target: {fileID: 3074957380463675375, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_Radius
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074957380463675375, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074957380463675375, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5315113107584370322, guid: 3710d1def6a86094b9764bc543fbb13e, type: 3}
