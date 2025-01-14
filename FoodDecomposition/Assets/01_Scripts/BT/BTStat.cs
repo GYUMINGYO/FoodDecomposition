@@ -1,3 +1,4 @@
+using AYellowpaper.SerializedCollections;
 using GM.Core.StatSystem;
 using GM.Entities;
 using Unity.Behavior;
@@ -5,27 +6,32 @@ using UnityEngine;
 
 namespace GM.BT
 {
-    public abstract class BTStat : EntityStat
+    public class BTStat : EntityStat
     {
         [SerializeField] protected BehaviorGraphAgent _btAgent;
-        [SerializeField] protected StatSO _movementSpeedStat;
+        [SerializedDictionary("BTVariableName", "Stat")]
+        [SerializeField] private SerializedDictionary<string, StatSO> _btStatMappingDictionary;
 
         public override void Initialize(Entity entity)
         {
             base.Initialize(entity);
-            SetStats();
+
+            foreach (var mappingStat in _btStatMappingDictionary)
+            {
+                _btAgent.SetVariableValue<float>(mappingStat.Key, GetStat(mappingStat.Value).Value);
+                GetStat(mappingStat.Value).OnValueChange += (StatSO stat, float current, float prev) =>
+                {
+                    _btAgent.SetVariableValue<float>(mappingStat.Key, current);
+                };
+            }
         }
 
-        protected abstract void SetStats();
-
-        protected void SetBTValue(string valueName, StatSO stat)
+        private void OnDestroy()
         {
-            _btAgent.SetVariableValue<float>(valueName, stat.Value);
-        }
-
-        protected void SetBTValue(string valueName, float value)
-        {
-            _btAgent.SetVariableValue<float>(valueName, value);
+            foreach (var mappingStat in _btStatMappingDictionary)
+            {
+                GetStat(mappingStat.Value).OnValueChange = null;
+            }
         }
     }
 }

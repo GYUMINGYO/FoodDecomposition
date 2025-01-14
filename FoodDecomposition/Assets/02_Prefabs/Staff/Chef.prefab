@@ -1003,7 +1003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 323362611719771091}
-  - component: {fileID: 5091322716057139300}
+  - component: {fileID: 1717380772130663539}
   m_Layer: 0
   m_Name: Stat
   m_TagString: Untagged
@@ -1026,7 +1026,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7403427531689753955}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5091322716057139300
+--- !u!114 &1717380772130663539
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1035,7 +1035,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8616356078823398748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72953e8ca8d390f4eabc84ea83dffd6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ffecf8187c2384299650390eb62f51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _statOverrides:
@@ -1046,8 +1046,12 @@ MonoBehaviour:
     _isUseOverride: 1
     _overrideValue: 1
   _btAgent: {fileID: 335948896275611566}
-  _movementSpeedStat: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
-  _cookingSpeedStat: {fileID: 11400000, guid: dcf4b23b19ac09c4287ff58b553c4c43, type: 2}
+  _btMappingDictionary:
+    _serializedList:
+    - Key: MoveSpeed
+      Value: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
+    - Key: CookingSpeed
+      Value: {fileID: 11400000, guid: dcf4b23b19ac09c4287ff58b553c4c43, type: 2}
 --- !u!1 &8908914997369273058
 GameObject:
   m_ObjectHideFlags: 0
