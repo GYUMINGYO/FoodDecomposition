@@ -13,7 +13,6 @@ namespace GM.Staffs
 
     public abstract class Staff : Unit
     {
-        // TODO : 직원 스탯
         public bool IsWorking => _isWorking;
         protected bool _isWorking = false;
 

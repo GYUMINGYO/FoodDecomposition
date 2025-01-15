@@ -1,8 +1,7 @@
-using GM.Managers;
 using System.Collections;
 using UnityEngine;
 
-namespace GM
+namespace GM.Managers
 {
     public class CustomerSpawner : MonoBehaviour
     {
@@ -18,7 +17,7 @@ namespace GM
         {
             StartCoroutine(CustomerSpawnCoroutine());
         }
-        
+
         private IEnumerator CustomerSpawnCoroutine()
         {
             time = Time.time;
@@ -29,7 +28,7 @@ namespace GM
                 while (timer <= spawnTime)
                 {
                     timer += Time.deltaTime;
-                    if(ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
+                    if (ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
                     {
                         yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<MapManager>().IsSeatFull);
                         timer = 0;
