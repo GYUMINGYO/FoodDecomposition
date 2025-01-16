@@ -5,6 +5,7 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using GM;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "GetChefVariable", story: "get variable from [entity]", category: "Action", id: "ce61abf8e550898a062cf8a41765baf1")]
@@ -16,8 +17,8 @@ public partial class GetChefVariableAction : Action
     {
         Chef chef = Entity.Value as Chef;
         chef.SetVariable("AnimTrigger", chef.GetCompo<EntityAnimatorTrigger>());
-        chef.SetVariable("EntityAnimator", chef.GetCompo<EntityAnimator>());
-        
+        chef.SetVariable("EntityAnimator", chef.GetCompo<ChefAnimator>());
+
         return Status.Running;
     }
 }

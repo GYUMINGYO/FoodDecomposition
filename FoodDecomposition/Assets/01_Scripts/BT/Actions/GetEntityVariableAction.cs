@@ -19,6 +19,7 @@ public partial class GetEntityVariableAction : Action
 
         Staff staff = Entity.Value as Staff;
         staff.SetVariable("AnimTrigger", staff.GetCompo<EntityAnimatorTrigger>());
+        staff.SetVariable("EntityAnimator", staff.GetCompo<EntityAnimator>());
 
         return Status.Running;
     }

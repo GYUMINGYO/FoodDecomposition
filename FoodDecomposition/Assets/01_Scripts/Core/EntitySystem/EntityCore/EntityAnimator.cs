@@ -5,25 +5,18 @@ namespace GM.Entities
 {
     public class EntityAnimator : MonoBehaviour, IEntityComponent
     {
-        private Entity _entity;
+        protected Entity _entity;
+        protected Animator _animator;
 
-        [SerializeField] private AnimationClip _originalChangeClip;
-
-        private Animator _animator;
-        private AnimatorOverrideController _animatorOverrideController;
-
-        public void Initialize(Entity entity)
+        public virtual void Initialize(Entity entity)
         {
             _entity = entity;
             _animator = GetComponent<Animator>();
-            _animatorOverrideController = new AnimatorOverrideController(_animator.runtimeAnimatorController);
-            _animator.runtimeAnimatorController = _animatorOverrideController;
         }
 
-        public void SetCookingAnimation(AnimationClip nextClip, float speed)
+        public void SetAnimationSpeed(string animName, float speed)
         {
-            _animatorOverrideController[_originalChangeClip.name] = nextClip;
-            _animator.SetFloat("CookingSpeed", speed);
+            _animator.SetFloat(animName, speed);
         }
     }
 }
