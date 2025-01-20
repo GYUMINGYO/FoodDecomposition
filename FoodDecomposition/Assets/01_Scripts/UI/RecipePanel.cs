@@ -1,9 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-namespace GM
+namespace GM.EventSystem
 {
     public class RecipePanel : MonoBehaviour, IMenuUI
     {
@@ -50,7 +48,7 @@ namespace GM
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 Close();
             }
