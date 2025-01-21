@@ -16,10 +16,10 @@ public partial class ThrowingAwayFoodTrashAction : Action
     [SerializeReference] public BlackboardVariable<Transform> FoodTrashTrm;
     [SerializeReference] public BlackboardVariable<EntityAnimatorTrigger> AnimationTrigger;
     [SerializeReference] public BlackboardVariable<float> Duration;
-    
+
     private bool _isTriggered;
     private Sequence _sequence;
-    
+
     protected override Status OnStart()
     {
         _isTriggered = false;
@@ -50,10 +50,11 @@ public partial class ThrowingAwayFoodTrashAction : Action
             .Join(food.DORotateQuaternion(FoodTrashTrm.Value.rotation, Duration.Value))
             .OnComplete((() =>
             {
+                // TODO : 이거 손에서 오브젝트가 없어지게 해야함
                 SingletonePoolManager.Instance.Push(food.GetComponent<Food>());
             }));
     }
-    
+
     private void HandleAnimationEnd()
     {
         _isTriggered = true;

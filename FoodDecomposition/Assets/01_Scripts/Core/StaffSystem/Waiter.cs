@@ -7,14 +7,17 @@ namespace GM.Staffs
 {
     public class Waiter : Staff
     {
+        public OrderType[] WorkPriority;
         public WaiterState currentWaiterState;
+
         [SerializeField] private WaiterStateChange _stateChangeEvent;
 
         protected override void InitializedBT()
         {
             base.InitializedBT();
+            WorkPriority = new OrderType[3] { OrderType.Serving, OrderType.Count, OrderType.Order };
             _stateChangeEvent = _stateChangeEvent.Clone() as WaiterStateChange;
-            _myBTAgent.SetVariableValue("StateChange", _stateChangeEvent);
+            SetVariable("StateChange", _stateChangeEvent);
         }
 
         public void StartWork(WaiterState workType, OrderData data)
@@ -34,12 +37,14 @@ namespace GM.Staffs
                 RestRoom waiterRest;
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetRestEntity(type, out waiterRest, this, StaffType.Waiter))
                 {
+                    SetTable(waiterRest);
                     return waiterRest.EntityTransform;
                 }
             }
             else if (type == Enums.InteractableEntityType.Order)
             {
-                _myBTAgent.SetVariableValue("OrderCustomerTrm", _currentData.orderCustomer.transform);
+                // TODO : 이거 제대로 여러명일 때 작동하는지 확인
+                SetVariable("OrderCustomerTrm", _currentData.orderCustomer.transform);
                 return _currentData.orderTable.GetWaiterStandTrm(transform);
             }
             else if (type == Enums.InteractableEntityType.FoodOut)
@@ -47,8 +52,9 @@ namespace GM.Staffs
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
                     FoodOut foodOut = moveTarget as FoodOut;
-                    _myBTAgent.SetVariableValue("FoodTrm", foodOut.FoodTrm);
-                    _myBTAgent.SetVariableValue("TableFoodTrm", _currentData.orderTable.GetFoodPos(_currentData.orderCustomer));
+                    SetTable(foodOut);
+                    SetVariable("FoodTrm", foodOut.FoodTrm);
+                    SetVariable("TableFoodTrm", _currentData.orderTable.GetFoodPos(_currentData.orderCustomer));
                     return foodOut.ReceiverTransform;
                 }
             }
@@ -57,6 +63,7 @@ namespace GM.Staffs
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
                     SingleCounterEntity foodOut = moveTarget as SingleCounterEntity;
+                    SetTable(foodOut);
                     return foodOut.SenderTransform;
                 }
             }
@@ -65,7 +72,8 @@ namespace GM.Staffs
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
                     FoodTrashContainer foodTrash = moveTarget as FoodTrashContainer;
-                    _myBTAgent.SetVariableValue("FoodTrashTrm", foodTrash.FoodTrashTransform);
+                    SetTable(foodTrash);
+                    SetVariable("FoodTrashTrm", foodTrash.FoodTrashTransform);
                     _isWorking = true;
                     return foodTrash.EntityTransform;
                 }
@@ -74,13 +82,18 @@ namespace GM.Staffs
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
+                SetTable(singleTableEntity);
                 return singleTableEntity.EntityTransform;
             }
 
             return null;
         }
 
-        public OrderType[] WorkPriority = { OrderType.Serving, OrderType.Count, OrderType.Order };
+        public override void SetIdleState()
+        {
+            _stateChangeEvent.SendEventMessage(WaiterState.IDLE);
+            StaffHandlerBoolChange();
+        }
 
         public void ChangeStatePriority(OrderType workType)
         {

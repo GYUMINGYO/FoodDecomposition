@@ -407,7 +407,7 @@ GameObject:
   - component: {fileID: 1355758991848359618}
   - component: {fileID: 1529812323731924603}
   - component: {fileID: 2820818009481738609}
-  - component: {fileID: 2752036823205672114}
+  - component: {fileID: 4788070785698556077}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c19babb86f54a064aa57bb75e1a2748a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2752036823205672114
+--- !u!114 &4788070785698556077
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4400504339877730268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1b82544910e2494d85ffdd521166654, type: 3}
+  m_Script: {fileID: 11500000, guid: 58d67aca8dd41a04ca98f17fb54d93b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _originalChangeClip: {fileID: 7400000, guid: d9ef11c4aa7ca924998cf8e472692a22, type: 2}
@@ -714,6 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae24a0f2cfe87204499aaf0a54e18837, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _myStaffType: 1
   _foodHandTrm: {fileID: 3505561630977843576}
   currentWaiterState: 0
   _stateChangeEvent: {fileID: 11400000, guid: 26845b6a5816cb74395b8df56afd1ed7, type: 2}
@@ -1046,12 +1047,8 @@ MonoBehaviour:
     _isUseOverride: 1
     _overrideValue: 1
   _btAgent: {fileID: 335948896275611566}
-  _btMappingDictionary:
-    _serializedList:
-    - Key: MoveSpeed
-      Value: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
-    - Key: CookingSpeed
-      Value: {fileID: 11400000, guid: dcf4b23b19ac09c4287ff58b553c4c43, type: 2}
+  _btStatMappingDictionary:
+    _serializedList: []
 --- !u!1 &8908914997369273058
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,7 +45,7 @@ namespace GM.Managers
         public Table GetTable()
         {
             List<Table> nullValueList = new();
-            foreach(Table table in TableList)
+            foreach (Table table in TableList)
             {
                 if (table.HasEmptyChair())
                 {
@@ -59,6 +59,8 @@ namespace GM.Managers
             int randIdx = Random.Range(0, nullValueList.Count);
             return nullValueList[randIdx];
         }
+
+        // TODO : 레스트 랑 인터렉티브 함수가 너무 같다
 
         /// <summary>
         /// Get the nearest interactable entity

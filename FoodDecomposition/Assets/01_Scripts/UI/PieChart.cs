@@ -14,7 +14,7 @@ namespace GM
         private float _pieValue = 0f;
         private bool _isChartFilling = false;
 
-        private void Start()
+        private void Awake()
         {
             _pieVisual.SetActive(false);
             _pieChartImage.fillAmount = 0f;

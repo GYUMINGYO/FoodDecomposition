@@ -8,17 +8,17 @@ namespace GM.Managers
 {
     public class StaffManager : IManagerable, IManagerUpdateable
     {
-        private List<Staff> _staffList;
+        private List<StaffHandler> _staffList;
         private LinkedList<OrderData> _orderList;
         private Queue<OrderData> _recipeList;
 
         public void Initialized()
         {
-            _staffList = new List<Staff>();
+            _staffList = new List<StaffHandler>();
             _orderList = new LinkedList<OrderData>();
             _recipeList = new Queue<OrderData>();
 
-            foreach (var staff in MonoBehaviour.FindObjectsByType<Staff>(FindObjectsSortMode.None))
+            foreach (var staff in MonoBehaviour.FindObjectsByType<StaffHandler>(FindObjectsSortMode.None))
             {
                 _staffList.Add(staff);
             }
@@ -50,17 +50,18 @@ namespace GM.Managers
             if (data.type == OrderType.Cook)
             {
                 _recipeList.Enqueue(data);
+                return;
             }
 
             _orderList.AddLast(data);
         }
 
-        public void AddStaff(Staff staff)
+        public void AddStaff(StaffHandler staff)
         {
             _staffList.Add(staff);
         }
 
-        public void RemoveStaff(Staff staff)
+        public void RemoveStaff(StaffHandler staff)
         {
             _staffList.Remove(staff);
         }
@@ -71,7 +72,8 @@ namespace GM.Managers
 
             if (_recipeList.Count > 0)
             {
-                CheckWorking<Chef>()?.StartWork(ChefState.COOK, _recipeList.Dequeue());
+                Chef chef = CheckWorking(StaffType.Chef) as Chef;
+                chef?.StartWork(ChefState.COOK, _recipeList.Dequeue());
             }
         }
 
@@ -79,7 +81,7 @@ namespace GM.Managers
         {
             if (_orderList.Count <= 0) return;
 
-            Waiter waiter = CheckWorking<Waiter>();
+            Waiter waiter = CheckWorking(StaffType.Waiter) as Waiter;
             if (waiter == default) return;
 
             foreach (OrderType workType in waiter.WorkPriority)
@@ -93,6 +95,7 @@ namespace GM.Managers
                 }
 
                 OrderData data = _orderList.FirstOrDefault(x => x.type == workType);
+
                 if (data != default)
                 {
                     switch (data.type)
@@ -112,7 +115,9 @@ namespace GM.Managers
             }
         }
 
-        private T CheckWorking<T>() where T : Staff =>
-            _staffList.OfType<T>().FirstOrDefault(x => x.IsWorking == false);
+        private Staff CheckWorking(StaffType type)
+        {
+            return _staffList.Where(x => x.Type == type && x.IsChange == false).ToList().FirstOrDefault(x => x.GetStaff(type).IsWorking == false)?.GetStaff(type);
+        }
     }
 }

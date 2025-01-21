@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 1151710256379545188}
   - component: {fileID: 340404810999421791}
   - component: {fileID: 6774706500657140333}
+  - component: {fileID: 7720253770145117711}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -289,6 +290,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c19babb86f54a064aa57bb75e1a2748a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7720253770145117711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2584219015983380869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b82544910e2494d85ffdd521166654, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &3521553752566783167
@@ -370,11 +383,19 @@ MonoBehaviour:
   - _stat: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
     _isUseOverride: 1
     _overrideValue: 5
+  - _stat: {fileID: 11400000, guid: 087977ce0b2e6c44d9b562cf0203aee0, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
+  - _stat: {fileID: 11400000, guid: b99681027fa839a49b7dd3765f64efd9, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
   _btAgent: {fileID: 8505110705962110315}
   _btStatMappingDictionary:
     _serializedList:
     - Key: MoveSpeed
       Value: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
+    - Key: OrderSpeed
+      Value: {fileID: 11400000, guid: 087977ce0b2e6c44d9b562cf0203aee0, type: 2}
 --- !u!1 &4034320892490468676
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,6 +665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6379d3e55bd94733b2889de095c7cd8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _myStaffType: 0
   _foodHandTrm: {fileID: 628525015389921698}
   currentWaiterState: 0
   _stateChangeEvent: {fileID: 11400000, guid: a9760d8f690d5974c893811d83109b01, type: 2}

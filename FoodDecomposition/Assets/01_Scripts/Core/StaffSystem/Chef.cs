@@ -1,5 +1,4 @@
-using System;
-using GM.Core.StatSystem;
+using GM.CookWare;
 using GM.Data;
 using GM.InteractableEntitys;
 using GM.Managers;
@@ -16,7 +15,7 @@ namespace GM.Staffs
         {
             base.InitializedBT();
             _stateChangeEvent = _stateChangeEvent.Clone() as ChefStateChannel;
-            _myBTAgent.SetVariableValue("StateChange", _stateChangeEvent);
+            SetVariable("StateChange", _stateChangeEvent);
         }
 
         public void StartWork(ChefState workType, OrderData data)
@@ -36,6 +35,7 @@ namespace GM.Staffs
                 RestRoom chefRest;
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetRestEntity(type, out chefRest, this, StaffType.Chef))
                 {
+                    SetTable(chefRest);
                     return chefRest.EntityTransform;
                 }
             }
@@ -44,22 +44,32 @@ namespace GM.Staffs
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
                     FoodOut foodOut = moveTarget as FoodOut;
-                    _myBTAgent.SetVariableValue("FoodTrm", foodOut.FoodTrm);
+                    SetTable(foodOut);
+                    SetVariable("FoodTrm", foodOut.FoodTrm);
                     return foodOut.SenderTransform;
                 }
             }
             else if (type == Enums.InteractableEntityType.Recipe)
             {
-                return _currentData.recipe.GetNextCookingTable(this).EntityTransform;
+                CookingTable cookingTable = _currentData.recipe.GetNextCookingTable(this);
+                SetTable(cookingTable);
+                return cookingTable.EntityTransform;
             }
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
+                SetTable(singleTableEntity);
                 return singleTableEntity.EntityTransform;
             }
 
             return null;
+        }
+
+        public override void SetIdleState()
+        {
+            _stateChangeEvent.SendEventMessage(ChefState.IDLE);
+            StaffHandlerBoolChange();
         }
     }
 }

@@ -11,11 +11,6 @@ public partial class IsOutCustomerCondition : Condition
 
     public override bool IsTrue()
     {
-        if (Waiter.Value.CurrentData.isCustomerOut == true)
-        {
-            return true;
-        }
-        
-        return false;
+        return Waiter.Value.CurrentData.isCustomerOut ? true : false;
     }
 }

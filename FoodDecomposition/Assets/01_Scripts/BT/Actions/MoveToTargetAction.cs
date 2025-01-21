@@ -141,6 +141,10 @@ public partial class MoveToTargetAction : Action
 
     private float GetDistanceXZ()
     {
-        return Vector3.Distance(Unit.Value.transform.position, Target.Value.position);
+        Vector3 unitPos = Unit.Value.transform.position;
+        Vector3 targetPos = Target.Value.position;
+        unitPos.y = 0;
+        targetPos.y = 0;
+        return Vector3.Distance(unitPos, targetPos);
     }
 }

@@ -16,13 +16,20 @@ public partial class SetTargetAction : Action
     protected override Status OnStart()
     {
         Target.Value = Staff.Value.GetTarget(Type.Value);
+        return Status.Running;
+    }
 
-        if (Target.Value == null)
+    protected override Status OnUpdate()
+    {
+        // TODO : 대기 장소 만들기
+        if (Target.Value != null)
         {
-            return Status.Failure;
+            return Status.Success;
         }
 
-        return Status.Success;
+        Target.Value = Staff.Value.GetTarget(Type.Value);
+
+        return Status.Running;
     }
 }
 

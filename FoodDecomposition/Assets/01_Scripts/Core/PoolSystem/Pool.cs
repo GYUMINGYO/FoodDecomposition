@@ -61,6 +61,7 @@ public class Pool
 
     public void Push(IPoolable item)
     {
+        item.GameObject.transform.SetParent(_parent);
         item.GameObject.SetActive(false);
         _pool.Push(item);
     }
