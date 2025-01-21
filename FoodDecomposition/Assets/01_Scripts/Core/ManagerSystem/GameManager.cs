@@ -21,6 +21,7 @@ namespace GM.Managers
 
         public void Initialized()
         {
+            _gamePlayTime = 0;
             _currentDayTiem = 0;
             _isDayTimer = false;
             _isStopDayTimer = false;

@@ -16,8 +16,6 @@ namespace GM.Staffs
 
     public abstract class Staff : Unit
     {
-        public event System.Action OnChangeStaff;
-
         public StaffType MyStaffType => _myStaffType;
         [SerializeField] private StaffType _myStaffType;
 

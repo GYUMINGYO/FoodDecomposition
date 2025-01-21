@@ -5,7 +5,7 @@ namespace GM
 {
     public class TestScript : MonoBehaviour
     {
-        private bool isTwo = false;
+        //private bool isTwo = false;
 
         private void Update()
         {
