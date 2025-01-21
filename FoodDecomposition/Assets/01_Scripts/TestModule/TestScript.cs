@@ -1,33 +1,38 @@
-using GM.Managers;
 using UnityEngine;
 
 namespace GM
 {
     public class TestScript : MonoBehaviour
     {
-        private bool isTwo = false;
+        [SerializeField] private GameObject linePrefab;
+        [SerializeField] private GameObject recipeCardPrefab;
+
+        private RectTransform content;
+        private GameObject lineObj;
+        int cnt = 3;
+
+        private void Awake()
+        {
+            content = GetComponent<RectTransform>();
+        }
+
+        private void Start()
+        {
+            lineObj = Instantiate(linePrefab, content);
+        }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.O))
             {
-                Debug.LogError("Warring Change This method");
-                /* if (isTwo)
+                if(cnt == 0)
                 {
-                    Customer counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Count).orderCustomer;
-
-                    float sellPrice = counterCustomer.GetSellPrice();
-                    Debug.Log($"+{sellPrice}");
-
-                    counterCustomer.SetWait(false);
+                    lineObj = Instantiate(linePrefab, content);
+                    cnt = 3;
                 }
-                else
-                {
-                    Customer counterCustomer = ManagerHub.Instance.GetManager<WaiterManager>().DequeueOrderData(Data.OrderType.Order).orderCustomer;
-                    isTwo = true;
 
-                    counterCustomer.SetWait(false);
-                } */
+                Instantiate(recipeCardPrefab, lineObj.transform);
+                cnt--;
             }
         }
     }

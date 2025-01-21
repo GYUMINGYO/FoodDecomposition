@@ -27,7 +27,7 @@ namespace GM.EventSystem
             group.alpha = 1;
             transform.DOLocalMoveY(0, duration + 0.2f)
                 .SetEase(Ease.OutBounce)
-                .OnComplete(() => group.blocksRaycasts = true);
+                .OnComplete(() => group.interactable = true);
         }
 
         public void Close()
@@ -42,13 +42,13 @@ namespace GM.EventSystem
                 .OnComplete(() =>
                 {
                     group.alpha = 0;
-                    group.blocksRaycasts = false;
+                    group.interactable = false; 
                 });
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
             {
                 Close();
             }
