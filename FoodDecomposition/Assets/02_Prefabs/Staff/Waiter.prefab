@@ -608,7 +608,7 @@ NavMeshAgent:
   m_Height: 2.35
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 1
 --- !u!114 &8505110705962110315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -667,9 +667,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _myStaffType: 0
   _foodHandTrm: {fileID: 628525015389921698}
+  _staffHandler: {fileID: 0}
+  WorkPriority: 030000000200000001000000
   currentWaiterState: 0
   _stateChangeEvent: {fileID: 11400000, guid: a9760d8f690d5974c893811d83109b01, type: 2}
-  WorkPriority: 010000000200000000000000
 --- !u!1 &7491125446201780054
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,10 +95,11 @@ namespace GM.Staffs
             StaffHandlerBoolChange();
         }
 
-        public void ChangeStatePriority(OrderType workType)
+        public void ChangeStatePriority(OrderType[] workTypeArr)
         {
-            // TODO : WorkPriority 순서 바꾸기 로직
-            Debug.Log(workType);
+            if (workTypeArr.Length > 3) return;
+
+            WorkPriority = workTypeArr;
         }
     }
 }

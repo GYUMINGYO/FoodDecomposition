@@ -44,7 +44,6 @@ namespace GM.Staffs
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
                     FoodOut foodOut = moveTarget as FoodOut;
-                    SetTable(foodOut);
                     SetVariable("FoodTrm", foodOut.FoodTrm);
                     return foodOut.SenderTransform;
                 }
@@ -52,6 +51,7 @@ namespace GM.Staffs
             else if (type == Enums.InteractableEntityType.Recipe)
             {
                 CookingTable cookingTable = _currentData.recipe.GetNextCookingTable(this);
+                if (cookingTable == null) return null;
                 SetTable(cookingTable);
                 return cookingTable.EntityTransform;
             }

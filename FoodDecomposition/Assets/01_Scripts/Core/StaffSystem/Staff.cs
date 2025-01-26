@@ -74,7 +74,7 @@ namespace GM.Staffs
 
         public void StaffChangeEvent()
         {
-            _staffHandler.StaffChangeProcess(_myStaffType);
+            _staffHandler.ChangeProcess(_myStaffType);
             _isChange = false;
         }
 
@@ -85,6 +85,8 @@ namespace GM.Staffs
 
         public void SetTable(InteractableEntity table)
         {
+            if (table == null) return;
+
             _targetTable = table;
             _targetTable.InUse = true;
         }

@@ -45,7 +45,7 @@ namespace GM.Staffs
             GetStaff(type, true).IsChange = true;
         }
 
-        public void StaffChangeProcess(StaffType type)
+        public void ChangeProcess(StaffType type)
         {
             // TODO : Change 함수에 변경 효과 추가하기
             GetStaff(type, true).gameObject.SetActive(true);
