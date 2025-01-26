@@ -1,47 +1,39 @@
-using GM.Staffs;
+using GM.Entities;
+using GM.EventSystem;
 using UnityEngine;
 
 namespace GM.Players.Pickers
 {
     public class UnitPicker : Picker
     {
-        private bool _isPick;
+        [SerializeField] private GameEventChannelSO _unitPickUIEventChannel;
 
-        private Staff _staff;
+        private bool _isPick;
+        private Unit _pickedUnit;
 
         protected override void PickEntity()
         {
-            if (_hit.transform.TryGetComponent(out Staff staff))
+            if (_isRay == false)
             {
-                _staff = staff;
-                _isPick = true;
-                // TODO : 지금은 유닛 직업 변경임
-                // TODO : WorkPriority 순서 바꾸기 로직 처리하기
-            }
-        }
+                UnitUIEvents.UnitDescriptionUIEvent.isActive = false;
+                _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
+                _pickedUnit = null;
+                _isPick = false;
 
-        //! Test
-        private void Update()
-        {
-            if (_isPick)
+                return;
+            }
+
+            if (_hit.transform.TryGetComponent(out Unit unit))
             {
-                if (Input.GetKeyDown(KeyCode.Alpha1))
-                {
-                    _staff.MyStaffHandler.StaffChange(StaffType.Waiter);
-                    //_waiter.ChangeStatePriority(OrderType.Order);
-                    _isPick = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha2))
-                {
-                    _staff.MyStaffHandler.StaffChange(StaffType.Chef);
-                    //_waiter.ChangeStatePriority(OrderType.Serving);
-                    _isPick = false;
-                }
-                else if (Input.GetKeyDown(KeyCode.Alpha3))
-                {
-                    //_waiter.ChangeStatePriority(OrderType.Count);
-                    _isPick = false;
-                }
+                if (_pickedUnit == unit) return;
+
+                UnitUIEvents.UnitDescriptionUIEvent.type = DescriptionUIType.Unit;
+                UnitUIEvents.UnitDescriptionUIEvent.unit = unit;
+                UnitUIEvents.UnitDescriptionUIEvent.isActive = true;
+                _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
+
+                _pickedUnit = unit;
+                _isPick = true;
             }
         }
     }
