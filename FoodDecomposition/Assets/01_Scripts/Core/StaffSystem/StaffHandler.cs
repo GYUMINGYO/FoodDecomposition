@@ -1,3 +1,5 @@
+using System;
+using GM.Data;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -12,6 +14,12 @@ namespace GM.Staffs
 
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
+
+        public void Initialize(StaffInfo staffInfo)
+        {
+            _waiter.StaffInitialize(staffInfo);
+            _chef.StaffInitialize(staffInfo);
+        }
 
         private void Awake()
         {

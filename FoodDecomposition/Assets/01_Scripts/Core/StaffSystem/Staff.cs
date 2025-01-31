@@ -16,6 +16,8 @@ namespace GM.Staffs
 
     public abstract class Staff : Unit
     {
+        public StaffInfo Info;
+
         public StaffType MyStaffType => _myStaffType;
         [SerializeField] private StaffType _myStaffType;
 
@@ -50,6 +52,11 @@ namespace GM.Staffs
 
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
         public abstract void SetIdleState();
+
+        public void StaffInitialize(StaffInfo staffInfo)
+        {
+            Info = staffInfo;
+        }
 
         public BlackboardVariable<T> GetVariable<T>(string variableName)
         {
