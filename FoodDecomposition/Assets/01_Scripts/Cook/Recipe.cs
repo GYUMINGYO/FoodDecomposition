@@ -62,7 +62,7 @@ namespace GM
         }
 
         public float GetCurrentCookingTableTime()
-        {   
+        {
             InteractableEntity interactableEntity;
 
             if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
@@ -86,11 +86,19 @@ namespace GM
 
             return default;
         }
-            
+
 
         public bool IsCookingPathComplete()
         {
-            return _index >= _cookingPathList.Count;
+            if (_index >= _cookingPathList.Count)
+            {
+                _index = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public object Clone()
