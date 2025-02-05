@@ -1,5 +1,5 @@
 using GM.Data;
-using GM.EventSystem;
+using GM.GameEventSystem;
 using TMPro;
 using UnityEngine;
 

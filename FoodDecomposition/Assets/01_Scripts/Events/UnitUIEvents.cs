@@ -1,8 +1,7 @@
-using System;
 using GM.Data;
 using GM.Entities;
 
-namespace GM.EventSystem
+namespace GM.GameEventSystem
 {
     public enum DescriptionUIType
     {

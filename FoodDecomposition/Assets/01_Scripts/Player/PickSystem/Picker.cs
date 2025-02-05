@@ -1,6 +1,6 @@
 using System;
 using GM.Entities;
-using GM.EventSystem;
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Players.Pickers

@@ -1,6 +1,6 @@
 using System;
 using GM.Entities;
-using GM.EventSystem;
+using GM.GameEventSystem;
 using GM.Staffs;
 using TMPro;
 using UnityEngine;

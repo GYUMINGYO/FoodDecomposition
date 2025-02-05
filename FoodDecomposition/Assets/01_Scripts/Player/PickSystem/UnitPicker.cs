@@ -1,5 +1,5 @@
 using GM.Entities;
-using GM.EventSystem;
+using GM.GameEventSystem;
 
 namespace GM.Players.Pickers
 {
