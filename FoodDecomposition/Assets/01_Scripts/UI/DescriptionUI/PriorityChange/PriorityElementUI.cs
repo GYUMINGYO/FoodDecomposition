@@ -121,8 +121,8 @@ namespace GM.UI
         private void UpdateRect()
         {
             _rect = new Rect(
-                RectTrm.anchoredPosition.x - RectTrm.sizeDelta.x / 2,
-                RectTrm.anchoredPosition.y - RectTrm.sizeDelta.y / 2,
+                RectTrm.anchoredPosition.x,
+                RectTrm.anchoredPosition.y - RectTrm.sizeDelta.y,
                 RectTrm.sizeDelta.x, RectTrm.sizeDelta.y);
         }
 

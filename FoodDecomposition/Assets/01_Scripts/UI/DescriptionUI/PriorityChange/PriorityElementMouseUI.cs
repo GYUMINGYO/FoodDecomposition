@@ -46,8 +46,7 @@ namespace GM.UI
             Vector3 mousePos = Input.mousePosition;
             mousePos.z = _uiCam.farClipPlane;
             Vector3 movement = _uiCam.ScreenToWorldPoint(mousePos);
-
-            transform.position = movement;
+            RectTrm.position = movement;
             UpdateRect();
         }
 
