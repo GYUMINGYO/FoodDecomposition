@@ -93,12 +93,10 @@ namespace GM.Managers
 
                 if (tableEntity != null)
                 {
-                    Debug.Log("false1");
                     return true;
                 }
             }
 
-            Debug.Log("false2");
             return false;
         }
 
@@ -149,7 +147,7 @@ namespace GM.Managers
             return money;
         }
 
-        public void AddMoney(float money)
+        public void ApplyMoney(float money)
         {
             this.money += money;
             ManagerHub.Instance.GetManager<UIManager>().SetMoneyUI(this.money);

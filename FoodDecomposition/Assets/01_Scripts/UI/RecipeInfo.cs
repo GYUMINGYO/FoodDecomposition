@@ -71,7 +71,7 @@ namespace GM
         {
             RestourantManager restourantManager = ManagerHub.Instance.GetManager<RestourantManager>();
             if (restourantManager.Money >= recipe.researchFunds)
-                restourantManager.AddMoney(-recipe.researchFunds);
+                restourantManager.ApplyMoney(-recipe.researchFunds);
             else
                 return;
 
