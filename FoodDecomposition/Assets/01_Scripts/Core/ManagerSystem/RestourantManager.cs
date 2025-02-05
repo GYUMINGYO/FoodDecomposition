@@ -92,10 +92,12 @@ namespace GM.Managers
 
                 if (tableEntity != null)
                 {
+                    Debug.Log("false1");
                     return true;
                 }
             }
 
+            Debug.Log("false2");
             return false;
         }
 

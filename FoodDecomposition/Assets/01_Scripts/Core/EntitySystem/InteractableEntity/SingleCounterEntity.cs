@@ -1,7 +1,5 @@
 using GM.InteractableEntitys;
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
 
 namespace GM
@@ -19,7 +17,7 @@ namespace GM
 
         private void Awake()
         {
-            for(int i = 0; i < 3; ++i)
+            for (int i = 0; i < 3; ++i)
             {
                 lineCustomerList.Add(null);
             }
@@ -40,9 +38,11 @@ namespace GM
         {
             int idx = lineCustomerList.IndexOf(customer);
 
-            if(idx >=0 )
+            if (idx >= 0)
                 lineCustomerList[idx] = null;
             lineIdx--;
+
+            Debug.Log($"idx:{idx}, list:{lineCustomerList[idx]}, lineidx:{lineIdx}");
         }
 
         public Transform CheckEmptyFront(Customer customer)
@@ -53,11 +53,12 @@ namespace GM
                 return null;
             }
 
-            idx--;
-            if (lineCustomerList[idx] == null)
+            if (lineCustomerList[idx - 1] == null)
             {
-                lineCustomerList[idx] = customer;
-                return lineTrmList[idx];
+                Debug.Log("front");
+                lineCustomerList[idx - 1] = customer;
+                lineCustomerList[idx] = null;
+                return lineTrmList[idx - 1];
             }
             else
             {

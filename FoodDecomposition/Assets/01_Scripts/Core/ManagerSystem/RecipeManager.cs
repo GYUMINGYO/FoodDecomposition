@@ -17,10 +17,10 @@ namespace GM.Managers
 
         private void Start()
         {
-            List<Recipe> comparelist = recipeList;
+            List<Recipe> compareList = new List<Recipe>(recipeList);
             recipeList.Clear();
 
-            foreach (Recipe recipe in comparelist)
+            foreach (Recipe recipe in compareList)
             {
                 Recipe clone = recipe.Clone() as Recipe;
                 AddRecipe(clone);
