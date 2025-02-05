@@ -1,38 +1,19 @@
+using GM.Managers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace GM
 {
     public class TestScript : MonoBehaviour
     {
-        [SerializeField] private GameObject linePrefab;
-        [SerializeField] private GameObject recipeCardPrefab;
-
-        private RectTransform content;
-        private GameObject lineObj;
-        int cnt = 3;
-
-        private void Awake()
-        {
-            content = GetComponent<RectTransform>();
-        }
+        public List<Recipe> recipeList;
 
         private void Start()
         {
-            lineObj = Instantiate(linePrefab, content);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.O))
+            foreach (Recipe recipe in recipeList)
             {
-                if(cnt == 0)
-                {
-                    lineObj = Instantiate(linePrefab, content);
-                    cnt = 3;
-                }
-
-                Instantiate(recipeCardPrefab, lineObj.transform);
-                cnt--;
+                Recipe clone = recipe.Clone() as Recipe;
+                ManagerHub.Instance.GetManager<RecipeManager>().AddRecipe(clone);
             }
         }
     }

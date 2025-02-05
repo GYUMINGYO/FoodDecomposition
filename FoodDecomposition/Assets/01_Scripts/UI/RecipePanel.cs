@@ -1,19 +1,28 @@
 using DG.Tweening;
+using GM.Managers;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-namespace GM.EventSystem
+namespace GM
 {
     public class RecipePanel : MonoBehaviour, IMenuUI
     {
+        [SerializeField] private RecipeInfo recipeInfo;
         [SerializeField] private float duration = 0.5f;
 
         private CanvasGroup group;
+        private GraphicRaycaster raycaster;
+        private EventSystem eventSystem;
 
         bool isOpen = false;
 
         private void Awake()
         {
             group = GetComponent<CanvasGroup>();
+            raycaster = transform.root.GetComponent<GraphicRaycaster>();
+            eventSystem = EventSystem.current;
         }
 
         public void Open()
@@ -42,15 +51,37 @@ namespace GM.EventSystem
                 .OnComplete(() =>
                 {
                     group.alpha = 0;
-                    group.interactable = false; 
+                    group.interactable = false;
                 });
         }
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && !UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0))
             {
-                Close();
+                if (eventSystem.IsPointerOverGameObject())
+                {
+                    PointerEventData pointerData = new PointerEventData(eventSystem)
+                    {
+                        position = Input.mousePosition
+                    };
+
+                    List<RaycastResult> results = new List<RaycastResult>();
+                    raycaster.Raycast(pointerData, results);
+
+                    if (results[0].gameObject.transform.parent.TryGetComponent(out RecipeCard recipeCard))
+                    {
+                        recipeInfo.Show(recipeCard);
+                    }
+                    else if (results[0].gameObject.CompareTag("UIBackgrround"))
+                    {
+                        recipeInfo.Hide();
+                    }
+                }
+                else
+                {
+                    Close();
+                }
             }
         }
     }

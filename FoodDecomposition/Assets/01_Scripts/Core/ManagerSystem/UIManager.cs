@@ -1,5 +1,4 @@
 using DG.Tweening;
-using GM.EventSystem;
 using GM.Managers;
 using TMPro;
 using UnityEngine;
@@ -72,7 +71,7 @@ namespace GM
 
         private void OpenMenu(MenuType type)
         {
-            if(currentUI != null)
+            if (currentUI != null)
                 CloseMenu();
 
             switch (type)
