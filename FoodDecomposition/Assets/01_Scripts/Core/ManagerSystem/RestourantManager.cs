@@ -15,6 +15,7 @@ namespace GM.Managers
         private Dictionary<Enums.InteractableEntityType, List<InteractableEntity>> _interactableEntityDictionary;
 
         // TODO :  데이터를 분산하지 말고 하나로 뭉치는 DataManger를 사용할까?
+        public float Money => money;
         private float money = 0;
 
         public void Initialized()
