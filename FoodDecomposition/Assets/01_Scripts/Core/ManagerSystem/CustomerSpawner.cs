@@ -40,6 +40,7 @@ namespace GM.Managers
 
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
+                customer.transform.rotation = Quaternion.Euler(0, 0, 0);
 
                 time = Time.time;
             }
