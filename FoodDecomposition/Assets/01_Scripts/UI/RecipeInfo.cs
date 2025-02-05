@@ -20,7 +20,7 @@ namespace GM
         [Header("")]
         [SerializeField] private Button increaseBtn;
         [SerializeField] private Button decreaseBtn;
-        [SerializeField] private Button researchBtn;
+        [SerializeField] private Button researchBtn; 
         [SerializeField] private Button SetSalesBtn;
         [SerializeField] private Image salesImage;
         [SerializeField] private TextMeshProUGUI salesText;
@@ -47,9 +47,9 @@ namespace GM
 
             nameText.text = recipe.type.ToString();
             foodIcon.sprite = recipe.icon;
-            sellPriceText.text = $"����:{recipe.sellPrice}";
-            materialCostText.text = $"����:{recipe.materialCost}";
-            researchFundsText.text = $"����:{recipe.researchFunds}";
+            sellPriceText.text = $"가격:{recipe.sellPrice}";
+            materialCostText.text = $"재료비:{recipe.materialCost}";
+            researchFundsText.text = $"연구:{recipe.researchFunds}";
 
             group.alpha = 1;
             group.blocksRaycasts = true;
@@ -64,7 +64,7 @@ namespace GM
         private void ApplySellPrice(float price)
         {
             recipe.sellPrice += price;
-            sellPriceText.text = $"����:{recipe.sellPrice}";
+            sellPriceText.text = $"가격:{recipe.sellPrice}";
         }
 
         private void ResearchRecipe()
@@ -115,12 +115,12 @@ namespace GM
             if (recipe.isSale)
             {
                 salesImage.color = Color.green;
-                salesText.text = "�Ǹ���";
+                salesText.text = "판매중";
             }
             else
             {
                 salesImage.color = Color.white;
-                salesText.text = "�Ǹ��ϱ�";
+                salesText.text = "판매하기";
             }
         }
     }

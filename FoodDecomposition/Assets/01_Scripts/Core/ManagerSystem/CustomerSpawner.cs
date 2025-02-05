@@ -15,7 +15,18 @@ namespace GM.Managers
 
         private void Start()
         {
+            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantOpen += StartSpawn;
+            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantClose += EndSpawn;
+        }
+
+        private void StartSpawn()
+        {
             StartCoroutine(CustomerSpawnCoroutine());
+        }
+
+        private void EndSpawn()
+        {
+            StopAllCoroutines();
         }
 
         private IEnumerator CustomerSpawnCoroutine()
@@ -41,6 +52,7 @@ namespace GM.Managers
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
                 customer.transform.rotation = Quaternion.Euler(0, 0, 0);
+                ManagerHub.Instance.GetManager<RestourantManager>().AddCustomerCnt();
 
                 time = Time.time;
             }
