@@ -519,6 +519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80486f66ae6643f4a8329ef3c79694da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recipeList:
+  - {fileID: 11400000, guid: 9005271e69911c8449919c3529ceb597, type: 2}
+  - {fileID: 11400000, guid: 74f52674c69ed3c48b222847cff66de4, type: 2}
   content: {fileID: 68423736}
   linePrefab: {fileID: 2649119357628386549, guid: 297badc7029d6b74082a6beaeba77292, type: 3}
   recipeCardPrefab: {fileID: 6555894109483066090, guid: 599a5f0da5cc3164aa920d6d4c477be5, type: 3}
@@ -4481,7 +4484,6 @@ GameObject:
   - component: {fileID: 1270624636}
   - component: {fileID: 1270624638}
   - component: {fileID: 1270624637}
-  - component: {fileID: 1270624639}
   m_Layer: 5
   m_Name: RecipePanel
   m_TagString: Untagged
@@ -4538,21 +4540,6 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &1270624639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1270624635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19d1e1d91d95fb745952ed5cc8d406c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recipeList:
-  - {fileID: 11400000, guid: 9005271e69911c8449919c3529ceb597, type: 2}
-  - {fileID: 11400000, guid: 74f52674c69ed3c48b222847cff66de4, type: 2}
 --- !u!1 &1272729369
 GameObject:
   m_ObjectHideFlags: 0

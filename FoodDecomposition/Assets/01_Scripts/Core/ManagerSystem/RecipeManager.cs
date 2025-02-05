@@ -5,7 +5,7 @@ namespace GM.Managers
 {
     public class RecipeManager : MonoBehaviour, IManagerable
     {
-        private List<Recipe> recipeList = new();
+        public List<Recipe> recipeList;
         private List<Recipe> salesList = new();
 
         [SerializeField] private Transform content;
@@ -14,6 +14,18 @@ namespace GM.Managers
 
         private GameObject lineObj;
         int cnt = 3;
+
+        private void Start()
+        {
+            List<Recipe> comparelist = recipeList;
+            recipeList.Clear();
+
+            foreach (Recipe recipe in comparelist)
+            {
+                Recipe clone = recipe.Clone() as Recipe;
+                AddRecipe(clone);
+            }
+        }
 
         public void Initialized()
         {

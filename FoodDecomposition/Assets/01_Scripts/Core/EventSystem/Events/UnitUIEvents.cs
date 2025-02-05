@@ -1,6 +1,6 @@
 using GM.Entities;
 
-namespace GM.EventSystem
+namespace GM.GameEventSystem
 {
     public enum DescriptionUIType
     {
