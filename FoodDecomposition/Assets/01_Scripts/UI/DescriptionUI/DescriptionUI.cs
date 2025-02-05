@@ -9,8 +9,7 @@ namespace GM.UI
         [SerializeField] private GameEventChannelSO _unitPickUIEventChannel;
 
         [Header("UI Setting")]
-        [SerializeField]
-        private StaffDescriptionUI _staffDescriptionUI;
+        [SerializeField] private StaffDescriptionUI _staffDescriptionUI;
 
         [Header("Show Value")]
         [SerializeField] private float _showDuration = 0.5f;
@@ -18,16 +17,36 @@ namespace GM.UI
         [SerializeField] private Ease _showOutEase = Ease.Linear;
 
         private bool _isShow;
+        private bool _isMove;
+        private RectTransform RectTrm => transform as RectTransform;
 
         private void Awake()
         {
             _unitPickUIEventChannel.AddListener<UnitDescriptionUIEvent>(HandleUnitDescription);
-            transform.position = new Vector3(-450, transform.position.y, transform.position.z);
+            _staffDescriptionUI.Close();
+            RectTrm.anchoredPosition = new Vector2(-450, RectTrm.anchoredPosition.y);
         }
 
         private void OnDestroy()
         {
             _unitPickUIEventChannel.RemoveListener<UnitDescriptionUIEvent>(HandleUnitDescription);
+        }
+
+        public void UIMove()
+        {
+            UnitUIEvents.UIDescriptionEvent.UIState = true;
+            _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UIDescriptionEvent);
+        }
+
+        public void UIOut()
+        {
+            UnitUIEvents.UIDescriptionEvent.UIState = false;
+            _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UIDescriptionEvent);
+        }
+
+        public void CloseDescription()
+        {
+            ActiveUI(false);
         }
 
         private void HandleUnitDescription(UnitDescriptionUIEvent evt)
@@ -49,17 +68,19 @@ namespace GM.UI
 
         private void ActiveUI(bool isActive)
         {
-            if (_isShow == isActive) return;
+            if (_isShow == isActive || _isMove) return;
 
-            transform.DOKill();
+            RectTrm.DOKill();
+            _isMove = true;
             if (isActive)
             {
-                transform.DOMoveX(50, _showDuration).SetEase(_showEase);
+                RectTrm.DOAnchorPosX(30, _showDuration).SetEase(_showEase).onComplete += () => _isMove = false;
                 _isShow = true;
             }
             else
             {
-                transform.DOMoveX(-450, _showDuration).SetEase(_showOutEase);
+                RectTrm.DOAnchorPosX(-450, _showDuration).SetEase(_showOutEase).onComplete += () => _isMove = false;
+                _staffDescriptionUI.Close();
                 _isShow = false;
             }
         }

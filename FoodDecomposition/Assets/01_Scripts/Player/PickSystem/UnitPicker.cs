@@ -1,24 +1,24 @@
 using GM.Entities;
 using GM.GameEventSystem;
-using UnityEngine;
 
 namespace GM.Players.Pickers
 {
     public class UnitPicker : Picker
     {
-        [SerializeField] private GameEventChannelSO _unitPickUIEventChannel;
-
-        private bool _isPick;
         private Unit _pickedUnit;
+
+        public void NotPickUnit()
+        {
+            _pickedUnit = null;
+        }
 
         protected override void PickEntity()
         {
             if (_isRay == false)
             {
                 UnitUIEvents.UnitDescriptionUIEvent.isActive = false;
-                _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
+                _uiDescriptionEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
                 _pickedUnit = null;
-                _isPick = false;
 
                 return;
             }
@@ -30,10 +30,9 @@ namespace GM.Players.Pickers
                 UnitUIEvents.UnitDescriptionUIEvent.type = DescriptionUIType.Unit;
                 UnitUIEvents.UnitDescriptionUIEvent.unit = unit;
                 UnitUIEvents.UnitDescriptionUIEvent.isActive = true;
-                _unitPickUIEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
+                _uiDescriptionEventChannel.RaiseEvent(UnitUIEvents.UnitDescriptionUIEvent);
 
                 _pickedUnit = unit;
-                _isPick = true;
             }
         }
     }

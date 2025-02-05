@@ -1,5 +1,5 @@
 using DG.Tweening;
-using GM.Managers;
+using GM.GameEventSystem;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +13,7 @@ public enum MenuType
     setting
 }
 
-namespace GM
+namespace GM.Managers
 {
     public class UIManager : MonoBehaviour, IManagerable
     {

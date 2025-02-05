@@ -1,8 +1,6 @@
-using System;
 using GM.Data;
 using GM.Entities;
 using GM.InteractableEntitys;
-using GM.Managers;
 using Unity.Behavior;
 using UnityEngine;
 
@@ -27,11 +25,14 @@ namespace GM.Staffs
         public StaffHandler MyStaffHandler => _staffHandler;
         [SerializeField] protected StaffHandler _staffHandler;
 
-        public bool IsWorking => _isWorking;
-        protected bool _isWorking = false;
+        public StaffLevel Level => _level;
+        protected StaffLevel _level;
 
         public OrderData CurrentData => _currentData;
         protected OrderData _currentData;
+
+        public bool IsWorking => _isWorking;
+        protected bool _isWorking = false;
 
         public bool IsChange { get => _isChange; set => _isChange = value; }
         private bool _isChange;
@@ -53,9 +54,10 @@ namespace GM.Staffs
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
         public abstract void SetIdleState();
 
-        public void StaffInitialize(StaffInfo staffInfo)
+        public void StaffInitialize(StaffInfo staffInfo, StaffLevel staffLevel)
         {
             Info = staffInfo;
+            _level = staffLevel;
         }
 
         public BlackboardVariable<T> GetVariable<T>(string variableName)
