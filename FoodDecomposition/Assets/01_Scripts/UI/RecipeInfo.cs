@@ -47,9 +47,9 @@ namespace GM
 
             nameText.text = recipe.type.ToString();
             foodIcon.sprite = recipe.icon;
-            sellPriceText.text = $"°¡°Ý:{recipe.sellPrice}";
-            materialCostText.text = $"Àç·áºñ:{recipe.materialCost}";
-            researchFundsText.text = $"¿¬±¸:{recipe.researchFunds}";
+            sellPriceText.text = $"ï¿½ï¿½ï¿½ï¿½:{recipe.sellPrice}";
+            materialCostText.text = $"ï¿½ï¿½ï¿½ï¿½:{recipe.materialCost}";
+            researchFundsText.text = $"ï¿½ï¿½ï¿½ï¿½:{recipe.researchFunds}";
 
             group.alpha = 1;
             group.blocksRaycasts = true;
@@ -64,14 +64,14 @@ namespace GM
         private void ApplySellPrice(float price)
         {
             recipe.sellPrice += price;
-            sellPriceText.text = $"°¡°Ý:{recipe.sellPrice}";
+            sellPriceText.text = $"ï¿½ï¿½ï¿½ï¿½:{recipe.sellPrice}";
         }
 
         private void ResearchRecipe()
         {
             RestourantManager restourantManager = ManagerHub.Instance.GetManager<RestourantManager>();
             if (restourantManager.Money >= recipe.researchFunds)
-                restourantManager.ApplyMoney(-recipe.researchFunds);
+                restourantManager.AddMoney(-recipe.researchFunds);
             else
                 return;
 
@@ -103,7 +103,7 @@ namespace GM
 
         private void SetSales()
         {
-            if(ManagerHub.Instance.GetManager<RecipeManager>().SetSalesRecipe(recipe, !recipe.isSale))
+            if (ManagerHub.Instance.GetManager<RecipeManager>().SetSalesRecipe(recipe, !recipe.isSale))
             {
                 recipe.isSale = !recipe.isSale;
                 UpdateSalesBtn();
@@ -115,12 +115,12 @@ namespace GM
             if (recipe.isSale)
             {
                 salesImage.color = Color.green;
-                salesText.text = "ÆÇ¸ÅÁß";
+                salesText.text = "ï¿½Ç¸ï¿½ï¿½ï¿½";
             }
             else
             {
                 salesImage.color = Color.white;
-                salesText.text = "ÆÇ¸ÅÇÏ±â";
+                salesText.text = "ï¿½Ç¸ï¿½ï¿½Ï±ï¿½";
             }
         }
     }
