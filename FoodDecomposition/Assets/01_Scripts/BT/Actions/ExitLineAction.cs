@@ -1,5 +1,4 @@
 using GM;
-using GM.InteractableEntitys;
 using GM.Managers;
 using System;
 using Unity.Behavior;
@@ -15,12 +14,8 @@ public partial class ExitLineAction : Action
 
     protected override Status OnStart()
     {
-        InteractableEntity entity = null;
-        if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(Enums.InteractableEntityType.Counter, out entity, Customer.Value))
-        {
-            SingleCounterEntity counter = entity as SingleCounterEntity;
-            counter.ExitLine(Customer.Value);
-        }
+        SingleCounterEntity counter = ManagerHub.Instance.GetManager<MapManager>().Counter;
+        counter.ExitLine(Customer.Value);
 
         return Status.Success;
     }

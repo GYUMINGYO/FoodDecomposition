@@ -8,7 +8,9 @@ namespace GM
     public class MapManager : MonoBehaviour, IManagerable
     {
         [SerializeField] private Transform exitTrm;
+        [SerializeField] private SingleCounterEntity counter;
         public Transform ExitTrm => exitTrm;
+        public SingleCounterEntity Counter => counter;
 
         private bool isSeatFull = false;
         public bool IsSeatFull => isSeatFull;

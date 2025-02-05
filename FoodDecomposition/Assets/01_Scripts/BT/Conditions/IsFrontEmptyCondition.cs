@@ -1,5 +1,4 @@
 using GM;
-using GM.InteractableEntitys;
 using GM.Managers;
 using System;
 using Unity.Behavior;
@@ -14,18 +13,13 @@ public partial class IsFrontEmptyCondition : Condition
 
     public override bool IsTrue()
     {
-        InteractableEntity entity = null;
-        if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(Enums.InteractableEntityType.Counter, out entity, Customer.Value))
+        SingleCounterEntity counter = ManagerHub.Instance.GetManager<MapManager>().Counter;
+        Transform counterTrm = counter.CheckEmptyFront(Customer.Value);
+
+        if (counterTrm != null)
         {
-            SingleCounterEntity counter = entity as SingleCounterEntity;
-
-            Transform counterTrm = counter.CheckEmptyFront(Customer.Value);
-
-            if(counterTrm != null)
-            {
-                Counter.Value = counterTrm;
-                return true;
-            }
+            Counter.Value = counterTrm;
+            return true;
         }
         return false;
     }

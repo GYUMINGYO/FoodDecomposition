@@ -1,6 +1,4 @@
 using GM;
-using GM.CookWare;
-using GM.InteractableEntitys;
 using GM.Managers;
 using System;
 using Unity.Behavior;
@@ -15,18 +13,9 @@ public partial class GetCounterCondition : Condition
 
     public override bool IsTrue()
     {
-        InteractableEntity entity = null;
+        SingleCounterEntity counter = ManagerHub.Instance.GetManager<MapManager>().Counter;
 
-        if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(Enums.InteractableEntityType.Counter, out entity, Customer.Value))
-        {
-            SingleCounterEntity counter = entity as SingleCounterEntity;
-
-            Counter.Value = counter.GetLineTrm(Customer.Value);
-            return !(Counter.Value == null);
-        }
-        else
-        {
-            return false;
-        }
+        Counter.Value = counter.GetLineTrm(Customer.Value);
+        return !(Counter.Value == null);
     }
 }

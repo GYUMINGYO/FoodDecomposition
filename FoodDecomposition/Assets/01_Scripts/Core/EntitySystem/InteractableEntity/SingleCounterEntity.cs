@@ -41,8 +41,6 @@ namespace GM
             if (idx >= 0)
                 lineCustomerList[idx] = null;
             lineIdx--;
-
-            Debug.Log($"idx:{idx}, list:{lineCustomerList[idx]}, lineidx:{lineIdx}");
         }
 
         public Transform CheckEmptyFront(Customer customer)
@@ -55,7 +53,6 @@ namespace GM
 
             if (lineCustomerList[idx - 1] == null)
             {
-                Debug.Log("front");
                 lineCustomerList[idx - 1] = customer;
                 lineCustomerList[idx] = null;
                 return lineTrmList[idx - 1];
