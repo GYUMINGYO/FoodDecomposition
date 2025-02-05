@@ -1,5 +1,5 @@
 using DG.Tweening;
-using GM.EventSystem;
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.UI

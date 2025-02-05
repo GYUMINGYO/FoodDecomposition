@@ -1,5 +1,4 @@
 using System.Collections;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -57,15 +56,15 @@ namespace GM
 
         private IEnumerator WaitGauge()
         {
-                float elapsedTimee = 0;
+            float elapsedTimee = 0;
 
-            while (elapsedTimee < waitTime) 
+            while (elapsedTimee < waitTime)
             {
                 elapsedTimee += Time.deltaTime;
-                waitSlider.value = Mathf.Lerp(1, 0, elapsedTimee /  waitTime);
+                waitSlider.value = Mathf.Lerp(1, 0, elapsedTimee / waitTime);
 
-                
-                if(waitSlider.value <= 0.25f)
+
+                if (waitSlider.value <= 0.25f)
                 {
                     waitFillImage.color = Color.red;
                 }
@@ -78,7 +77,7 @@ namespace GM
 
             waitSlider.value = 0;
             isWaiting = true;
-            
+
             customer.OrderData.isCustomerOut = true;
         }
 

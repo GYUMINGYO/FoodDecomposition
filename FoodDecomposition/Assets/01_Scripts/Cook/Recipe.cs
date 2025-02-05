@@ -22,8 +22,10 @@ namespace GM
     {
         public FoodType type;
         public float sellPrice;
-        public float researchPrice;
-        public bool unLock = false;
+        public float researchFunds;
+        public float materialCost;
+        public bool isLock = true;
+        public bool isSale = true;
         public Sprite icon;
         public PoolTypeSO poolType;
 
