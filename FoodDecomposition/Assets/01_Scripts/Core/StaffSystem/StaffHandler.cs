@@ -11,19 +11,21 @@ namespace GM.Staffs
 
         public bool IsChange { get => _isChange; set => _isChange = value; }
         private bool _isChange;
+        private StaffLevel _level;
 
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
 
-        public void Initialize(StaffInfo staffInfo)
-        {
-            _waiter.StaffInitialize(staffInfo);
-            _chef.StaffInitialize(staffInfo);
-        }
-
         private void Awake()
         {
+            _level = GetComponentInChildren<StaffLevel>();
             SetStaff();
+        }
+
+        public void Initialize(StaffInfo staffInfo)
+        {
+            _waiter.StaffInitialize(staffInfo, _level);
+            _chef.StaffInitialize(staffInfo, _level);
         }
 
         private void Update()
