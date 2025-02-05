@@ -60,7 +60,7 @@ namespace GM
             _isChartFilling = false;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             transform.LookAt(Camera.main.transform);
         }

@@ -1,3 +1,5 @@
+using System;
+using GM.Data;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -12,6 +14,12 @@ namespace GM.Staffs
 
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
+
+        public void Initialize(StaffInfo staffInfo)
+        {
+            _waiter.StaffInitialize(staffInfo);
+            _chef.StaffInitialize(staffInfo);
+        }
 
         private void Awake()
         {
@@ -45,7 +53,7 @@ namespace GM.Staffs
             GetStaff(type, true).IsChange = true;
         }
 
-        public void StaffChangeProcess(StaffType type)
+        public void ChangeProcess(StaffType type)
         {
             // TODO : Change 함수에 변경 효과 추가하기
             GetStaff(type, true).gameObject.SetActive(true);
