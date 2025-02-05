@@ -23,6 +23,7 @@ namespace GM.UI
 
             if (staff.MyStaffType == StaffType.Waiter)
             {
+                // TODO : priorityUI를 움직임 처리
                 _priorityUI.InitializeUI(staff as Waiter);
                 _priorityUI.gameObject.SetActive(true);
             }
@@ -32,6 +33,11 @@ namespace GM.UI
             }
 
             _descriptableElementList.ForEach(element => element.InitializeUI(unit));
+        }
+
+        public void Close()
+        {
+            _priorityUI.gameObject.SetActive(false);
         }
     }
 }
