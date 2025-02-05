@@ -1,4 +1,5 @@
 using GM.Data;
+using GM.Managers;
 using GM.Staffs;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace GM
                 StaffInfo staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
                 StaffHandler staffHandler = Instantiate(_staffHandlerPrefab, transform.position, Quaternion.identity);
                 staffHandler.Initialize(staffInfo);
+                ManagerHub.Instance.GetManager<StaffManager>().AddStaff(staffHandler);
             }
         }
     }
