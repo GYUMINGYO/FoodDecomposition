@@ -1,6 +1,5 @@
 using DG.Tweening;
 using GM.EventSystem;
-using GM.Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +13,7 @@ public enum MenuType
     setting
 }
 
-namespace GM
+namespace GM.Managers
 {
     public class UIManager : MonoBehaviour, IManagerable
     {
@@ -72,7 +71,7 @@ namespace GM
 
         private void OpenMenu(MenuType type)
         {
-            if(currentUI != null)
+            if (currentUI != null)
                 CloseMenu();
 
             switch (type)

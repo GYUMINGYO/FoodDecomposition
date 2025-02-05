@@ -12,7 +12,6 @@ namespace GM.Managers
 
         // Playe Tiem
         // TODO : PlayTiem 측정기 만들기
-        private double _gamePlayTime = 0;
         private double _dayTime = 120;
         private double _currentDayTiem = 0;
 
@@ -21,7 +20,6 @@ namespace GM.Managers
 
         public void Initialized()
         {
-            _gamePlayTime = 0;
             _currentDayTiem = 0;
             _isDayTimer = false;
             _isStopDayTimer = false;
