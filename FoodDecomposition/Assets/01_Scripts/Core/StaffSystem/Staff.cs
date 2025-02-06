@@ -1,6 +1,6 @@
 using GM.Data;
 using GM.Entities;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using Unity.Behavior;
 using UnityEngine;
 

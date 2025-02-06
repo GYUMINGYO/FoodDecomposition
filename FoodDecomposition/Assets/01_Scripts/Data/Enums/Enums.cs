@@ -20,5 +20,7 @@ public static class Enums
         Stove,
         CuttingBoard,
         Sink,
+
+        Exit
     }
 }

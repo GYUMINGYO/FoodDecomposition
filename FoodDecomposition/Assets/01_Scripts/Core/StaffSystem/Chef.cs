@@ -1,6 +1,6 @@
 using GM.CookWare;
 using GM.Data;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using GM.Managers;
 using UnityEngine;
 

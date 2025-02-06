@@ -1,7 +1,7 @@
 using GM.Staffs;
 using UnityEngine;
 
-namespace GM.InteractableEntitys
+namespace GM.InteractableEntities
 {
     public class RestRoom : SingleTableEntity
     {

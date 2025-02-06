@@ -39,9 +39,9 @@ namespace GM.Managers
                 while (timer <= spawnTime)
                 {
                     timer += Time.deltaTime;
-                    if (ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
+                    if (ManagerHub.Instance.GetManager<RestourantManager>().IsSeatFull)
                     {
-                        yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<MapManager>().IsSeatFull);
+                        yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<RestourantManager>().IsSeatFull);
                         timer = 0;
                         time = Time.time;
                     }

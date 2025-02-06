@@ -1,4 +1,4 @@
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using UnityEngine;
 
 namespace GM.CookWare

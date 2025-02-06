@@ -1,4 +1,4 @@
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using System.Collections.Generic;
 using UnityEngine;
 

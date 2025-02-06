@@ -1,5 +1,5 @@
 using GM.Data;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using GM.Managers;
 using UnityEngine;
 
@@ -43,7 +43,6 @@ namespace GM.Staffs
             }
             else if (type == Enums.InteractableEntityType.Order)
             {
-                // TODO : 이거 제대로 여러명일 때 작동하는지 확인
                 SetVariable("OrderCustomerTrm", _currentData.orderCustomer.transform);
                 return _currentData.orderTable.GetWaiterStandTrm(transform);
             }

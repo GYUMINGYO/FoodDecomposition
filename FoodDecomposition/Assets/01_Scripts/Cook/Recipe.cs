@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using GM.CookWare;
 using GM.Entities;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using GM.Managers;
 using UnityEngine;
 
@@ -65,7 +65,7 @@ namespace GM
         {
             InteractableEntity interactableEntity;
 
-            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetStaticFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
             {
                 CookingTable cookingTable = interactableEntity as CookingTable;
                 return cookingTable.CookAnimation.length;
@@ -78,7 +78,7 @@ namespace GM
         {
             InteractableEntity interactableEntity;
 
-            if (ManagerHub.Instance.GetManager<RestourantManager>().GetFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
+            if (ManagerHub.Instance.GetManager<RestourantManager>().GetStaticFirstInteractableEntity(_cookingPathList[_index], out interactableEntity))
             {
                 CookingTable cookingTable = interactableEntity as CookingTable;
                 return cookingTable;
