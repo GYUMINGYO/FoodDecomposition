@@ -1,4 +1,5 @@
 using System.Collections;
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Managers
@@ -7,6 +8,7 @@ namespace GM.Managers
     {
         [SerializeField] private PoolTypeSO customerPoolType;
         [SerializeField] private Transform extrenceTrm;
+        [SerializeField] private GameEventChannelSO _gameCycleChannel;
 
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
@@ -15,8 +17,24 @@ namespace GM.Managers
 
         private void Start()
         {
-            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantOpen += StartSpawn;
-            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantClose += EndSpawn;
+            _gameCycleChannel.AddListener<RestourantStartEvent>(HandleSpawn);
+        }
+
+        private void OnDestroy()
+        {
+            _gameCycleChannel.RemoveListener<RestourantStartEvent>(HandleSpawn);
+        }
+
+        private void HandleSpawn(RestourantStartEvent evt)
+        {
+            if (evt.open)
+            {
+                StartSpawn();
+            }
+            else
+            {
+                StopAllCoroutines();
+            }
         }
 
         private void StartSpawn()

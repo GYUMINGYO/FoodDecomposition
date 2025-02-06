@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using GM.GameEventSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,11 +7,8 @@ namespace GM.Managers
 {
     public class GameManager : MonoBehaviour, IManagerable
     {
+        [SerializeField] private GameEventChannelSO _gameCycleChannel;
         [SerializeField] private Slider timeGauge;
-
-        // TODO : 이벤트를 게임이벤트로 처리해도 괜찮을 듯
-        public event Action OnRestaurantOpen;
-        public event Action OnRestaurantClose;
 
         // Playe Tiem
         // TODO : PlayTiem 측정기 만들기
@@ -65,7 +62,8 @@ namespace GM.Managers
         {
             _isDayTimer = true;
             _currentDayTime = 0;
-            OnRestaurantOpen?.Invoke();
+            GameCycleEvents.RestourantStartEvent.open = true;
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantStartEvent);
 
             while (_currentDayTime <= _dayTime)
             {
@@ -76,7 +74,9 @@ namespace GM.Managers
                 timeGauge.value = (float)(_currentDayTime / _dayTime);
             }
 
-            OnRestaurantClose?.Invoke();
+            // Close
+            GameCycleEvents.RestourantStartEvent.open = false;
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantStartEvent);
             _isDayTimer = false;
         }
     }
