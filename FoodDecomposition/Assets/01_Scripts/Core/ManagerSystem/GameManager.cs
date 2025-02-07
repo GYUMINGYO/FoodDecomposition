@@ -62,8 +62,8 @@ namespace GM.Managers
         {
             _isDayTimer = true;
             _currentDayTime = 0;
-            GameCycleEvents.RestourantStartEvent.open = true;
-            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantStartEvent);
+            GameCycleEvents.RestourantCycleEvent.open = true;
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);
 
             while (_currentDayTime <= _dayTime)
             {
@@ -74,9 +74,13 @@ namespace GM.Managers
                 timeGauge.value = (float)(_currentDayTime / _dayTime);
             }
 
-            // Close
-            GameCycleEvents.RestourantStartEvent.open = false;
-            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantStartEvent);
+            // TODO : 마감시간 과 하루 타이머 조정
+            // 마감시간(손님 생성 멈춤)
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantClosingTimeEvent);
+
+            // Close(실질적 레스토랑 영업 종료)
+            GameCycleEvents.RestourantCycleEvent.open = false;
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);
             _isDayTimer = false;
         }
     }

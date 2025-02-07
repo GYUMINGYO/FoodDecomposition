@@ -2,11 +2,17 @@ namespace GM.GameEventSystem
 {
     public static class GameCycleEvents
     {
-        public static readonly RestourantStartEvent RestourantStartEvent = new();
+        public static readonly RestourantCycleEvent RestourantCycleEvent = new();
+        public static readonly RestourantClosingTimeEvent RestourantClosingTimeEvent = new();
     }
 
-    public class RestourantStartEvent : GameEvent
+    public class RestourantCycleEvent : GameEvent
     {
         public bool open;
+    }
+
+    public class RestourantClosingTimeEvent : GameEvent
+    {
+
     }
 }
