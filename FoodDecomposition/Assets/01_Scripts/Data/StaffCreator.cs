@@ -13,7 +13,7 @@ namespace GM
         private void Update()
         {
             //! Test Code
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 StaffInfo staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
                 StaffHandler staffHandler = Instantiate(_staffHandlerPrefab, transform.position, Quaternion.identity);
