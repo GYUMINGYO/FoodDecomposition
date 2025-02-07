@@ -17,24 +17,27 @@ namespace GM.Managers
 
         private void Start()
         {
-            _gameCycleChannel.AddListener<RestourantStartEvent>(HandleSpawn);
+            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleStartSpawn);
+            _gameCycleChannel.AddListener<RestourantClosingTimeEvent>(HandleEndSpawn);
         }
 
         private void OnDestroy()
         {
-            _gameCycleChannel.RemoveListener<RestourantStartEvent>(HandleSpawn);
+            _gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleStartSpawn);
+            _gameCycleChannel.RemoveListener<RestourantClosingTimeEvent>(HandleEndSpawn);
         }
 
-        private void HandleSpawn(RestourantStartEvent evt)
+        private void HandleStartSpawn(RestourantCycleEvent evt)
         {
             if (evt.open)
             {
                 StartSpawn();
             }
-            else
-            {
-                StopAllCoroutines();
-            }
+        }
+
+        private void HandleEndSpawn(RestourantClosingTimeEvent evt)
+        {
+            EndSpawn();
         }
 
         private void StartSpawn()
