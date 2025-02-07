@@ -100,5 +100,10 @@ namespace GM.Staffs
 
             WorkPriority = workTypeArr;
         }
+
+        public override void LeaveWork()
+        {
+            _stateChangeEvent.SendEventMessage(WaiterState.LeaveWork);
+        }
     }
 }
