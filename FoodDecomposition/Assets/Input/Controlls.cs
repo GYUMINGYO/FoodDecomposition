@@ -216,7 +216,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -225,7 +225,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -714,6 +714,74 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MapEdit"",
+            ""id"": ""fe2f0983-8f63-4d33-94b9-9087c9c989aa"",
+            ""actions"": [
+                {
+                    ""name"": ""MapPoint"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""efefc9c2-773c-4831-b9a8-19f51d6dc7b0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2e16351e-ec46-4f9a-83a7-9b83e2b03847"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapDrag"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""f1dcca6f-4c6d-41a5-a096-4b95a81558b0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c8e61466-ab62-497f-a0a9-162df72a8bf0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapPoint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b9626a7-cd22-43b6-9acd-0a2a71ebc8ec"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""703b16da-87c1-4b6e-b83e-cd3044bc1212"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -797,12 +865,18 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // MapEdit
+        m_MapEdit = asset.FindActionMap("MapEdit", throwIfNotFound: true);
+        m_MapEdit_MapPoint = m_MapEdit.FindAction("MapPoint", throwIfNotFound: true);
+        m_MapEdit_MapClick = m_MapEdit.FindAction("MapClick", throwIfNotFound: true);
+        m_MapEdit_MapDrag = m_MapEdit.FindAction("MapDrag", throwIfNotFound: true);
     }
 
     ~@Controlls()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, Controlls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, Controlls.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_MapEdit.enabled, "This will cause a leak and performance issues, Controlls.MapEdit.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1048,6 +1122,68 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // MapEdit
+    private readonly InputActionMap m_MapEdit;
+    private List<IMapEditActions> m_MapEditActionsCallbackInterfaces = new List<IMapEditActions>();
+    private readonly InputAction m_MapEdit_MapPoint;
+    private readonly InputAction m_MapEdit_MapClick;
+    private readonly InputAction m_MapEdit_MapDrag;
+    public struct MapEditActions
+    {
+        private @Controlls m_Wrapper;
+        public MapEditActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MapPoint => m_Wrapper.m_MapEdit_MapPoint;
+        public InputAction @MapClick => m_Wrapper.m_MapEdit_MapClick;
+        public InputAction @MapDrag => m_Wrapper.m_MapEdit_MapDrag;
+        public InputActionMap Get() { return m_Wrapper.m_MapEdit; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MapEditActions set) { return set.Get(); }
+        public void AddCallbacks(IMapEditActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MapEditActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MapEditActionsCallbackInterfaces.Add(instance);
+            @MapPoint.started += instance.OnMapPoint;
+            @MapPoint.performed += instance.OnMapPoint;
+            @MapPoint.canceled += instance.OnMapPoint;
+            @MapClick.started += instance.OnMapClick;
+            @MapClick.performed += instance.OnMapClick;
+            @MapClick.canceled += instance.OnMapClick;
+            @MapDrag.started += instance.OnMapDrag;
+            @MapDrag.performed += instance.OnMapDrag;
+            @MapDrag.canceled += instance.OnMapDrag;
+        }
+
+        private void UnregisterCallbacks(IMapEditActions instance)
+        {
+            @MapPoint.started -= instance.OnMapPoint;
+            @MapPoint.performed -= instance.OnMapPoint;
+            @MapPoint.canceled -= instance.OnMapPoint;
+            @MapClick.started -= instance.OnMapClick;
+            @MapClick.performed -= instance.OnMapClick;
+            @MapClick.canceled -= instance.OnMapClick;
+            @MapDrag.started -= instance.OnMapDrag;
+            @MapDrag.performed -= instance.OnMapDrag;
+            @MapDrag.canceled -= instance.OnMapDrag;
+        }
+
+        public void RemoveCallbacks(IMapEditActions instance)
+        {
+            if (m_Wrapper.m_MapEditActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMapEditActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MapEditActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MapEditActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MapEditActions @MapEdit => new MapEditActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1112,5 +1248,11 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IMapEditActions
+    {
+        void OnMapPoint(InputAction.CallbackContext context);
+        void OnMapClick(InputAction.CallbackContext context);
+        void OnMapDrag(InputAction.CallbackContext context);
     }
 }
