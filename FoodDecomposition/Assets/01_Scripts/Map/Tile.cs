@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace GM.Maps
 {
-    public class Tile : MonoBehaviour
+    public class Tile : MapObject
     {
     }
 }
