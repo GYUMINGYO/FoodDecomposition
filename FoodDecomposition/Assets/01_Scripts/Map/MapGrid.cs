@@ -15,9 +15,12 @@ namespace GM.Maps
             _gridCellArr = new MapObject[1000, 1000];
         }
 
-        private void Start()
+        void Update()
         {
-            CreateGrid();
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                CreateGrid();
+            }
         }
 
         public void CreateGrid()
