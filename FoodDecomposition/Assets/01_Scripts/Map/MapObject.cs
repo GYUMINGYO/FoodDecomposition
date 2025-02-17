@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace GM.Maps
 {
+    [RequireComponent(typeof(Outline))]
     public abstract class MapObject : MonoBehaviour
     {
         [Header("Visual Value")]
@@ -12,9 +13,11 @@ namespace GM.Maps
         protected Vector3 _size;
 
         protected MeshRenderer _meshRenderer;
+        protected Outline _outline;
 
         protected virtual void Awake()
         {
+            _outline = GetComponent<Outline>();
             _meshRenderer = _visual.GetComponent<MeshRenderer>();
 
             ShowOutLine(false);
@@ -23,6 +26,7 @@ namespace GM.Maps
 
         public void ShowOutLine(bool enabled)
         {
+            _outline.enabled = enabled;
         }
     }
 }
