@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a6e931ed93711a141a0c7e37e0e3cb76, type: 2}
+  - {fileID: 2100000, guid: e823cd5b5d27c0f4b8256e7c12ee3e6d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95,11 +95,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8745379464483094714}
-  - component: {fileID: -2587328364876834017}
   - component: {fileID: 23089699597753897}
+  - component: {fileID: 5978118904068932286}
   - component: {fileID: 2500822820438573503}
   m_Layer: 9
-  m_Name: Tile
+  m_Name: Cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,19 +121,6 @@ Transform:
   - {fileID: 5882274517006783519}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2587328364876834017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7556788665526152189}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 577f4b30c05acc44389ac6dc6629cc84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _visual: {fileID: 5882274517006783519}
 --- !u!65 &23089699597753897
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -155,6 +142,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: 0, y: -0.25, z: 0}
+--- !u!114 &5978118904068932286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556788665526152189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf3c4256a287144f8606f50993bbd0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visual: {fileID: 5882274517006783519}
 --- !u!114 &2500822820438573503
 MonoBehaviour:
   m_ObjectHideFlags: 0
