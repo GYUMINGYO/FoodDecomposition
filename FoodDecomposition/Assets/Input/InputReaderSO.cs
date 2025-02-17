@@ -10,7 +10,7 @@ public enum InputType
 }
 
 [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReaderSO")]
-public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Controlls.IMapEditActions
+public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Controlls.IMapEditActions, Controlls.ICameraActions
 {
     private Controlls _controlls;
 
@@ -19,7 +19,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     #region MapEditActions
 
     public event Action OnMapClickEvent;
-    public event Action OnMapDragEvent;
+    public event Action<bool> OnMapDragEvent;
 
     #endregion
 
@@ -29,6 +29,8 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     public Vector2 MousePosition => _mousePosition;
     private Vector2 _mousePosition;
 
+    private bool _isClicked;
+
     private void OnEnable()
     {
         if (_controlls == null)
@@ -36,8 +38,10 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
             _controlls = new Controlls();
             _controlls.Player.SetCallbacks(this);
             _controlls.MapEdit.SetCallbacks(this);
+            _controlls.Camera.SetCallbacks(this);
         }
         _controlls.Player.Enable();
+        _controlls.Camera.Enable();
     }
 
     private void OnDisable()
@@ -47,7 +51,10 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public void ChangeInputState(InputType type)
     {
+        // TODO : Camera는 예외로?
         _controlls.Disable();
+        _controlls.Camera.Enable();
+
         switch (type)
         {
             case InputType.Player:
@@ -88,6 +95,11 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     public void OnMapPoint(InputAction.CallbackContext context)
     {
         _mousePosition = context.ReadValue<Vector2>();
+
+        if (_isClicked == true)
+        {
+            OnMapDragEvent?.Invoke(true);
+        }
     }
 
     public void OnMapClick(InputAction.CallbackContext context)
@@ -100,9 +112,19 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public void OnMapDrag(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
-            OnMapDragEvent?.Invoke();
+            _isClicked = true;
         }
+        else if (context.canceled)
+        {
+            _isClicked = false;
+            OnMapDragEvent?.Invoke(false);
+        }
+    }
+
+    public void OnZoom(InputAction.CallbackContext context)
+    {
+        Debug.Log(context.ReadValue<Vector2>());
     }
 }

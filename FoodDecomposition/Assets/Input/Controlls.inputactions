@@ -718,10 +718,10 @@
                 {
                     "name": "MapDrag",
                     "type": "PassThrough",
-                    "id": "f1dcca6f-4c6d-41a5-a096-4b95a81558b0",
+                    "id": "e537ceab-0914-48d9-a995-fcbcf7c67e32",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": true
                 }
             ],
@@ -750,12 +750,40 @@
                 },
                 {
                     "name": "",
-                    "id": "703b16da-87c1-4b6e-b83e-cd3044bc1212",
+                    "id": "4e62f992-6e4e-4b78-9a8f-9f5fc064c050",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MapDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Camera",
+            "id": "5a9043b1-5f9e-4f39-b286-f900fe2cf8fd",
+            "actions": [
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "4aff81fb-2066-4327-a88b-f99ca0efb2f8",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "87af1166-682c-4a97-8dd7-cfead4471103",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

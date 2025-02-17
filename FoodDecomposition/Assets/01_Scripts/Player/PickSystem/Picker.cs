@@ -18,14 +18,14 @@ namespace GM.Players.Pickers
 
         protected virtual void HandlePick()
         {
-            _isRay = PickRaycast();
+            PickRaycast();
             PickEntity();
         }
 
-        protected virtual bool PickRaycast()
+        protected void PickRaycast()
         {
             Ray ray = Camera.main.ScreenPointToRay(_player.Input.MousePosition);
-            return Physics.Raycast(ray, out _hit, Camera.main.farClipPlane, _pickLayer);
+            _isRay = Physics.Raycast(ray, out _hit, Camera.main.farClipPlane, _pickLayer);
         }
 
         protected abstract void PickEntity();

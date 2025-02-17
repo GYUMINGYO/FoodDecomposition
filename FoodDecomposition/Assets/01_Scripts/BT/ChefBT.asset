@@ -22,6 +22,12 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 825510402487484774
+      type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
+      data: 
+    - rid: 825510402487484775
+      type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
+      data: 
     - rid: 6638572093596763067
       type: {class: 'BlackboardVariable`1[[System.Boolean, mscorlib]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -284,12 +290,18 @@ MonoBehaviour:
         AuthoringAssetID:
           m_Value0: 1475087881036673931
           m_Value1: 16745085540749805401
-        m_DebugInfo: {fileID: 0}
+        m_DebugInfo: {fileID: 6809261096405257279}
         Root:
           rid: 6638572093654958697
         BlackboardReference:
           rid: 6638572093654958698
         BlackboardGroupReferences: []
+        ProcessedNodes: []
+        m_RunningNodes: []
+        m_NodesToEnd:
+          rid: 825510402487484774
+        m_EndedNodes:
+          rid: 825510402487484775
         m_VersionTimestamp: 638745253362201866
     - rid: 6638572093654958697
       type: {class: ParallelAllComposite, ns: Unity.Behavior, asm: Unity.Behavior}
@@ -1783,7 +1795,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: ChefBT Blackboard Editor
+  m_Name: ChefBT Blackboard
   m_EditorClassIdentifier: 
   VersionTimestamp: 638745253362983380
   AssetID:
@@ -2023,6 +2035,7 @@ MonoBehaviour:
   - rid: 6638572093596762984
   m_VersionTimestamp: 638745253362201866
   m_DebugInfo: {fileID: 6809261096405257279}
+  m_RuntimeGraph: {fileID: -5676346939297224409}
   AssetID:
     m_Value0: 1475087881036673931
     m_Value1: 16745085540749805401
@@ -2425,6 +2438,7 @@ MonoBehaviour:
     Variables: []
     NamedChildren: []
   m_Blackboards: []
+  m_MainBlackboardAuthoringAsset: {fileID: 2106086953743170575}
   m_CommandBuffer:
     m_Commands: []
   references:
@@ -7420,7 +7434,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: ChefBT Blackboard Editor
+  m_Name: ChefBT Blackboard
   m_EditorClassIdentifier: 
   AssetID:
     m_Value0: 1475087881036673931
