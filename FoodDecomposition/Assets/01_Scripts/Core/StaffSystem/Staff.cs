@@ -51,6 +51,11 @@ namespace GM.Staffs
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
         }
 
+        // TODO : GetTarget 방식 바꾸기
+        // if문이 너무 길고
+        // 타입이 늘어날 수록 예외 처리가 너무 많아짐
+        // 간단해서 좋지만 좋은 구조는 아님
+
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
         public abstract void SetIdleState();
         public abstract void LeaveWork();

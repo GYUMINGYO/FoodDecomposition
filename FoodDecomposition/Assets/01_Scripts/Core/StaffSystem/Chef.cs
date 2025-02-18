@@ -55,6 +55,14 @@ namespace GM.Staffs
                 SetTable(cookingTable);
                 return cookingTable.EntityTransform;
             }
+            else if (type == Enums.InteractableEntityType.Exit)
+            {
+                if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+                {
+                    SingleTableEntity exit = moveTarget as SingleTableEntity;
+                    return exit.EntityTransform;
+                }
+            }
             else if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
