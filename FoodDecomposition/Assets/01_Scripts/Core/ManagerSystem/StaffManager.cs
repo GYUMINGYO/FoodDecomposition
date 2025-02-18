@@ -1,13 +1,18 @@
 using GM.Data;
+using GM.GameEventSystem;
 using GM.Staffs;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace GM.Managers
 {
-    public class StaffManager : IManagerable, IManagerUpdateable
+    public class StaffManager : MonoBehaviour, IManagerable, IManagerUpdateable
     {
+        [SerializeField] private GameEventChannelSO _gameCycleChannel;
+        [SerializeField] private Transform _entranceTransform;
+
         private List<StaffHandler> _staffList;
         private LinkedList<OrderData> _orderList;
         private Queue<OrderData> _recipeList;
@@ -21,6 +26,41 @@ namespace GM.Managers
             foreach (var staff in MonoBehaviour.FindObjectsByType<StaffHandler>(FindObjectsSortMode.None))
             {
                 _staffList.Add(staff);
+            }
+        }
+
+        void Awake()
+        {
+            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+        }
+
+        private void HandleRestourantCycleEvent(RestourantCycleEvent evt)
+        {
+            if (evt.open)
+            {
+                // GenerateStaff
+                StartCoroutine(GenerateStaff());
+            }
+            else
+            {
+                // EndStaff
+                for (int i = 0; i < _staffList.Count; ++i)
+                {
+                    _staffList[i].LeaveWork();
+                }
+            }
+        }
+
+        private IEnumerator GenerateStaff()
+        {
+            for (int i = 0; i < _staffList.Count; ++i)
+            {
+                _staffList[i].gameObject.SetActive(true);
+                Staff staff = _staffList[i].GetStaff(_staffList[i].Type);
+                staff.transform.position = _entranceTransform.position;
+                staff.transform.rotation = _entranceTransform.rotation;
+
+                yield return new WaitForSeconds(0.7f);
             }
         }
 

@@ -14,7 +14,7 @@ namespace GM.Staffs
 
     public abstract class Staff : Unit
     {
-        public StaffInfo Info;
+        public StaffProfile Info;
 
         public StaffType MyStaffType => _myStaffType;
         [SerializeField] private StaffType _myStaffType;
@@ -60,7 +60,7 @@ namespace GM.Staffs
             _isWorking = false;
         }
 
-        public void StaffInitialize(StaffInfo staffInfo, StaffLevel staffLevel)
+        public void StaffInitialize(StaffProfile staffInfo, StaffLevel staffLevel)
         {
             Info = staffInfo;
             _level = staffLevel;

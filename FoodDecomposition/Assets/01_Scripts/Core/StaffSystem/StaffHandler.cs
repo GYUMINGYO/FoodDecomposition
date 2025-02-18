@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using GM.Data;
-using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -10,9 +9,6 @@ namespace GM.Staffs
         public StaffType Type => _type;
         public bool IsChange { get => _isChange; set => _isChange = value; }
         private bool _isChange;
-
-        [Header("Core")]
-        [SerializeField] private GameEventChannelSO _restourantCycleChannel;
 
         [Header("Staff Element")]
         [SerializeField] private StaffType _type = StaffType.Waiter;
@@ -24,13 +20,10 @@ namespace GM.Staffs
         private void Awake()
         {
             _level = GetComponentInChildren<StaffLevel>();
-
-            _restourantCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycle);
-
             SetStaff();
         }
 
-        public void Initialize(StaffInfo staffInfo)
+        public void Initialize(StaffProfile staffInfo)
         {
             _waiter.StaffInitialize(staffInfo, _level);
             _chef.StaffInitialize(staffInfo, _level);
@@ -41,18 +34,9 @@ namespace GM.Staffs
             SyncTransform();
         }
 
-        private void OnDestroy()
+        public void LeaveWork()
         {
-            _restourantCycleChannel.RemoveListener<RestourantCycleEvent>(HandleRestourantCycle);
-        }
-
-        private void HandleRestourantCycle(RestourantCycleEvent evt)
-        {
-            // Close
-            if (evt.open == false)
-            {
-                GetStaff(_type).LeaveWork();
-            }
+            GetStaff(_type).LeaveWork();
         }
 
         public void SetStaff()

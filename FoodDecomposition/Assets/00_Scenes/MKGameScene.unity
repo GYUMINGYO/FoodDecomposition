@@ -10905,6 +10905,7 @@ GameObject:
   - component: {fileID: 1532440744}
   - component: {fileID: 1532440743}
   - component: {fileID: 1532440746}
+  - component: {fileID: 1532440747}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -10972,7 +10973,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameCycleChannel: {fileID: 11400000, guid: 543402fc32e299b48bdd4f48a1a925a2, type: 2}
   timeGauge: {fileID: 1907799402}
-  dayLight: {fileID: 0}
+  dayLight: {fileID: 472090896}
+--- !u!114 &1532440747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1532440740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2674d691ddde4c6baa457dd651591bc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameCycleChannel: {fileID: 11400000, guid: 543402fc32e299b48bdd4f48a1a925a2, type: 2}
+  _entranceTransform: {fileID: 1583227931}
 --- !u!1 &1538180477
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,9 +2,8 @@ using UnityEngine;
 
 namespace GM.Data
 {
-    public struct StaffInfo
+    public class StaffInfo : MonoBehaviour
     {
-        public string Name;
-        public Sprite Portrait;
+        // TODO : Staff 정보 / 레벨 등등
     }
 }

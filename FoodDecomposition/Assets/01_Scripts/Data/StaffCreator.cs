@@ -7,17 +7,17 @@ namespace GM
 {
     public class StaffCreator : MonoBehaviour
     {
-        [SerializeField] private StaffInfoGeneratorSO _staffInfoGenerator;
+        [SerializeField] private StaffProfileGeneratorSO _staffInfoGenerator;
         [SerializeField] private StaffHandler _staffHandlerPrefab;
 
-        private void Awake()
+        private void Update()
         {
             //! Test Code
-            //if (Input.GetKeyDown(KeyCode.Space))
-            for (int i = 0; i < 4; ++i)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                StaffInfo staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
+                StaffProfile staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
                 StaffHandler staffHandler = Instantiate(_staffHandlerPrefab, transform.position, Quaternion.identity);
+                staffHandler.gameObject.SetActive(false);
                 staffHandler.Initialize(staffInfo);
                 ManagerHub.Instance.GetManager<StaffManager>().AddStaff(staffHandler);
             }

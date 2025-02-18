@@ -9,15 +9,15 @@ namespace GM.Data
     }
 
     [CreateAssetMenu(fileName = "StaffInfoGenerator", menuName = "SO/Data/StaffInfoGenerator")]
-    public class StaffInfoGeneratorSO : ScriptableObject
+    public class StaffProfileGeneratorSO : ScriptableObject
     {
         public LanguageType LanguageType;
         public NameDataSO NameContainer;
         public PortraitDataSO PortraitContainer;
 
-        public StaffInfo GetRandomStaffInfo()
+        public StaffProfile GetRandomStaffInfo()
         {
-            StaffInfo staffInfo = new StaffInfo
+            StaffProfile staffInfo = new StaffProfile
             {
                 Name = $"{NameContainer.GetRandomFirstName()}{NameContainer.GetRandomLastName()}",
                 Portrait = PortraitContainer.GetRandomPortrait()
