@@ -77,8 +77,7 @@ namespace GM.Staffs
                     return foodTrash.EntityTransform;
                 }
             }
-
-            if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+            else if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
                 SetTable(singleTableEntity);
