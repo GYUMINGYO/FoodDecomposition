@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GM.Managers
@@ -59,7 +60,7 @@ namespace GM.Managers
         public Recipe GetRecipe()
         {
             int idx = Random.Range(0, salesList.Count);
-            return salesList[idx];
+            return salesList[idx].Clone() as Recipe;
         }
 
         public bool SetSalesRecipe(Recipe recipe, bool isSale)

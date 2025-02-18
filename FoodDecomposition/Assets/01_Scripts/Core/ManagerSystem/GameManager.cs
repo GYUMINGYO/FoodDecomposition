@@ -85,7 +85,6 @@ namespace GM.Managers
                     // 마감시간(손님 생성 멈춤)
                     _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantClosingTimeEvent);
                     _isStopCustomer = true;
-                    Debug.Log("stop");
                 }
             }
 
