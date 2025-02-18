@@ -16,7 +16,7 @@ namespace GM
         {
             this.recipe = recipe;
 
-            nameText.text = recipe.type.ToString();
+            nameText.text = recipe.foodName;
             icon.sprite = recipe.icon;
 
             SetLock(recipe.isLock);
