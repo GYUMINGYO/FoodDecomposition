@@ -13,6 +13,9 @@ namespace GM.Players.Pickers
         [SerializeField] private Grid _grid;
         [SerializeField] private GameObject _cellIndicator;
 
+        private Vector3 _cellPosition;
+        [SerializeField] private Tile _tilePrefab;
+
         public override void Initialize(Entity entity)
         {
             _pickMapObjectList = new List<MapObject>();
@@ -37,7 +40,8 @@ namespace GM.Players.Pickers
 
             Vector3 mousePosition = _hit.point;
             Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
-            _cellIndicator.transform.position = _grid.CellToWorld(gridPosition);
+            _cellPosition = _grid.CellToWorld(gridPosition);
+            _cellIndicator.transform.position = _cellPosition;
         }
 
         void OnDestroy()
@@ -62,7 +66,15 @@ namespace GM.Players.Pickers
                 return;
             }
 
-            if (_hit.transform.TryGetComponent(out MapObject mapObject))
+            // TODO : 특정 조건일 때 오브젝트가 생성되게 해야 함
+
+            if (_hit.transform.TryGetComponent(out Map map))
+            {
+                // TODO : Offset 계산
+                Vector3 tilePostion = new Vector3(_cellPosition.x + 1, _cellPosition.y + 0.5f, _cellPosition.z + 1);
+                Instantiate(_tilePrefab, tilePostion, Quaternion.identity);
+            }
+            else if (_hit.transform.TryGetComponent(out MapObject mapObject))
             {
                 if (_pickMapObjectList.Contains(mapObject)) return;
                 mapObject.ShowOutLine(true);

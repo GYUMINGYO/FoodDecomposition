@@ -2,8 +2,11 @@ using UnityEngine;
 
 namespace GM.Maps
 {
-    public class MapGrid : MonoBehaviour
+    public class Map : MonoBehaviour
     {
+        // TODO :
+        // 
+
         [SerializeField] private ObjectInfoSO _cell;
         [SerializeField] private Vector2Int _size;
 

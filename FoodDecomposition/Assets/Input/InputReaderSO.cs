@@ -10,11 +10,13 @@ public enum InputType
 }
 
 [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReaderSO")]
-public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Controlls.IMapEditActions, Controlls.ICameraActions
+public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Controlls.IMapEditActions, Controlls.ICameraActions, Controlls.ICoreActions
 {
     private Controlls _controlls;
 
     public event Action OnPickEvent;
+
+    public event Action OnMapEditChangeEvent;
 
     #region MapEditActions
 
@@ -30,6 +32,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     private Vector2 _mousePosition;
 
     private bool _isClicked;
+    private bool _isMapEdit;
 
     private void OnEnable()
     {
@@ -37,10 +40,12 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
         {
             _controlls = new Controlls();
             _controlls.Player.SetCallbacks(this);
+            _controlls.Core.SetCallbacks(this);
             _controlls.MapEdit.SetCallbacks(this);
             _controlls.Camera.SetCallbacks(this);
         }
         _controlls.Player.Enable();
+        _controlls.Core.Enable();
         _controlls.Camera.Enable();
     }
 
@@ -54,6 +59,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
         // TODO : Camera는 예외로?
         _controlls.Disable();
         _controlls.Camera.Enable();
+        _controlls.Core.Enable();
 
         switch (type)
         {
@@ -126,5 +132,21 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     public void OnZoom(InputAction.CallbackContext context)
     {
         Debug.Log(context.ReadValue<Vector2>());
+    }
+
+    public void OnMapEditChange(InputAction.CallbackContext context)
+    {
+        OnMapEditChangeEvent.Invoke();
+
+        _isMapEdit = !_isMapEdit;
+
+        if (_isMapEdit)
+        {
+            ChangeInputState(InputType.MapEdit);
+        }
+        else
+        {
+            ChangeInputState(InputType.Player);
+        }
     }
 }

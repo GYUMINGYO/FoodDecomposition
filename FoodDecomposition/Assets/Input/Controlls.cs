@@ -810,6 +810,34 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Core"",
+            ""id"": ""fb3ec892-67ff-43f4-83e4-6176859d01f1"",
+            ""actions"": [
+                {
+                    ""name"": ""MapEditChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""90362b6e-d583-4289-8d70-20f852bbb1ab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""140c8054-632e-4e6b-8342-fda4a5a08474"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapEditChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -901,6 +929,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        // Core
+        m_Core = asset.FindActionMap("Core", throwIfNotFound: true);
+        m_Core_MapEditChange = m_Core.FindAction("MapEditChange", throwIfNotFound: true);
     }
 
     ~@Controlls()
@@ -909,6 +940,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, Controlls.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_MapEdit.enabled, "This will cause a leak and performance issues, Controlls.MapEdit.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Camera.enabled, "This will cause a leak and performance issues, Controlls.Camera.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Core.enabled, "This will cause a leak and performance issues, Controlls.Core.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1262,6 +1294,52 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // Core
+    private readonly InputActionMap m_Core;
+    private List<ICoreActions> m_CoreActionsCallbackInterfaces = new List<ICoreActions>();
+    private readonly InputAction m_Core_MapEditChange;
+    public struct CoreActions
+    {
+        private @Controlls m_Wrapper;
+        public CoreActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MapEditChange => m_Wrapper.m_Core_MapEditChange;
+        public InputActionMap Get() { return m_Wrapper.m_Core; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CoreActions set) { return set.Get(); }
+        public void AddCallbacks(ICoreActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CoreActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CoreActionsCallbackInterfaces.Add(instance);
+            @MapEditChange.started += instance.OnMapEditChange;
+            @MapEditChange.performed += instance.OnMapEditChange;
+            @MapEditChange.canceled += instance.OnMapEditChange;
+        }
+
+        private void UnregisterCallbacks(ICoreActions instance)
+        {
+            @MapEditChange.started -= instance.OnMapEditChange;
+            @MapEditChange.performed -= instance.OnMapEditChange;
+            @MapEditChange.canceled -= instance.OnMapEditChange;
+        }
+
+        public void RemoveCallbacks(ICoreActions instance)
+        {
+            if (m_Wrapper.m_CoreActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICoreActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CoreActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CoreActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CoreActions @Core => new CoreActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1336,5 +1414,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
     public interface ICameraActions
     {
         void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface ICoreActions
+    {
+        void OnMapEditChange(InputAction.CallbackContext context);
     }
 }
