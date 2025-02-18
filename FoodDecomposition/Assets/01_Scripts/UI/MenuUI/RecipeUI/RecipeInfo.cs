@@ -45,7 +45,7 @@ namespace GM
             SetLock(recipe.isLock);
             UpdateSalesBtn();
 
-            nameText.text = recipe.type.ToString();
+            nameText.text = recipe.foodName;
             foodIcon.sprite = recipe.icon;
             sellPriceText.text = $"가격:{recipe.sellPrice}";
             materialCostText.text = $"재료비:{recipe.materialCost}";

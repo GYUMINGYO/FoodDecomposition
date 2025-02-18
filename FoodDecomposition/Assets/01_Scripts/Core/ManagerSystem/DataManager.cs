@@ -7,8 +7,17 @@ namespace GM
     {
         public Action<float> OnChangeMoenyData;
 
+        private int customerCnt;
         private float money;
+
+        public int CustomerCnt => customerCnt;
         public float Money => money;
+
+        public void Initialized()
+        {
+            customerCnt = 0;
+            money = 0;
+        }
 
         public void AddMoney(float money)
         {
@@ -22,11 +31,11 @@ namespace GM
             OnChangeMoenyData?.Invoke(this.money);
         }
 
-        public void Clear()
-        {
-        }
+        public void AddCustomerCnt() => customerCnt++;
 
-        public void Initialized()
+        public void SubtractCustomerCnt() => customerCnt--;
+
+        public void Clear()
         {
         }
     }

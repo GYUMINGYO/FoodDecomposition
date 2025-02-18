@@ -131,7 +131,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public void OnZoom(InputAction.CallbackContext context)
     {
-        Debug.Log(context.ReadValue<Vector2>());
+        //Debug.Log(context.ReadValue<Vector2>());
     }
 
     public void OnMapEditChange(InputAction.CallbackContext context)

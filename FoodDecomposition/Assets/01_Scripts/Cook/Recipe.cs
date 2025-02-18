@@ -20,6 +20,7 @@ namespace GM
     [CreateAssetMenu(menuName = "SO/Recipe")]
     public class Recipe : ScriptableObject, ICloneable
     {
+        public string foodName;
         public FoodType type;
         public float sellPrice;
         public float researchFunds;
