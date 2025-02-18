@@ -1,6 +1,5 @@
-using System.Collections;
 using GM.GameEventSystem;
-using Unity.VisualScripting;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,12 +18,14 @@ namespace GM.Managers
 
         private bool _isDayTimer;
         private bool _isStopDayTimer;
+        private bool _isStopCustomer;
 
         public void Initialized()
         {
             _currentDayTime = 0;
             _isDayTimer = false;
             _isStopDayTimer = false;
+            _isStopCustomer = false;
         }
 
         public void Clear()
@@ -63,6 +64,7 @@ namespace GM.Managers
         private IEnumerator DayTimer()
         {
             _isDayTimer = true;
+            _isStopCustomer = false;
             _currentDayTime = 0;
             GameCycleEvents.RestourantCycleEvent.open = true;
             _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);
@@ -73,14 +75,19 @@ namespace GM.Managers
                 if (_isStopDayTimer == true) continue;
 
                 _currentDayTime += Time.deltaTime;
-                timeGauge.value = (float)(_currentDayTime / _dayTime);
 
-                //dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, (float)_currentDayTime), -30, 0);
+                float duration = (float)(_currentDayTime / _dayTime);
+                timeGauge.value = duration;
+                dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, duration), -30, 0);
+
+                if (duration > 0.8f && !_isStopCustomer)
+                {
+                    // 마감시간(손님 생성 멈춤)
+                    _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantClosingTimeEvent);
+                    _isStopCustomer = true;
+                    Debug.Log("stop");
+                }
             }
-
-            // TODO : 마감시간 과 하루 타이머 조정
-            // 마감시간(손님 생성 멈춤)
-            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantClosingTimeEvent);
 
             // Close(실질적 레스토랑 영업 종료)
             GameCycleEvents.RestourantCycleEvent.open = false;

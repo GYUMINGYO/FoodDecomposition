@@ -10,10 +10,11 @@ namespace GM
         [SerializeField] private StaffInfoGeneratorSO _staffInfoGenerator;
         [SerializeField] private StaffHandler _staffHandlerPrefab;
 
-        private void Update()
+        private void Awake()
         {
             //! Test Code
-            if (Input.GetKeyDown(KeyCode.Space))
+            //if (Input.GetKeyDown(KeyCode.Space))
+            for (int i = 0; i < 4; ++i)
             {
                 StaffInfo staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
                 StaffHandler staffHandler = Instantiate(_staffHandlerPrefab, transform.position, Quaternion.identity);
