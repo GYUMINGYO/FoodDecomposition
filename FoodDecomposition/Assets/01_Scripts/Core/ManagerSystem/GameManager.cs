@@ -1,5 +1,6 @@
 using System.Collections;
 using GM.GameEventSystem;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ namespace GM.Managers
     {
         [SerializeField] private GameEventChannelSO _gameCycleChannel;
         [SerializeField] private Slider timeGauge;
+        [SerializeField] private Transform dayLight;
 
         // Playe Tiem
         // TODO : PlayTiem 측정기 만들기
@@ -72,6 +74,8 @@ namespace GM.Managers
 
                 _currentDayTime += Time.deltaTime;
                 timeGauge.value = (float)(_currentDayTime / _dayTime);
+
+                //dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, (float)_currentDayTime), -30, 0);
             }
 
             // TODO : 마감시간 과 하루 타이머 조정

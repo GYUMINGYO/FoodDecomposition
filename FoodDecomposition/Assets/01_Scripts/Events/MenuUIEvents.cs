@@ -10,7 +10,7 @@ public enum MenuType
     setting
 }
 
-namespace GM
+namespace GM.GameEventSystem
 {
     public static class MenuUIEvents
     {

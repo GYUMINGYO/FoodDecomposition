@@ -558,6 +558,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 69736344}
+  - component: {fileID: 69736345}
   m_Layer: 5
   m_Name: MenuPanel
   m_TagString: Untagged
@@ -590,6 +591,27 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &69736345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69736343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e0aac8f434797e4ea7fcdfbb3910075, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openMenuUIEvent: {fileID: 11400000, guid: b9dc6323cda16204d819dd3c5fa13094, type: 2}
+  menuBtn: {fileID: 1661444887}
+  menuBtns:
+  - {fileID: 1730971540}
+  - {fileID: 1829112849}
+  - {fileID: 338233977}
+  - {fileID: 1127054036}
+  - {fileID: 58041586}
+  duration: 0.3
 --- !u!114 &82417259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8423685227717871246, guid: ed9dd984d445eeb44886b0bb601116fd, type: 3}
@@ -2453,6 +2475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ae0b757691ba464491f0a1f026af76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  openMenuUIEvent: {fileID: 11400000, guid: b9dc6323cda16204d819dd3c5fa13094, type: 2}
   recipeInfo: {fileID: 1166249533}
   duration: 0.5
 --- !u!225 &341107630
@@ -3751,6 +3774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 587601696}
+  - component: {fileID: 587601697}
   m_Layer: 5
   m_Name: MoneyPanel
   m_TagString: Untagged
@@ -3779,6 +3803,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
+--- !u!114 &587601697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587601695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d06ed4b5dcacce4eb2b0a50393b66a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyText: {fileID: 1574166334}
 --- !u!1 &591479635
 GameObject:
   m_ObjectHideFlags: 0
@@ -8155,9 +8192,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GM.UIManager, Assembly-CSharp
-        m_MethodName: CloseMenu
+      - m_Target: {fileID: 341107629}
+        m_TargetAssemblyTypeName: GM.RecipePanel, Assembly-CSharp
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11039,7 +11076,6 @@ GameObject:
   - component: {fileID: 1532440745}
   - component: {fileID: 1532440744}
   - component: {fileID: 1532440743}
-  - component: {fileID: 1532440742}
   - component: {fileID: 1532440746}
   m_Layer: 0
   m_Name: Manager
@@ -11048,27 +11084,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1532440742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1532440740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d06ed4b5dcacce4eb2b0a50393b66a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 1574166334}
-  recipePanel: {fileID: 341107629}
-  menuBtn: {fileID: 1661444887}
-  staffBtn: {fileID: 1730971540}
-  fablicBtn: {fileID: 1829112849}
-  clientBtn: {fileID: 338233977}
-  recipeBtn: {fileID: 1127054036}
-  settingBtn: {fileID: 58041586}
-  duration: 0.5
 --- !u!114 &1532440743
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM
