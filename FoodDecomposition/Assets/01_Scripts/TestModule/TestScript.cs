@@ -1,11 +1,14 @@
-using GM.Managers;
-using System.Collections.Generic;
+using GM.Players;
 using UnityEngine;
 
-namespace GM
+namespace GM.Test
 {
     public class TestScript : MonoBehaviour
     {
-        
+        [SerializeField] private Player _player;
+        void Update()
+        {
+
+        }
     }
 }

@@ -216,7 +216,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""name"": ""Submit"",
                     ""type"": ""Button"",
                     ""id"": ""7607c7b6-cd76-4816-beef-bd0341cfe950"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -225,7 +225,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""15cef263-9014-4fd5-94d9-4e4a6234a6ef"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -714,6 +714,130 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""MapEdit"",
+            ""id"": ""fe2f0983-8f63-4d33-94b9-9087c9c989aa"",
+            ""actions"": [
+                {
+                    ""name"": ""MapPoint"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""efefc9c2-773c-4831-b9a8-19f51d6dc7b0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapClick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""2e16351e-ec46-4f9a-83a7-9b83e2b03847"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapDrag"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""e537ceab-0914-48d9-a995-fcbcf7c67e32"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Hold"",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c8e61466-ab62-497f-a0a9-162df72a8bf0"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapPoint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9b9626a7-cd22-43b6-9acd-0a2a71ebc8ec"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4e62f992-6e4e-4b78-9a8f-9f5fc064c050"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Camera"",
+            ""id"": ""5a9043b1-5f9e-4f39-b286-f900fe2cf8fd"",
+            ""actions"": [
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""4aff81fb-2066-4327-a88b-f99ca0efb2f8"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""87af1166-682c-4a97-8dd7-cfead4471103"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Core"",
+            ""id"": ""fb3ec892-67ff-43f4-83e4-6176859d01f1"",
+            ""actions"": [
+                {
+                    ""name"": ""MapEditChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""90362b6e-d583-4289-8d70-20f852bbb1ab"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""140c8054-632e-4e6b-8342-fda4a5a08474"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapEditChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -797,12 +921,26 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         m_UI_ScrollWheel = m_UI.FindAction("ScrollWheel", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
+        // MapEdit
+        m_MapEdit = asset.FindActionMap("MapEdit", throwIfNotFound: true);
+        m_MapEdit_MapPoint = m_MapEdit.FindAction("MapPoint", throwIfNotFound: true);
+        m_MapEdit_MapClick = m_MapEdit.FindAction("MapClick", throwIfNotFound: true);
+        m_MapEdit_MapDrag = m_MapEdit.FindAction("MapDrag", throwIfNotFound: true);
+        // Camera
+        m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
+        m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
+        // Core
+        m_Core = asset.FindActionMap("Core", throwIfNotFound: true);
+        m_Core_MapEditChange = m_Core.FindAction("MapEditChange", throwIfNotFound: true);
     }
 
     ~@Controlls()
     {
         UnityEngine.Debug.Assert(!m_Player.enabled, "This will cause a leak and performance issues, Controlls.Player.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, Controlls.UI.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_MapEdit.enabled, "This will cause a leak and performance issues, Controlls.MapEdit.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Camera.enabled, "This will cause a leak and performance issues, Controlls.Camera.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Core.enabled, "This will cause a leak and performance issues, Controlls.Core.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1048,6 +1186,160 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
+
+    // MapEdit
+    private readonly InputActionMap m_MapEdit;
+    private List<IMapEditActions> m_MapEditActionsCallbackInterfaces = new List<IMapEditActions>();
+    private readonly InputAction m_MapEdit_MapPoint;
+    private readonly InputAction m_MapEdit_MapClick;
+    private readonly InputAction m_MapEdit_MapDrag;
+    public struct MapEditActions
+    {
+        private @Controlls m_Wrapper;
+        public MapEditActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MapPoint => m_Wrapper.m_MapEdit_MapPoint;
+        public InputAction @MapClick => m_Wrapper.m_MapEdit_MapClick;
+        public InputAction @MapDrag => m_Wrapper.m_MapEdit_MapDrag;
+        public InputActionMap Get() { return m_Wrapper.m_MapEdit; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MapEditActions set) { return set.Get(); }
+        public void AddCallbacks(IMapEditActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MapEditActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MapEditActionsCallbackInterfaces.Add(instance);
+            @MapPoint.started += instance.OnMapPoint;
+            @MapPoint.performed += instance.OnMapPoint;
+            @MapPoint.canceled += instance.OnMapPoint;
+            @MapClick.started += instance.OnMapClick;
+            @MapClick.performed += instance.OnMapClick;
+            @MapClick.canceled += instance.OnMapClick;
+            @MapDrag.started += instance.OnMapDrag;
+            @MapDrag.performed += instance.OnMapDrag;
+            @MapDrag.canceled += instance.OnMapDrag;
+        }
+
+        private void UnregisterCallbacks(IMapEditActions instance)
+        {
+            @MapPoint.started -= instance.OnMapPoint;
+            @MapPoint.performed -= instance.OnMapPoint;
+            @MapPoint.canceled -= instance.OnMapPoint;
+            @MapClick.started -= instance.OnMapClick;
+            @MapClick.performed -= instance.OnMapClick;
+            @MapClick.canceled -= instance.OnMapClick;
+            @MapDrag.started -= instance.OnMapDrag;
+            @MapDrag.performed -= instance.OnMapDrag;
+            @MapDrag.canceled -= instance.OnMapDrag;
+        }
+
+        public void RemoveCallbacks(IMapEditActions instance)
+        {
+            if (m_Wrapper.m_MapEditActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMapEditActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MapEditActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MapEditActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MapEditActions @MapEdit => new MapEditActions(this);
+
+    // Camera
+    private readonly InputActionMap m_Camera;
+    private List<ICameraActions> m_CameraActionsCallbackInterfaces = new List<ICameraActions>();
+    private readonly InputAction m_Camera_Zoom;
+    public struct CameraActions
+    {
+        private @Controlls m_Wrapper;
+        public CameraActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Zoom => m_Wrapper.m_Camera_Zoom;
+        public InputActionMap Get() { return m_Wrapper.m_Camera; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CameraActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraActionsCallbackInterfaces.Add(instance);
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
+        }
+
+        private void UnregisterCallbacks(ICameraActions instance)
+        {
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
+        }
+
+        public void RemoveCallbacks(ICameraActions instance)
+        {
+            if (m_Wrapper.m_CameraActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICameraActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CameraActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CameraActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CameraActions @Camera => new CameraActions(this);
+
+    // Core
+    private readonly InputActionMap m_Core;
+    private List<ICoreActions> m_CoreActionsCallbackInterfaces = new List<ICoreActions>();
+    private readonly InputAction m_Core_MapEditChange;
+    public struct CoreActions
+    {
+        private @Controlls m_Wrapper;
+        public CoreActions(@Controlls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MapEditChange => m_Wrapper.m_Core_MapEditChange;
+        public InputActionMap Get() { return m_Wrapper.m_Core; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CoreActions set) { return set.Get(); }
+        public void AddCallbacks(ICoreActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CoreActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CoreActionsCallbackInterfaces.Add(instance);
+            @MapEditChange.started += instance.OnMapEditChange;
+            @MapEditChange.performed += instance.OnMapEditChange;
+            @MapEditChange.canceled += instance.OnMapEditChange;
+        }
+
+        private void UnregisterCallbacks(ICoreActions instance)
+        {
+            @MapEditChange.started -= instance.OnMapEditChange;
+            @MapEditChange.performed -= instance.OnMapEditChange;
+            @MapEditChange.canceled -= instance.OnMapEditChange;
+        }
+
+        public void RemoveCallbacks(ICoreActions instance)
+        {
+            if (m_Wrapper.m_CoreActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICoreActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CoreActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CoreActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CoreActions @Core => new CoreActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1112,5 +1404,19 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         void OnScrollWheel(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
+    }
+    public interface IMapEditActions
+    {
+        void OnMapPoint(InputAction.CallbackContext context);
+        void OnMapClick(InputAction.CallbackContext context);
+        void OnMapDrag(InputAction.CallbackContext context);
+    }
+    public interface ICameraActions
+    {
+        void OnZoom(InputAction.CallbackContext context);
+    }
+    public interface ICoreActions
+    {
+        void OnMapEditChange(InputAction.CallbackContext context);
     }
 }

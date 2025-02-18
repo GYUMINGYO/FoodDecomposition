@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GM.Data
+namespace GM.Traits
 {
     public enum TraitType
     {
@@ -14,6 +14,7 @@ namespace GM.Data
     {
         public TraitType Type;
         public string Name;
+        public Trait Trait;
         public Image Image;
         public bool Negative;
     }

@@ -94,6 +94,7 @@ MonoBehaviour:
   - rid: 286774806226666305
   m_VersionTimestamp: 638743743530609330
   m_DebugInfo: {fileID: 829466204828618562}
+  m_RuntimeGraph: {fileID: 3029046104694073542}
   AssetID:
     m_Value0: 14157072604918180546
     m_Value1: 14280022035124820872
@@ -434,6 +435,7 @@ MonoBehaviour:
       Tooltip: 
     NamedChildren: []
   m_Blackboards: []
+  m_MainBlackboardAuthoringAsset: {fileID: 3669766274289378622}
   m_CommandBuffer:
     m_Commands: []
   references:
@@ -6034,6 +6036,12 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 825510402487484772
+      type: {class: 'Stack`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: mscorlib}
+      data: 
+    - rid: 825510402487484773
+      type: {class: 'HashSet`1[[Unity.Behavior.Node, Unity.Behavior]]', ns: System.Collections.Generic, asm: System.Core}
+      data: 
     - rid: 3052495088655532657
       type: {class: 'BlackboardVariable`1[[GM.CustomerState, Assembly-CSharp]]', ns: Unity.Behavior, asm: Unity.Behavior}
       data:
@@ -6390,6 +6398,12 @@ MonoBehaviour:
         BlackboardReference:
           rid: 3052495088870752503
         BlackboardGroupReferences: []
+        ProcessedNodes: []
+        m_RunningNodes: []
+        m_NodesToEnd:
+          rid: 825510402487484772
+        m_EndedNodes:
+          rid: 825510402487484773
         m_VersionTimestamp: 638743743530609330
     - rid: 3052495088870752502
       type: {class: ParallelAllComposite, ns: Unity.Behavior, asm: Unity.Behavior}
@@ -7789,7 +7803,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd922ae02c94c87a66e46a10a7319b9, type: 3}
-  m_Name: Customer Blackboard Editor
+  m_Name: Customer Blackboard
   m_EditorClassIdentifier: 
   AssetID:
     m_Value0: 14157072604918180546
@@ -7977,7 +7991,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c02bb70996b49eba31d0c206e28da24, type: 3}
-  m_Name: Customer Blackboard Editor
+  m_Name: Customer Blackboard
   m_EditorClassIdentifier: 
   VersionTimestamp: 638743743531545163
   AssetID:
