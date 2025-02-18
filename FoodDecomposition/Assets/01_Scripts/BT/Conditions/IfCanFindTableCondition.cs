@@ -1,4 +1,5 @@
 using GM;
+using GM.InteractableEntities;
 using GM.Managers;
 using System;
 using Unity.Behavior;
@@ -20,7 +21,7 @@ public partial class IfCanFindTableCondition : Condition
         if (Table.Value != null)
         {
             Chair.Value = Table.Value.GetChair();
-            ManagerHub.Instance.GetManager<MapManager>().SetIsSeatFull(false);
+            ManagerHub.Instance.GetManager<RestourantManager>().SetIsSeatFull(false);
             return true;
         }
         else
@@ -33,9 +34,12 @@ public partial class IfCanFindTableCondition : Condition
     {
         if (Exit.Value == null)
         {
-            Exit.Value = ManagerHub.Instance.GetManager<MapManager>().ExitTrm;
+            InteractableEntity target;
+            ManagerHub.Instance.GetManager<RestourantManager>().GetStaticFirstInteractableEntity(Enums.InteractableEntityType.Exit, out target);
+            SingleTableEntity exitEntity = target as SingleTableEntity;
+            Exit.Value = exitEntity.EntityTransform;
         }
 
-        ManagerHub.Instance.GetManager<MapManager>().SetIsSeatFull(true);
+        ManagerHub.Instance.GetManager<RestourantManager>().SetIsSeatFull(true);
     }
 }

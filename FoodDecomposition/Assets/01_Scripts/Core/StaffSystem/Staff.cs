@@ -1,6 +1,6 @@
 using GM.Data;
 using GM.Entities;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using Unity.Behavior;
 using UnityEngine;
 
@@ -53,6 +53,12 @@ namespace GM.Staffs
 
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
         public abstract void SetIdleState();
+        public abstract void LeaveWork();
+
+        public virtual void FinishWork()
+        {
+            _isWorking = false;
+        }
 
         public void StaffInitialize(StaffInfo staffInfo, StaffLevel staffLevel)
         {
@@ -74,11 +80,6 @@ namespace GM.Staffs
             BlackboardVariable<T> variable = GetVariable<T>(variableName);
             Debug.Assert(variable != null, $"Variable {variableName} not found");
             variable.Value = value;
-        }
-
-        public virtual void FinishWork()
-        {
-            _isWorking = false;
         }
 
         public void StaffChangeEvent()

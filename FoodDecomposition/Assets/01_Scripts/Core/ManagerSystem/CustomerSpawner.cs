@@ -1,4 +1,5 @@
 using System.Collections;
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Managers
@@ -7,6 +8,7 @@ namespace GM.Managers
     {
         [SerializeField] private PoolTypeSO customerPoolType;
         [SerializeField] private Transform extrenceTrm;
+        [SerializeField] private GameEventChannelSO _gameCycleChannel;
 
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
@@ -15,8 +17,27 @@ namespace GM.Managers
 
         private void Start()
         {
-            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantOpen += StartSpawn;
-            ManagerHub.Instance.GetManager<GameManager>().OnRestaurantClose += EndSpawn;
+            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleStartSpawn);
+            _gameCycleChannel.AddListener<RestourantClosingTimeEvent>(HandleEndSpawn);
+        }
+
+        private void OnDestroy()
+        {
+            _gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleStartSpawn);
+            _gameCycleChannel.RemoveListener<RestourantClosingTimeEvent>(HandleEndSpawn);
+        }
+
+        private void HandleStartSpawn(RestourantCycleEvent evt)
+        {
+            if (evt.open)
+            {
+                StartSpawn();
+            }
+        }
+
+        private void HandleEndSpawn(RestourantClosingTimeEvent evt)
+        {
+            EndSpawn();
         }
 
         private void StartSpawn()
@@ -39,9 +60,9 @@ namespace GM.Managers
                 while (timer <= spawnTime)
                 {
                     timer += Time.deltaTime;
-                    if (ManagerHub.Instance.GetManager<MapManager>().IsSeatFull)
+                    if (ManagerHub.Instance.GetManager<RestourantManager>().IsSeatFull)
                     {
-                        yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<MapManager>().IsSeatFull);
+                        yield return new WaitUntil(() => !ManagerHub.Instance.GetManager<RestourantManager>().IsSeatFull);
                         timer = 0;
                         time = Time.time;
                     }

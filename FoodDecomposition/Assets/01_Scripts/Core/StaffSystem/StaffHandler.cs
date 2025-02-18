@@ -1,5 +1,6 @@
 using System;
 using GM.Data;
+using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -7,18 +8,25 @@ namespace GM.Staffs
     public class StaffHandler : MonoBehaviour
     {
         public StaffType Type => _type;
-        [SerializeField] private StaffType _type = StaffType.Waiter;
-
         public bool IsChange { get => _isChange; set => _isChange = value; }
         private bool _isChange;
-        private StaffLevel _level;
 
+        [Header("Core")]
+        [SerializeField] private GameEventChannelSO _restourantCycleChannel;
+
+        [Header("Staff Element")]
+        [SerializeField] private StaffType _type = StaffType.Waiter;
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
+
+        private StaffLevel _level;
 
         private void Awake()
         {
             _level = GetComponentInChildren<StaffLevel>();
+
+            _restourantCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycle);
+
             SetStaff();
         }
 
@@ -31,6 +39,20 @@ namespace GM.Staffs
         private void Update()
         {
             SyncTransform();
+        }
+
+        private void OnDestroy()
+        {
+            _restourantCycleChannel.RemoveListener<RestourantCycleEvent>(HandleRestourantCycle);
+        }
+
+        private void HandleRestourantCycle(RestourantCycleEvent evt)
+        {
+            // Close
+            if (evt.open == false)
+            {
+                GetStaff(_type).LeaveWork();
+            }
         }
 
         public void SetStaff()

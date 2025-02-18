@@ -3,7 +3,7 @@ using GM.Entities;
 using GM.Staffs;
 using UnityEngine;
 
-namespace GM.InteractableEntitys
+namespace GM.InteractableEntities
 {
     public class Refrigerator : CookingTable
     {
@@ -29,7 +29,7 @@ namespace GM.InteractableEntitys
             _animatorTrigger.OnCookAnimationEnd -= HandleCookAnimationEnd;
             _animatorTrigger.OnAnimationEnd -= HandleAnimationEnd;
             _animatorTrigger = null;
-            
+
             _animator.SetBool("OPEN", false);
             _animator.SetBool("CLOSE", false);
         }
@@ -44,7 +44,7 @@ namespace GM.InteractableEntitys
             _animator.SetBool("OPEN", false);
             _animator.SetBool("CLOSE", true);
         }
-        
+
         private void HandleAnimationEnd()
         {
             ClearChef();

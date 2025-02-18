@@ -2,7 +2,7 @@ using GM.Staffs;
 using System;
 using GM.CookWare;
 using GM.Entities;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;

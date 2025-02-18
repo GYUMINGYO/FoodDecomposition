@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GM.InteractableEntitys
+namespace GM.InteractableEntities
 {
     public class SingleTableEntity : InteractableEntity
     {

@@ -1,4 +1,5 @@
 using GM;
+using GM.InteractableEntities;
 using GM.Managers;
 using System;
 using Unity.Behavior;
@@ -16,9 +17,12 @@ public partial class FindChairAction : Action
     [SerializeReference] public BlackboardVariable<Transform> Exit;
     protected override Status OnStart()
     {
-        if(Exit.Value == null)
+        if (Exit.Value == null)
         {
-            Exit.Value = ManagerHub.Instance.GetManager<MapManager>().ExitTrm;
+            InteractableEntity target;
+            ManagerHub.Instance.GetManager<RestourantManager>().GetStaticFirstInteractableEntity(Enums.InteractableEntityType.Exit, out target);
+            SingleTableEntity exitEntity = target as SingleTableEntity;
+            Exit.Value = exitEntity.EntityTransform;
         }
 
         Table.Value = ManagerHub.Instance.GetManager<RestourantManager>().GetTable();

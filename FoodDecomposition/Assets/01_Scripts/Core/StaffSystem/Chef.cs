@@ -1,6 +1,6 @@
 using GM.CookWare;
 using GM.Data;
-using GM.InteractableEntitys;
+using GM.InteractableEntities;
 using GM.Managers;
 using UnityEngine;
 
@@ -70,6 +70,11 @@ namespace GM.Staffs
         {
             _stateChangeEvent.SendEventMessage(ChefState.IDLE);
             StaffHandlerBoolChange();
+        }
+
+        public override void LeaveWork()
+        {
+            _stateChangeEvent.SendEventMessage(ChefState.LeaveWork);
         }
     }
 }

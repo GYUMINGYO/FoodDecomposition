@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace GM
+namespace GM.GameEventSystem
 {
     public class GameEvent
     {
