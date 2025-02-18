@@ -55,8 +55,7 @@ namespace GM.Staffs
                 SetTable(cookingTable);
                 return cookingTable.EntityTransform;
             }
-
-            if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
+            else if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
                 SetTable(singleTableEntity);
