@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,7 +7,7 @@ using UnityEngine.UI;
 
 namespace GM
 {
-    public class RecipePanel : MonoBehaviour, IMenuUI
+    public class RecipePanel : MenuUI
     {
         [SerializeField] private RecipeInfo recipeInfo;
         [SerializeField] private float duration = 0.5f;
@@ -15,16 +16,16 @@ namespace GM
         private GraphicRaycaster raycaster;
         private EventSystem eventSystem;
 
-        bool isOpen = false;
-
-        private void Awake()
+        public override void Awake()
         {
+            base.Awake();
+
             group = GetComponent<CanvasGroup>();
             raycaster = transform.root.GetComponent<GraphicRaycaster>();
             eventSystem = EventSystem.current;
         }
 
-        public void Open()
+        public override void Open()
         {
             if (isOpen)
                 return;
@@ -33,12 +34,11 @@ namespace GM
             transform.DOKill();
 
             group.alpha = 1;
-            transform.DOLocalMoveY(0, duration + 0.2f)
-                .SetEase(Ease.OutBounce)
+            transform.DOLocalMoveY(0, duration)
                 .OnComplete(() => group.interactable = true);
         }
 
-        public void Close()
+        public override void Close()
         {
             if (!isOpen)
                 return;

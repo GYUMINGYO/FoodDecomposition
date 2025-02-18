@@ -28,11 +28,11 @@ namespace GM.Staffs
 
         public void LevelUp()
         {
-            float money = ManagerHub.Instance.GetManager<RestourantManager>().GetMoney();
+            float money = ManagerHub.Instance.GetManager<DataManager>().Money;
 
             if (money < _needLevelUpMoney) return;
 
-            ManagerHub.Instance.GetManager<RestourantManager>().SubtractMoney(_needLevelUpMoney);
+            ManagerHub.Instance.GetManager<DataManager>().SubtractMoney(_needLevelUpMoney);
             _level++;
             SetNeedLevelUpMoney();
 

@@ -18,9 +18,6 @@ namespace GM.Managers
 
         private Dictionary<Enums.InteractableEntityType, List<InteractableEntity>> _interactableEntityDictionary;
 
-        // TODO :  데이터를 분산하지 말고 하나로 뭉치는 DataManger를 사용할까?
-        public float Money => money;
-        private float money = 0;
         private int customerCnt;
 
         public void Initialized()
@@ -50,23 +47,6 @@ namespace GM.Managers
         }
 
         public void SetIsSeatFull(bool value) => isSeatFull = value;
-
-        public float GetMoney()
-        {
-            return money;
-        }
-
-        public void ApplyMoney(float money)
-        {
-            this.money += money;
-            ManagerHub.Instance.GetManager<UIManager>().SetMoneyUI(this.money);
-        }
-
-        public void SubtractMoney(float money)
-        {
-            this.money -= money;
-            ManagerHub.Instance.GetManager<UIManager>().SetMoneyUI(this.money);
-        }
 
         public void AddCustomerCnt() => customerCnt++;
 
