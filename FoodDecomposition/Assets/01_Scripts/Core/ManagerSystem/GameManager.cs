@@ -1,4 +1,5 @@
 using GM.GameEventSystem;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,11 @@ namespace GM.Managers
         private bool _isStopDayTimer;
         private bool _isStopCustomer;
 
+        private void Awake()
+        {
+            _gameCycleChannel.AddListener<ReadyToRestourant>(HandleReadyToRestourant);
+        }
+
         public void Initialized()
         {
             _currentDayTime = 0;
@@ -28,11 +34,16 @@ namespace GM.Managers
 
         public void Clear()
         {
+            _gameCycleChannel.RemoveListener<ReadyToRestourant>(HandleReadyToRestourant);
         }
 
-        private void Start()
+        private void Update()
         {
-            StartDayTimer();
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                // TODO : UI로 타이머 시작하기
+                RestourantOpen();
+            }
         }
 
         public double GetDayTime() => _currentDayTime;
@@ -40,9 +51,25 @@ namespace GM.Managers
         public void StopTimer() => _isStopDayTimer = true;
         public void PlayTimer() => _isStopDayTimer = false;
 
-        public void StartDayTimer()
+        public void RestourantOpen()
         {
+            // Avoid duplication
+            if (GameCycleEvents.RestourantCycleEvent.open == true) return;
+
+            GameCycleEvents.RestourantCycleEvent.open = true;
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);
+        }
+
+        private void HandleReadyToRestourant(ReadyToRestourant evt)
+        {
+            StartDayTimer();
+        }
+
+        private void StartDayTimer()
+        {
+            // Avoid duplication
             if (_isDayTimer == true) return;
+
             StartCoroutine(DayTimer());
         }
 
@@ -51,8 +78,6 @@ namespace GM.Managers
             _isDayTimer = true;
             _isStopCustomer = false;
             _currentDayTime = 0;
-            GameCycleEvents.RestourantCycleEvent.open = true;
-            _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);
 
             while (_currentDayTime <= _dayTime)
             {

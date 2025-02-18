@@ -17,6 +17,11 @@ namespace GM.Managers
         private LinkedList<OrderData> _orderList;
         private Queue<OrderData> _recipeList;
 
+        void Awake()
+        {
+            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+        }
+
         public void Initialized()
         {
             _staffList = new List<StaffHandler>();
@@ -29,9 +34,13 @@ namespace GM.Managers
             }
         }
 
-        void Awake()
+        public void Clear()
         {
-            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+            _gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+
+            _staffList.Clear();
+            _orderList.Clear();
+            _recipeList.Clear();
         }
 
         private void HandleRestourantCycleEvent(RestourantCycleEvent evt)
@@ -62,13 +71,9 @@ namespace GM.Managers
 
                 yield return new WaitForSeconds(0.7f);
             }
-        }
 
-        public void Clear()
-        {
-            _staffList.Clear();
-            _orderList.Clear();
-            _recipeList.Clear();
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.ReadyToRestourant);
+            yield return null;
         }
 
         public void Update()
