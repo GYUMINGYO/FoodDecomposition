@@ -18,8 +18,6 @@ namespace GM.Managers
 
         private Dictionary<Enums.InteractableEntityType, List<InteractableEntity>> _interactableEntityDictionary;
 
-        private int customerCnt;
-
         public void Initialized()
         {
             TableList = new();
@@ -47,10 +45,6 @@ namespace GM.Managers
         }
 
         public void SetIsSeatFull(bool value) => isSeatFull = value;
-
-        public void AddCustomerCnt() => customerCnt++;
-
-        public void RemoveCustomerCnt() => customerCnt--;
 
         public Table GetTable()
         {

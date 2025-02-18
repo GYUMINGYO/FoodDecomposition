@@ -11,8 +11,6 @@ namespace GM.Managers
         [SerializeField] private Slider timeGauge;
         [SerializeField] private Transform dayLight;
 
-        // Playe Tiem
-        // TODO : PlayTiem 측정기 만들기
         private double _dayTime = 120;
         private double _currentDayTime = 0;
 
@@ -37,20 +35,7 @@ namespace GM.Managers
             StartDayTimer();
         }
 
-        private void Update()
-        {
-            //! Test
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                _isStopDayTimer = !_isStopDayTimer;
-            }
-        }
-
         public double GetDayTime() => _currentDayTime;
-        public void SetDayTime()
-        {
-            // TODO : DayTime 세팅 / 세팅을 해야 할지 의문?
-        }
 
         public void StopTimer() => _isStopDayTimer = true;
         public void PlayTimer() => _isStopDayTimer = false;
@@ -88,6 +73,7 @@ namespace GM.Managers
                 }
             }
 
+            yield return new WaitUntil(() => ManagerHub.Instance.GetManager<DataManager>().CustomerCnt == 0);
             // Close(실질적 레스토랑 영업 종료)
             GameCycleEvents.RestourantCycleEvent.open = false;
             _gameCycleChannel.RaiseEvent(GameCycleEvents.RestourantCycleEvent);

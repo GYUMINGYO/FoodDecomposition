@@ -73,7 +73,7 @@ namespace GM.Managers
                 Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
                 customer.transform.rotation = Quaternion.Euler(0, 0, 0);
-                ManagerHub.Instance.GetManager<RestourantManager>().AddCustomerCnt();
+                ManagerHub.Instance.GetManager<DataManager>().AddCustomerCnt();
 
                 time = Time.time;
             }
