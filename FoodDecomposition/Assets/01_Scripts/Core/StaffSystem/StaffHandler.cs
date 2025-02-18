@@ -23,10 +23,10 @@ namespace GM.Staffs
             SetStaff();
         }
 
-        public void Initialize(StaffProfile staffInfo)
+        public void Initialize(StaffProfile staffProfile)
         {
-            _waiter.StaffInitialize(staffInfo, _level);
-            _chef.StaffInitialize(staffInfo, _level);
+            _waiter.StaffInitialize(staffProfile, _level);
+            _chef.StaffInitialize(staffProfile, _level);
         }
 
         private void Update()
