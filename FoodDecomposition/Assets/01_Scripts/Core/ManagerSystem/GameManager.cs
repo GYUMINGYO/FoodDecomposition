@@ -15,7 +15,7 @@ namespace GM.Managers
 
         // Playe Tiem
         // TODO : PlayTiem 측정기 만들기
-        private double _dayTime = 15;
+        private double _dayTime = 120;
         private double _currentDayTime = 0;
 
         private bool _isDayTimer;
