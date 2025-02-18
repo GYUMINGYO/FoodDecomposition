@@ -16,7 +16,7 @@ namespace GM
         public void Count()
         {
             float price = customer.GetOrderData().recipe.sellPrice;
-            ManagerHub.Instance.GetManager<RestourantManager>().ApplyMoney(price);
+            ManagerHub.Instance.GetManager<DataManager>().AddMoney(price);
             moneyText.UpText(price);
         }
     }

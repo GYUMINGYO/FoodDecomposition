@@ -69,9 +69,9 @@ namespace GM
 
         private void ResearchRecipe()
         {
-            RestourantManager restourantManager = ManagerHub.Instance.GetManager<RestourantManager>();
-            if (restourantManager.Money >= recipe.researchFunds)
-                restourantManager.ApplyMoney(-recipe.researchFunds);
+            DataManager dataManager = ManagerHub.Instance.GetManager<DataManager>();
+            if (dataManager.Money >= recipe.researchFunds)
+                dataManager.SubtractMoney(recipe.researchFunds);
             else
                 return;
 
