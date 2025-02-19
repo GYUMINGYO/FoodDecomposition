@@ -8,7 +8,7 @@ namespace GM.Managers
     {
         [SerializeField] private PoolTypeSO customerPoolType;
         [SerializeField] private Transform extrenceTrm;
-        [SerializeField] private GameEventChannelSO _gameCycleChannel;
+        [SerializeField] private GameEventChannelSO gameCycleChannel;
 
         [SerializeField] private float minSpawnTime = 3f;
         [SerializeField] private float maxSpawnTime = 7f;
@@ -17,14 +17,14 @@ namespace GM.Managers
 
         private void Start()
         {
-            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleStartSpawn);
-            _gameCycleChannel.AddListener<RestourantClosingTimeEvent>(HandleEndSpawn);
+            gameCycleChannel.AddListener<RestourantCycleEvent>(HandleStartSpawn);
+            gameCycleChannel.AddListener<RestourantClosingTimeEvent>(HandleEndSpawn);
         }
 
         private void OnDestroy()
         {
-            _gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleStartSpawn);
-            _gameCycleChannel.RemoveListener<RestourantClosingTimeEvent>(HandleEndSpawn);
+            gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleStartSpawn);
+            gameCycleChannel.RemoveListener<RestourantClosingTimeEvent>(HandleEndSpawn);
         }
 
         private void HandleStartSpawn(RestourantCycleEvent evt)

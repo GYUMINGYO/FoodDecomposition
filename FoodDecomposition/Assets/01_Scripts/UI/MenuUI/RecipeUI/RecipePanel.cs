@@ -1,5 +1,4 @@
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -35,7 +34,7 @@ namespace GM
 
             group.alpha = 1;
             transform.DOLocalMoveY(0, duration)
-                .OnComplete(() => group.interactable = true);
+                .OnComplete(() => group.blocksRaycasts = true);
         }
 
         public override void Close()
@@ -50,7 +49,7 @@ namespace GM
                 .OnComplete(() =>
                 {
                     group.alpha = 0;
-                    group.interactable = false;
+                    group.blocksRaycasts = false;
                 });
         }
 
