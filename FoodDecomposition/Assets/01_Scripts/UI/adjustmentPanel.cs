@@ -16,7 +16,7 @@ namespace GM
         [SerializeField] private TextMeshProUGUI dayText;
         [SerializeField] private TextMeshProUGUI revanueText;
         [SerializeField] private TextMeshProUGUI materialCostText;
-        [SerializeField] private TextMeshProUGUI presonalCostText;
+        [SerializeField] private TextMeshProUGUI personalCostText;
         [SerializeField] private TextMeshProUGUI totalProfitText;
 
         [Header("Color")]
@@ -65,7 +65,9 @@ namespace GM
             dayText.text = $"{dayCnt}ÀÏÂ÷";
             revanueText.text = $"{dataManager.DayMoney}";
             materialCostText.text = $"{dataManager.MaterialCost}";
-            presonalCostText.text = $"{dataManager.PresonalCost}";
+            float personalCost = ManagerHub.Instance.GetManager<StaffManager>().GetStaffCount() * 10;
+            dataManager.SubtractMoney(personalCost, SubMoneyType.personalCost);
+            personalCostText.text = $"{dataManager.PresonalCost}";
             float totalProfit = dataManager.DayMoney + dataManager.MaterialCost + dataManager.PresonalCost;
             totalProfitText.text = $"{totalProfit}";
             totalProfitText.color = totalProfit > 0 ? plusColor : minusColor;
