@@ -23,7 +23,6 @@ namespace GM.UI
         private void Awake()
         {
             _unitPickUIEventChannel.AddListener<UnitDescriptionUIEvent>(HandleUnitDescription);
-            _staffDescriptionUI.Close();
             RectTrm.anchoredPosition = new Vector2(-450, RectTrm.anchoredPosition.y);
         }
 
@@ -80,7 +79,6 @@ namespace GM.UI
             else
             {
                 RectTrm.DOAnchorPosX(-450, _showDuration).SetEase(_showOutEase).onComplete += () => _isMove = false;
-                _staffDescriptionUI.Close();
                 _isShow = false;
             }
         }

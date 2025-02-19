@@ -34,11 +34,6 @@ namespace GM.Staffs
             SyncTransform();
         }
 
-        public void LeaveWork()
-        {
-            GetStaff(_type).LeaveWork();
-        }
-
         public void SetStaff()
         {
             GetStaff(_type, true).gameObject.SetActive(false);
@@ -69,6 +64,17 @@ namespace GM.Staffs
             GetStaff(type).IsChange = false;
             GetStaff(type).IdleState();
             _type = GetStaff(type, true).MyStaffType;
+        }
+
+        public void StartWork()
+        {
+            GetStaff(_type).gameObject.SetActive(true);
+            GetStaff(_type).IdleState();
+        }
+
+        public void LeaveWork()
+        {
+            GetStaff(_type).LeaveWork();
         }
 
         private void SyncTransform()
