@@ -65,15 +65,14 @@ namespace GM.Staffs
             return null;
         }
 
-        public override void SetIdleState()
-        {
-            _stateChangeEvent.SendEventMessage(ChefState.IDLE);
-            StaffHandlerBoolChange();
-        }
-
         public override void LeaveWork()
         {
             _stateChangeEvent.SendEventMessage(ChefState.LeaveWork);
+        }
+
+        public override void IdleState()
+        {
+            _stateChangeEvent.SendEventMessage(ChefState.IDLE);
         }
     }
 }

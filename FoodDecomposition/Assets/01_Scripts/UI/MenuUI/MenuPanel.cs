@@ -7,6 +7,7 @@ namespace GM
 {
     public class MenuPanel : MonoBehaviour
     {
+        [SerializeField] private InputReaderSO _input;
         [SerializeField] private GameEventChannelSO openMenuUIEvent;
 
         [Header("Button")]
@@ -17,11 +18,11 @@ namespace GM
         [SerializeField] private float duration = 0.3f;
 
         private bool isMenuOpen = false;
-        private Vector2[] openPositions = { 
-            new Vector2(0, 190), 
-            new Vector2(0, 80), 
-            new Vector2(0, -30), 
-            new Vector2(0, -140), 
+        private Vector2[] openPositions = {
+            new Vector2(0, 190),
+            new Vector2(0, 80),
+            new Vector2(0, -30),
+            new Vector2(0, -140),
             new Vector2(0, -250) };
         private Vector2 closedPosition = new Vector2(0, -490);
 
@@ -44,6 +45,15 @@ namespace GM
             }
 
             isMenuOpen = !isMenuOpen;
+
+            if (isMenuOpen)
+            {
+                _input.ChangeInputState(InputType.UI);
+            }
+            else
+            {
+                _input.ChangeInputState(InputType.Player);
+            }
         }
 
         private void RaiseEvent(MenuType type)

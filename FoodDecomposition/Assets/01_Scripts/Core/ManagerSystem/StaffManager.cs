@@ -1,16 +1,26 @@
 using GM.Data;
+using GM.GameEventSystem;
 using GM.Staffs;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace GM.Managers
 {
-    public class StaffManager : IManagerable, IManagerUpdateable
+    public class StaffManager : MonoBehaviour, IManagerable, IManagerUpdateable
     {
+        [SerializeField] private GameEventChannelSO _gameCycleChannel;
+        [SerializeField] private Transform _entranceTransform;
+
         private List<StaffHandler> _staffList;
         private LinkedList<OrderData> _orderList;
         private Queue<OrderData> _recipeList;
+
+        void Awake()
+        {
+            _gameCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+        }
 
         public void Initialized()
         {
@@ -26,9 +36,44 @@ namespace GM.Managers
 
         public void Clear()
         {
+            _gameCycleChannel.RemoveListener<RestourantCycleEvent>(HandleRestourantCycleEvent);
+
             _staffList.Clear();
             _orderList.Clear();
             _recipeList.Clear();
+        }
+
+        private void HandleRestourantCycleEvent(RestourantCycleEvent evt)
+        {
+            if (evt.open)
+            {
+                // GenerateStaff
+                StartCoroutine(GenerateStaff());
+            }
+            else
+            {
+                // EndStaff
+                for (int i = 0; i < _staffList.Count; ++i)
+                {
+                    _staffList[i].LeaveWork();
+                }
+            }
+        }
+
+        private IEnumerator GenerateStaff()
+        {
+            for (int i = 0; i < _staffList.Count; ++i)
+            {
+                _staffList[i].gameObject.SetActive(true);
+                Staff staff = _staffList[i].GetStaff(_staffList[i].Type);
+                staff.transform.position = _entranceTransform.position;
+                staff.transform.rotation = _entranceTransform.rotation;
+
+                yield return new WaitForSeconds(0.7f);
+            }
+
+            _gameCycleChannel.RaiseEvent(GameCycleEvents.ReadyToRestourant);
+            yield return null;
         }
 
         public void Update()
@@ -70,11 +115,8 @@ namespace GM.Managers
         {
             if (_recipeList.Count <= 0) return;
 
-            if (_recipeList.Count > 0)
-            {
-                Chef chef = CheckWorking(StaffType.Chef) as Chef;
-                chef?.StartWork(ChefState.COOK, _recipeList.Dequeue());
-            }
+            Chef chef = CheckWorking(StaffType.Chef) as Chef;
+            chef?.StartWork(ChefState.COOK, _recipeList.Dequeue());
         }
 
         private void WaiterGiveWork()

@@ -40,8 +40,8 @@ namespace GM.UI
             _staff = unit as Staff;
             _staffLevel = _staff.Level;
 
-            _portrait.sprite = _staff.Info.Portrait;
-            _name.text = _staff.Info.Name;
+            _portrait.sprite = _staff.Profile.Portrait;
+            _name.text = _staff.Profile.Name;
             _level.SetText($"LEVEL : {_staffLevel.Level}");
             // TODO : Level Quality에 따른 색상 변경
         }

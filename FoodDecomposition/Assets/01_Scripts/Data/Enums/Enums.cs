@@ -21,6 +21,7 @@ public static class Enums
         CuttingBoard,
         Sink,
 
-        Exit
+        Exit,
+        Stand
     }
 }

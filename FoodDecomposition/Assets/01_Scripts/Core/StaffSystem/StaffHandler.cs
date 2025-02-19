@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using GM.Data;
-using GM.GameEventSystem;
 using UnityEngine;
 
 namespace GM.Staffs
@@ -10,9 +9,6 @@ namespace GM.Staffs
         public StaffType Type => _type;
         public bool IsChange { get => _isChange; set => _isChange = value; }
         private bool _isChange;
-
-        [Header("Core")]
-        [SerializeField] private GameEventChannelSO _restourantCycleChannel;
 
         [Header("Staff Element")]
         [SerializeField] private StaffType _type = StaffType.Waiter;
@@ -24,16 +20,13 @@ namespace GM.Staffs
         private void Awake()
         {
             _level = GetComponentInChildren<StaffLevel>();
-
-            _restourantCycleChannel.AddListener<RestourantCycleEvent>(HandleRestourantCycle);
-
             SetStaff();
         }
 
-        public void Initialize(StaffInfo staffInfo)
+        public void Initialize(StaffProfile staffProfile)
         {
-            _waiter.StaffInitialize(staffInfo, _level);
-            _chef.StaffInitialize(staffInfo, _level);
+            _waiter.StaffInitialize(staffProfile, _level);
+            _chef.StaffInitialize(staffProfile, _level);
         }
 
         private void Update()
@@ -41,18 +34,9 @@ namespace GM.Staffs
             SyncTransform();
         }
 
-        private void OnDestroy()
+        public void LeaveWork()
         {
-            _restourantCycleChannel.RemoveListener<RestourantCycleEvent>(HandleRestourantCycle);
-        }
-
-        private void HandleRestourantCycle(RestourantCycleEvent evt)
-        {
-            // Close
-            if (evt.open == false)
-            {
-                GetStaff(_type).LeaveWork();
-            }
+            GetStaff(_type).LeaveWork();
         }
 
         public void SetStaff()
@@ -79,11 +63,12 @@ namespace GM.Staffs
 
         public void ChangeProcess(StaffType type)
         {
-            // TODO : Change 함수에 변경 효과 추가하기
+            // TODO : 한바퀴 돌고 이펙트가 나오면서 변신하게 효과 추가하기기
             GetStaff(type, true).gameObject.SetActive(true);
             GetStaff(type).gameObject.SetActive(false);
+            GetStaff(type).IsChange = false;
+            GetStaff(type).IdleState();
             _type = GetStaff(type, true).MyStaffType;
-            GetStaff(type, true).SetIdleState();
         }
 
         private void SyncTransform()

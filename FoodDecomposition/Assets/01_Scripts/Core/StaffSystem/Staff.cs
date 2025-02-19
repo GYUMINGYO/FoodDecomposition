@@ -14,7 +14,7 @@ namespace GM.Staffs
 
     public abstract class Staff : Unit
     {
-        public StaffInfo Info;
+        public StaffProfile Profile;
 
         public StaffType MyStaffType => _myStaffType;
         [SerializeField] private StaffType _myStaffType;
@@ -51,8 +51,13 @@ namespace GM.Staffs
             _myBTAgent = GetComponent<BehaviorGraphAgent>();
         }
 
+        // TODO : GetTarget 방식 바꾸기
+        // if문이 너무 길고
+        // 타입이 늘어날 수록 예외 처리가 너무 많아짐
+        // 간단해서 좋지만 좋은 구조는 아님
+
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
-        public abstract void SetIdleState();
+        public abstract void IdleState();
         public abstract void LeaveWork();
 
         public virtual void FinishWork()
@@ -60,9 +65,9 @@ namespace GM.Staffs
             _isWorking = false;
         }
 
-        public void StaffInitialize(StaffInfo staffInfo, StaffLevel staffLevel)
+        public void StaffInitialize(StaffProfile staffProfile, StaffLevel staffLevel)
         {
-            Info = staffInfo;
+            Profile = staffProfile;
             _level = staffLevel;
         }
 
@@ -88,14 +93,14 @@ namespace GM.Staffs
             _isChange = false;
         }
 
-        public void StaffHandlerBoolChange()
+        public void StaffEndChnage()
         {
             _staffHandler.IsChange = false;
         }
 
         public void SetTable(InteractableEntity table)
         {
-            if (table == null) return;
+            if (table == null || table.IsShared == true) return;
 
             _targetTable = table;
             _targetTable.InUse = true;
