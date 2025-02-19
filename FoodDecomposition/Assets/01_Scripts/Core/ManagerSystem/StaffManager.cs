@@ -161,5 +161,10 @@ namespace GM.Managers
         {
             return _staffList.Where(x => x.Type == type && x.IsChange == false).ToList().FirstOrDefault(x => x.GetStaff(type).IsWorking == false)?.GetStaff(type);
         }
+
+        public int GetStaffCount()
+        {
+            return _staffList.Count;
+        }
     }
 }
