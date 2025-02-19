@@ -6,5 +6,6 @@ public enum ChefState
 {
     IDLE,
     COOK,
-    LeaveWork
+    LeaveWork,
+    Change
 }

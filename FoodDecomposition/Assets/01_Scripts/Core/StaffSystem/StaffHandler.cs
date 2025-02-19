@@ -63,11 +63,12 @@ namespace GM.Staffs
 
         public void ChangeProcess(StaffType type)
         {
-            // TODO : Change 함수에 변경 효과 추가하기
+            // TODO : 한바퀴 돌고 이펙트가 나오면서 변신하게 효과 추가하기기
             GetStaff(type, true).gameObject.SetActive(true);
             GetStaff(type).gameObject.SetActive(false);
+            GetStaff(type).IsChange = false;
+            GetStaff(type).IdleState();
             _type = GetStaff(type, true).MyStaffType;
-            GetStaff(type, true).SetIdleState();
         }
 
         private void SyncTransform()

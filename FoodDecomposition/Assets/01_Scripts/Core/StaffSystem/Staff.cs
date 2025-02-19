@@ -57,7 +57,7 @@ namespace GM.Staffs
         // 간단해서 좋지만 좋은 구조는 아님
 
         public abstract Transform GetTarget(Enums.InteractableEntityType type);
-        public abstract void SetIdleState();
+        public abstract void IdleState();
         public abstract void LeaveWork();
 
         public virtual void FinishWork()
@@ -93,14 +93,14 @@ namespace GM.Staffs
             _isChange = false;
         }
 
-        public void StaffHandlerBoolChange()
+        public void StaffEndChnage()
         {
             _staffHandler.IsChange = false;
         }
 
         public void SetTable(InteractableEntity table)
         {
-            if (table == null) return;
+            if (table == null || table.IsShared == true) return;
 
             _targetTable = table;
             _targetTable.InUse = true;

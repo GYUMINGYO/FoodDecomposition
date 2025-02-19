@@ -115,11 +115,8 @@ namespace GM.Managers
         {
             if (_recipeList.Count <= 0) return;
 
-            if (_recipeList.Count > 0)
-            {
-                Chef chef = CheckWorking(StaffType.Chef) as Chef;
-                chef?.StartWork(ChefState.COOK, _recipeList.Dequeue());
-            }
+            Chef chef = CheckWorking(StaffType.Chef) as Chef;
+            chef?.StartWork(ChefState.COOK, _recipeList.Dequeue());
         }
 
         private void WaiterGiveWork()

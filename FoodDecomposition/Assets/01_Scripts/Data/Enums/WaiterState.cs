@@ -10,6 +10,7 @@ namespace GM
         COUNT,
         SERVING,
         FoodTrash,
-        LeaveWork
+        LeaveWork,
+        Change
     }
 }

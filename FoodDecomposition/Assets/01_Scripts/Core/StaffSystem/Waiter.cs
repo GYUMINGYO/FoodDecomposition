@@ -61,9 +61,9 @@ namespace GM.Staffs
             {
                 if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
                 {
-                    SingleCounterEntity foodOut = moveTarget as SingleCounterEntity;
-                    SetTable(foodOut);
-                    return foodOut.SenderTransform;
+                    SingleCounterEntity counter = moveTarget as SingleCounterEntity;
+                    SetTable(counter);
+                    return counter.SenderTransform;
                 }
             }
             else if (type == Enums.InteractableEntityType.FoodTrashContainer)
@@ -77,14 +77,6 @@ namespace GM.Staffs
                     return foodTrash.EntityTransform;
                 }
             }
-            else if (type == Enums.InteractableEntityType.Exit)
-            {
-                if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
-                {
-                    SingleTableEntity exit = moveTarget as SingleTableEntity;
-                    return exit.EntityTransform;
-                }
-            }
             else if (ManagerHub.Instance.GetManager<RestourantManager>().GetInteractableEntity(type, out moveTarget, this))
             {
                 SingleTableEntity singleTableEntity = moveTarget as SingleTableEntity;
@@ -93,12 +85,6 @@ namespace GM.Staffs
             }
 
             return null;
-        }
-
-        public override void SetIdleState()
-        {
-            _stateChangeEvent.SendEventMessage(WaiterState.IDLE);
-            StaffHandlerBoolChange();
         }
 
         public void ChangeStatePriority(OrderType[] workTypeArr)
@@ -111,6 +97,11 @@ namespace GM.Staffs
         public override void LeaveWork()
         {
             _stateChangeEvent.SendEventMessage(WaiterState.LeaveWork);
+        }
+
+        public override void IdleState()
+        {
+            _stateChangeEvent.SendEventMessage(WaiterState.IDLE);
         }
     }
 }
