@@ -136,7 +136,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public void OnMapEditChange(InputAction.CallbackContext context)
     {
-        OnMapEditChangeEvent.Invoke();
+        //OnMapEditChangeEvent.Invoke();
 
         _isMapEdit = !_isMapEdit;
 
