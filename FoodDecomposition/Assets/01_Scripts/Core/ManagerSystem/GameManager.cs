@@ -64,7 +64,7 @@ namespace GM.Managers
             StartDayTimer();
         }
 
-        private void StartDayTimer()
+        public void StartDayTimer()
         {
             // Avoid duplication
             if (_isDayTimer == true) return;
