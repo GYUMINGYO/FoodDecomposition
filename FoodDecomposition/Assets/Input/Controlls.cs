@@ -730,12 +730,12 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""MapClick"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""2e16351e-ec46-4f9a-83a7-9b83e2b03847"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""MapDrag"",
