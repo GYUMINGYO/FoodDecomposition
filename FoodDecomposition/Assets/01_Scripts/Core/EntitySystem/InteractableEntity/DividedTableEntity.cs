@@ -1,9 +1,8 @@
-using GM.InteractableEntities;
 using UnityEngine;
 
-namespace GM
+namespace GM.InteractableEntities
 {
-    public class SharedTableEntity : InteractableEntity
+    public class DividedTableEntity : InteractableEntity
     {
         public Transform SenderTransform => _senderTransform;
         [SerializeField] protected Transform _senderTransform;
