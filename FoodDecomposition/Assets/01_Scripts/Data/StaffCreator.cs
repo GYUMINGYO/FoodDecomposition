@@ -17,7 +17,6 @@ namespace GM
             {
                 StaffProfile staffInfo = _staffInfoGenerator.GetRandomStaffInfo();
                 StaffHandler staffHandler = Instantiate(_staffHandlerPrefab, transform.position, Quaternion.identity);
-                staffHandler.gameObject.SetActive(false);
                 staffHandler.Initialize(staffInfo);
                 ManagerHub.Instance.GetManager<StaffManager>().AddStaff(staffHandler);
             }

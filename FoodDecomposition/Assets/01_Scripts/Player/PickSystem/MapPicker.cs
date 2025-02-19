@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using GM.Entities;
 using GM.Maps;
@@ -22,6 +23,11 @@ namespace GM.Players.Pickers
             base.Initialize(entity);
             _player.Input.OnMapClickEvent += HandlePick;
             _player.Input.OnMapDragEvent += HandleDrag;
+            _player.Input.OnMapObjectDeleteEvent += HandleMapDelete;
+        }
+
+        private void HandleMapDelete()
+        {
         }
 
         private void HandleDrag(bool isDrag)
@@ -48,6 +54,7 @@ namespace GM.Players.Pickers
         {
             _player.Input.OnMapClickEvent -= HandlePick;
             _player.Input.OnMapDragEvent -= HandleDrag;
+            _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
         }
 
         protected override void PickEntity()
@@ -57,11 +64,7 @@ namespace GM.Players.Pickers
             {
                 if (_isDrag == false)
                 {
-                    if (_pickMapObjectList.Count > 0)
-                    {
-                        _pickMapObjectList.ForEach(obj => obj.ShowOutLine(false));
-                    }
-                    _pickMapObjectList.Clear();
+                    DeleteOutline();
                 }
                 return;
             }
@@ -70,15 +73,30 @@ namespace GM.Players.Pickers
 
             if (_hit.transform.TryGetComponent(out Map map))
             {
+                DeleteOutline();
+                Debug.Log("맵 생성");
                 // TODO : Offset 계산
                 Vector3 tilePostion = new Vector3(_cellPosition.x + 1, _cellPosition.y + 0.5f, _cellPosition.z + 1);
                 Instantiate(_tilePrefab, tilePostion, Quaternion.identity);
             }
             else if (_hit.transform.TryGetComponent(out MapObject mapObject))
             {
+                Debug.Log("맵 Outlien");
                 if (_pickMapObjectList.Contains(mapObject)) return;
                 mapObject.ShowOutLine(true);
                 _pickMapObjectList.Add(mapObject);
+            }
+        }
+
+        private void DeleteOutline()
+        {
+            if (_isDrag == false)
+            {
+                if (_pickMapObjectList.Count > 0)
+                {
+                    _pickMapObjectList.ForEach(obj => obj.ShowOutLine(false));
+                }
+                _pickMapObjectList.Clear();
             }
         }
     }

@@ -36,7 +36,8 @@ namespace GM.Staffs
 
         public void SetStaff()
         {
-            GetStaff(_type, true).gameObject.SetActive(false);
+            _waiter.gameObject.SetActive(false);
+            _chef.gameObject.SetActive(false);
         }
 
         public Staff GetStaff(StaffType type, bool inverse = false)
