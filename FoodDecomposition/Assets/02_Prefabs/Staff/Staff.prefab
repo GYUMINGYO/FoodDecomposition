@@ -47,7 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8582c5ea56964534aae8b9fd9d8091f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _restourantCycleChannel: {fileID: 11400000, guid: 543402fc32e299b48bdd4f48a1a925a2, type: 2}
   _type: 0
   _waiter: {fileID: 1967715604915095416}
   _chef: {fileID: 7462974463162364028}
@@ -198,6 +197,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2425140273658233260}
     m_Modifications:
+    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: _statOverrides.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: _statOverrides.Array.data[3]._stat
+      value: 
+      objectReference: {fileID: 11400000, guid: d4160b6a46e8b604990c46192a8a4904, type: 2}
+    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: _statOverrides.Array.data[3]._isUseOverride
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
+      propertyPath: _statOverrides.Array.data[3]._overrideValue
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 7368042543877228967, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
       propertyPath: m_Name
       value: Waiter

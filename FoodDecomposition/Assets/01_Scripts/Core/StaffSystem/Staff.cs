@@ -112,5 +112,10 @@ namespace GM.Staffs
 
             _targetTable.InUse = false;
         }
+
+        public void EndWork()
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
