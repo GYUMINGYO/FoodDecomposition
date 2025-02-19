@@ -723,6 +723,15 @@
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "MapObjectDelete",
+                    "type": "Button",
+                    "id": "08c320f6-f10b-487d-b0fb-2fcb516c7443",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -756,6 +765,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "MapDrag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d13d5bf6-f424-433b-94aa-f5ee79b7f54a",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "MapObjectDelete",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

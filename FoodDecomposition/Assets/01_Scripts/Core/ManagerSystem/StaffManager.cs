@@ -64,7 +64,7 @@ namespace GM.Managers
         {
             for (int i = 0; i < _staffList.Count; ++i)
             {
-                _staffList[i].gameObject.SetActive(true);
+                _staffList[i].StartWork();
                 Staff staff = _staffList[i].GetStaff(_staffList[i].Type);
                 staff.transform.position = _entranceTransform.position;
                 staff.transform.rotation = _entranceTransform.rotation;

@@ -745,6 +745,15 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Hold"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MapObjectDelete"",
+                    ""type"": ""Button"",
+                    ""id"": ""08c320f6-f10b-487d-b0fb-2fcb516c7443"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -778,6 +787,17 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""MapDrag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d13d5bf6-f424-433b-94aa-f5ee79b7f54a"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""MapObjectDelete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -926,6 +946,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         m_MapEdit_MapPoint = m_MapEdit.FindAction("MapPoint", throwIfNotFound: true);
         m_MapEdit_MapClick = m_MapEdit.FindAction("MapClick", throwIfNotFound: true);
         m_MapEdit_MapDrag = m_MapEdit.FindAction("MapDrag", throwIfNotFound: true);
+        m_MapEdit_MapObjectDelete = m_MapEdit.FindAction("MapObjectDelete", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
@@ -1193,6 +1214,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MapEdit_MapPoint;
     private readonly InputAction m_MapEdit_MapClick;
     private readonly InputAction m_MapEdit_MapDrag;
+    private readonly InputAction m_MapEdit_MapObjectDelete;
     public struct MapEditActions
     {
         private @Controlls m_Wrapper;
@@ -1200,6 +1222,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         public InputAction @MapPoint => m_Wrapper.m_MapEdit_MapPoint;
         public InputAction @MapClick => m_Wrapper.m_MapEdit_MapClick;
         public InputAction @MapDrag => m_Wrapper.m_MapEdit_MapDrag;
+        public InputAction @MapObjectDelete => m_Wrapper.m_MapEdit_MapObjectDelete;
         public InputActionMap Get() { return m_Wrapper.m_MapEdit; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1218,6 +1241,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @MapDrag.started += instance.OnMapDrag;
             @MapDrag.performed += instance.OnMapDrag;
             @MapDrag.canceled += instance.OnMapDrag;
+            @MapObjectDelete.started += instance.OnMapObjectDelete;
+            @MapObjectDelete.performed += instance.OnMapObjectDelete;
+            @MapObjectDelete.canceled += instance.OnMapObjectDelete;
         }
 
         private void UnregisterCallbacks(IMapEditActions instance)
@@ -1231,6 +1257,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @MapDrag.started -= instance.OnMapDrag;
             @MapDrag.performed -= instance.OnMapDrag;
             @MapDrag.canceled -= instance.OnMapDrag;
+            @MapObjectDelete.started -= instance.OnMapObjectDelete;
+            @MapObjectDelete.performed -= instance.OnMapObjectDelete;
+            @MapObjectDelete.canceled -= instance.OnMapObjectDelete;
         }
 
         public void RemoveCallbacks(IMapEditActions instance)
@@ -1410,6 +1439,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         void OnMapPoint(InputAction.CallbackContext context);
         void OnMapClick(InputAction.CallbackContext context);
         void OnMapDrag(InputAction.CallbackContext context);
+        void OnMapObjectDelete(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

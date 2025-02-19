@@ -62,7 +62,7 @@ namespace GM
             isOpen = true;
 
             DataManager dataManager = ManagerHub.Instance.GetManager<DataManager>();
-            dayText.text = $"{dayCnt}ÀÏÂ÷";
+            dayText.text = $"{dayCnt}ï¿½ï¿½ï¿½ï¿½";
             revanueText.text = $"{dataManager.DayMoney}";
             materialCostText.text = $"{dataManager.MaterialCost}";
             float personalCost = ManagerHub.Instance.GetManager<StaffManager>().GetStaffCount() * 10;
@@ -94,10 +94,7 @@ namespace GM
 
         public void NextDay()
         {
-            transform.DOLocalMoveY(-1000, 0.5f);
-            nextDayBtnOnCloseTrm.DOLocalMoveX(910, 0.3f);
-
-            ManagerHub.Instance.GetManager<GameManager>().StartDayTimer();
+            ManagerHub.Instance.GetManager<GameManager>().RestourantOpen();
         }
     }
 }

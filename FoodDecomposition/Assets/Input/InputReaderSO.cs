@@ -21,6 +21,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     #region MapEditActions
 
     public event Action OnMapClickEvent;
+    public event Action OnMapObjectDeleteEvent;
     public event Action<bool> OnMapDragEvent;
 
     #endregion
@@ -102,9 +103,12 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     {
         _mousePosition = context.ReadValue<Vector2>();
 
-        if (_isClicked == true)
+        if (context.performed)
         {
-            OnMapDragEvent?.Invoke(true);
+            if (_isClicked == true)
+            {
+                OnMapDragEvent?.Invoke(true);
+            }
         }
     }
 
@@ -138,15 +142,26 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     {
         //OnMapEditChangeEvent.Invoke();
 
-        _isMapEdit = !_isMapEdit;
+        if (context.performed)
+        {
+            _isMapEdit = !_isMapEdit;
 
-        if (_isMapEdit)
-        {
-            ChangeInputState(InputType.MapEdit);
+            if (_isMapEdit)
+            {
+                ChangeInputState(InputType.MapEdit);
+            }
+            else
+            {
+                ChangeInputState(InputType.Player);
+            }
         }
-        else
+    }
+
+    public void OnMapObjectDelete(InputAction.CallbackContext context)
+    {
+        if (context.performed)
         {
-            ChangeInputState(InputType.Player);
+            OnMapObjectDeleteEvent?.Invoke();
         }
     }
 }
