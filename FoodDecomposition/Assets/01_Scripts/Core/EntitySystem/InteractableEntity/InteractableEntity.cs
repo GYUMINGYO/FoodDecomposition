@@ -9,5 +9,8 @@ namespace GM.InteractableEntities
 
         public Enums.InteractableEntityType Type => _type;
         [SerializeField] protected Enums.InteractableEntityType _type;
+
+        public bool IsShared => _isShared;
+        [SerializeField] private bool _isShared;
     }
 }
