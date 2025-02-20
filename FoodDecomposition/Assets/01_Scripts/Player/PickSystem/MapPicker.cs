@@ -28,6 +28,12 @@ namespace GM.Players.Pickers
 
         private void HandleMapDelete()
         {
+            if (_pickMapObjectList.Count > 0)
+            {
+                _pickMapObjectList.ForEach(obj => Destroy(obj.gameObject));
+                Debug.Log("맵 삭제");
+            }
+            _pickMapObjectList.Clear();
         }
 
         private void HandleDrag(bool isDrag)
@@ -35,7 +41,7 @@ namespace GM.Players.Pickers
             _isDrag = isDrag;
             if (isDrag == true)
             {
-                HandlePick();
+                //HandlePick();
             }
         }
 
@@ -73,7 +79,6 @@ namespace GM.Players.Pickers
 
             if (_hit.transform.TryGetComponent(out Map map))
             {
-                DeleteOutline();
                 Debug.Log("맵 생성");
                 // TODO : Offset 계산
                 Vector3 tilePostion = new Vector3(_cellPosition.x + 1, _cellPosition.y + 0.5f, _cellPosition.z + 1);
