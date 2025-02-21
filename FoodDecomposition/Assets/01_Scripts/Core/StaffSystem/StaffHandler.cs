@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GM.Staffs
 {
-    public class StaffHandler : Entity, IAfterInitable
+    public class StaffHandler : Entity
     {
         public StaffType Type => _type;
         public bool IsChange { get => _isChange; set => _isChange = value; }
@@ -15,8 +15,6 @@ namespace GM.Staffs
         [SerializeField] private StaffType _type = StaffType.Waiter;
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
-
-        private StaffLevel _level;
 
         protected override void AddComponentToDictionary()
         {
@@ -30,15 +28,10 @@ namespace GM.Staffs
             SetStaff();
         }
 
-        public void AfterInit()
-        {
-            _level = GetCompo<StaffLevel>();
-        }
-
         public void Initialize(StaffProfile staffProfile)
         {
-            _waiter.StaffInitialize(staffProfile, _level);
-            _chef.StaffInitialize(staffProfile, _level);
+            _waiter.StaffInitialize(staffProfile);
+            _chef.StaffInitialize(staffProfile);
         }
 
         private void Update()

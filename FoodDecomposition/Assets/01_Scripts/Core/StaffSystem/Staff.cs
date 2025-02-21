@@ -65,10 +65,10 @@ namespace GM.Staffs
             _isWorking = false;
         }
 
-        public void StaffInitialize(StaffProfile staffProfile, StaffLevel staffLevel)
+        public void StaffInitialize(StaffProfile staffProfile)
         {
             Profile = staffProfile;
-            _level = staffLevel;
+            _level = _staffHandler.GetCompo<StaffLevel>();
         }
 
         public BlackboardVariable<T> GetVariable<T>(string variableName)
