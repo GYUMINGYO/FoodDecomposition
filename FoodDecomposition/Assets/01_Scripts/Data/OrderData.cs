@@ -13,7 +13,7 @@ namespace GM.Data
 
     public class OrderData
     {
-        public Table orderTable;
+        public uint orderTableID;
         public Customer orderCustomer;
         public OrderType type;
         public Recipe recipe;

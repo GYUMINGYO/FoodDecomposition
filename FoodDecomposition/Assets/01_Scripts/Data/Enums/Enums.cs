@@ -22,6 +22,7 @@ public static class Enums
         Sink,
 
         Exit,
-        Stand
+        Stand,
+        Table
     }
 }

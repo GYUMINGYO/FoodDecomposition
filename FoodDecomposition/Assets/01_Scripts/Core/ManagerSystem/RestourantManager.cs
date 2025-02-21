@@ -4,6 +4,7 @@ using GM.Staffs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,8 +12,6 @@ namespace GM.Managers
 {
     public class RestourantManager : IManagerable
     {
-        public List<Table> TableList;
-
         public bool IsSeatFull => isSeatFull;
         private bool isSeatFull = false;
 
@@ -20,36 +19,50 @@ namespace GM.Managers
 
         public void Initialized()
         {
-            TableList = new();
+            uint tableId = 0;
             _interactableEntityDictionary = new Dictionary<Enums.InteractableEntityType, List<InteractableEntity>>();
 
-            foreach (Table Table in GameObject.FindObjectsByType<Table>(FindObjectsSortMode.None))
+            foreach (var interactableTable in GameObject.FindObjectsByType<InteractableEntity>(FindObjectsSortMode.None))
             {
-                TableList.Add(Table);
-            }
-
-            foreach (var table in GameObject.FindObjectsByType<InteractableEntity>(FindObjectsSortMode.None))
-            {
-                if (_interactableEntityDictionary.ContainsKey(table.Type) == false)
+                if (_interactableEntityDictionary.ContainsKey(interactableTable.Type) == false)
                 {
-                    _interactableEntityDictionary[table.Type] = new List<InteractableEntity>();
+                    _interactableEntityDictionary[interactableTable.Type] = new List<InteractableEntity>();
                 }
-                _interactableEntityDictionary[table.Type].Add(table);
+
+                if (interactableTable is Table table)
+                {
+                    table.SetID(tableId++);
+                }
+                _interactableEntityDictionary[interactableTable.Type].Add(interactableTable);
             }
         }
 
         public void Clear()
         {
-            TableList.Clear();
             _interactableEntityDictionary.Clear();
         }
 
         public void SetIsSeatFull(bool value) => isSeatFull = value;
 
-        public Table GetTable()
+        public Table GetTable(uint id = uint.MaxValue)
         {
+            List<InteractableEntity> tableList;
+            _interactableEntityDictionary.TryGetValue(Enums.InteractableEntityType.Table, out tableList);
+
+            if (id < uint.MaxValue)
+            {
+                foreach (Table table in tableList)
+                {
+                    if (table.ID == id)
+                    {
+                        return table;
+                    }
+                }
+            }
+
+            // any Table
             List<Table> nullValueList = new();
-            foreach (Table table in TableList)
+            foreach (Table table in tableList)
             {
                 if (table.HasEmptyChair())
                 {

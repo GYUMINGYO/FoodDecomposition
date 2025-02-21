@@ -1,6 +1,7 @@
 using DG.Tweening;
 using GM;
 using GM.Entities;
+using GM.Managers;
 using GM.Staffs;
 using System;
 using Unity.Behavior;
@@ -28,7 +29,7 @@ public partial class GiveFoodAction : Action
         AnimationTrigger.Value.OnAnimationEnd += HandleAnimationEnd;
         AnimationTrigger.Value.OnEventAnimationEnd += HandleEventAnimationEnd;
 
-        table = Waiter.Value.CurrentData.orderTable;
+        table = ManagerHub.Instance.GetManager<RestourantManager>().GetTable(Waiter.Value.CurrentData.orderTableID);
         customer = Waiter.Value.CurrentData.orderCustomer;
         _tableFoodTrm = table.GetFoodPos(customer);
 
