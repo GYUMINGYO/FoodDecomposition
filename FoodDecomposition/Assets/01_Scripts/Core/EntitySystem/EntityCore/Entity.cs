@@ -19,7 +19,7 @@ namespace GM.Entities
 
         #region Entity Component Structure
 
-        private void AddComponentToDictionary()
+        protected virtual void AddComponentToDictionary()
         {
             GetComponentsInChildren<IEntityComponent>(true)
                 .ToList().ForEach(component => _components.Add(component.GetType(), component));

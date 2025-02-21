@@ -21,7 +21,7 @@ namespace GM.UI
         public void InitializeUI(Unit unit)
         {
             _staff = unit as Staff;
-            _entityStat = _staff.GetCompo<BTStat>();
+            _entityStat = _staff.MyStaffHandler.GetCompo<EntityStat>();
             _statElementUIList.ForEach(statElementUI => statElementUI.InitializeUI(_entityStat));
             UpdateUI();
         }

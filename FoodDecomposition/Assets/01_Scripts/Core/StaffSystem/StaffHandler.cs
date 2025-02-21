@@ -1,10 +1,11 @@
-using System.Collections;
+using System.Linq;
 using GM.Data;
+using GM.Entities;
 using UnityEngine;
 
 namespace GM.Staffs
 {
-    public class StaffHandler : MonoBehaviour
+    public class StaffHandler : Entity, IAfterInitable
     {
         public StaffType Type => _type;
         public bool IsChange { get => _isChange; set => _isChange = value; }
@@ -17,10 +18,21 @@ namespace GM.Staffs
 
         private StaffLevel _level;
 
-        private void Awake()
+        protected override void AddComponentToDictionary()
         {
-            _level = GetComponentInChildren<StaffLevel>();
+            GetComponentsInChildren<IEntityComponent>(false)
+                .ToList().ForEach(component => _components.Add(component.GetType(), component));
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
             SetStaff();
+        }
+
+        public void AfterInit()
+        {
+            _level = GetCompo<StaffLevel>();
         }
 
         public void Initialize(StaffProfile staffProfile)

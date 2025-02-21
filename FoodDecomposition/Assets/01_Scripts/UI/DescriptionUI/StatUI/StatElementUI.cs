@@ -1,4 +1,3 @@
-using System;
 using GM.Core.StatSystem;
 using GM.Entities;
 using TMPro;

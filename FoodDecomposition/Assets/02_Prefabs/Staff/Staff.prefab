@@ -1,5 +1,65 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5846761538964267343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1103367768240778936}
+  - component: {fileID: 3296631308377689402}
+  m_Layer: 0
+  m_Name: Stat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1103367768240778936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5846761538964267343}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2425140273658233260}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3296631308377689402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5846761538964267343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8a6b4d58bc923d4a87da1b73815d65d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statOverrides:
+  - _stat: {fileID: 11400000, guid: 4fec7c64fc83a5943baf76d4f67dfb2f, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 5
+  - _stat: {fileID: 11400000, guid: d4160b6a46e8b604990c46192a8a4904, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
+  - _stat: {fileID: 11400000, guid: 8725378507ccfb74e9b78989588b3340, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
+  - _stat: {fileID: 11400000, guid: dcf4b23b19ac09c4287ff58b553c4c43, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
+  - _stat: {fileID: 11400000, guid: 6435d0060d6bda64eb425dda6f6e7489, type: 2}
+    _isUseOverride: 1
+    _overrideValue: 1
 --- !u!1 &6611073806886299378
 GameObject:
   m_ObjectHideFlags: 0
@@ -33,6 +93,7 @@ Transform:
   - {fileID: 1982318401001791184}
   - {fileID: 2720768232431901583}
   - {fileID: 2056774588545913284}
+  - {fileID: 1103367768240778936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8970793331817033482
@@ -198,20 +259,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 2425140273658233260}
     m_Modifications:
     - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
-      propertyPath: _statOverrides.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
-      propertyPath: _statOverrides.Array.data[3]._stat
-      value: 
-      objectReference: {fileID: 11400000, guid: d4160b6a46e8b604990c46192a8a4904, type: 2}
-    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
-      propertyPath: _statOverrides.Array.data[3]._isUseOverride
+      propertyPath: _btStatMappingDictionary._serializedList.Array.size
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6034839419093695807, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
-      propertyPath: _statOverrides.Array.data[3]._overrideValue
-      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 7368042543877228967, guid: d9a585b191c86a64e96c122b3e69dc9d, type: 3}
       propertyPath: m_Name
