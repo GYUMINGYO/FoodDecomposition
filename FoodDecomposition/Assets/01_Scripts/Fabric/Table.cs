@@ -1,10 +1,8 @@
 using GM;
-using GM.Staffs;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public struct SeatData
 {
@@ -21,6 +19,7 @@ namespace GM
         private Dictionary<Transform, SeatData> chairDictionary;
 
         [SerializeField] private List<Transform> standTrmList;
+
         private void Awake()
         {
             chairDictionary = new Dictionary<Transform, SeatData>();
@@ -47,7 +46,7 @@ namespace GM
                 SeatData seatData = chairDictionary[chairTrm];
 
                 seatData.isSit = isSit;
-                if(isSit)
+                if (isSit)
                 {
                     seatData.customer = customer;
                 }
@@ -107,9 +106,9 @@ namespace GM
 
         public Transform GetFoodPos(Customer customer)
         {
-            foreach(var pair in chairDictionary)
+            foreach (var pair in chairDictionary)
             {
-                if(pair.Value.customer == customer)
+                if (pair.Value.customer == customer)
                 {
                     return pair.Value.foodPos;
                 }
@@ -130,7 +129,6 @@ namespace GM
                 }
             }
 
-            //test
             RemoveFood(customer);
         }
 

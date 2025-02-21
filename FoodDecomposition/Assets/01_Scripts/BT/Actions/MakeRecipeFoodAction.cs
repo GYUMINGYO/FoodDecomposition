@@ -19,7 +19,8 @@ public partial class MakeRecipeFoodAction : Action
         food.transform.position = Chef.Value.FoodHandTrm.position;
         food.transform.parent = Chef.Value.FoodHandTrm;
 
-        ManagerHub.Instance.GetManager<DataManager>().SubtractMoney(Chef.Value.CurrentData.recipe.materialCost, SubMoneyType.materialCost);
+        ManagerHub.Instance.GetManager<DataManager>().AddMaterialCost(Chef.Value.CurrentData.recipe.materialCost);
+
         return Status.Running;
     }
 }

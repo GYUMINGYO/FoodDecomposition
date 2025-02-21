@@ -11,7 +11,7 @@ namespace GM.Managers
         [SerializeField] private Slider timeGauge;
         [SerializeField] private Transform dayLight;
 
-        private double _dayTime = 5;
+        [SerializeField] private double _dayTime = 5;
         private double _currentDayTime = 0;
 
         private bool _isDayTimer;

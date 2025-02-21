@@ -62,17 +62,18 @@ namespace GM
             isOpen = true;
 
             DataManager dataManager = ManagerHub.Instance.GetManager<DataManager>();
-            dayText.text = $"{dayCnt}����";
+            {//test
+                float personalCost = ManagerHub.Instance.GetManager<StaffManager>().GetStaffCount() * 10;
+                dataManager.AddPersonalCost(personalCost);
+            }
+            float totalProfit = dataManager.DayMoney - dataManager.MaterialCost - dataManager.PersonalCost;
+            dayText.text = $"{dayCnt}일차";
             revanueText.text = $"{dataManager.DayMoney}";
             materialCostText.text = $"{dataManager.MaterialCost}";
-            float personalCost = ManagerHub.Instance.GetManager<StaffManager>().GetStaffCount() * 10;
-            dataManager.SubtractMoney(personalCost, SubMoneyType.personalCost);
-            personalCostText.text = $"{dataManager.PresonalCost}";
-            float totalProfit = dataManager.DayMoney + dataManager.MaterialCost + dataManager.PresonalCost;
+            personalCostText.text = $"{dataManager.PersonalCost}";
             totalProfitText.text = $"{totalProfit}";
             totalProfitText.color = totalProfit > 0 ? plusColor : minusColor;
-
-            dataManager.DayMoneysClear();
+            dataManager.DailyCostsClear();
 
             group.alpha = 1;
             transform.DOLocalMoveY(0, 0.5f)
@@ -94,6 +95,7 @@ namespace GM
 
         public void NextDay()
         {
+            nextDayBtnOnCloseTrm.DOLocalMoveX(910, 0.3f);
             ManagerHub.Instance.GetManager<GameManager>().RestourantOpen();
         }
     }
