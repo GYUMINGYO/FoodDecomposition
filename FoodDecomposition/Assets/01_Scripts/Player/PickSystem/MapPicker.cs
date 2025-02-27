@@ -8,30 +8,56 @@ namespace GM.Players.Pickers
 {
     public class MapPicker : Picker
     {
-        private List<MapObject> _pickMapObjectList;
+        private List<Vector3Int> _pickMapObjectList;
         private bool _isDrag;
 
+        [SerializeField] private Map _map;
         [SerializeField] private Grid _grid;
         [SerializeField] private GameObject _cellIndicator;
 
         private Vector3 _cellPosition;
-        [SerializeField] private Tile _tilePrefab;
+        private Vector3Int _gridPosition;
+        [SerializeField] private ObjectInfoSO _mapObjectInfo;
+
+        private bool _isCreateMode = true;
 
         public override void Initialize(Entity entity)
         {
-            _pickMapObjectList = new List<MapObject>();
+            _pickMapObjectList = new List<Vector3Int>();
             base.Initialize(entity);
+
             _player.Input.OnMapClickEvent += HandlePick;
             _player.Input.OnMapDragEvent += HandleDrag;
             _player.Input.OnMapObjectDeleteEvent += HandleMapDelete;
+            _player.Input.OnEditTypeChangeEvent += HandleEditTypeChange;
+            _player.Input.OnInputTypeChangeEvent += HandleInputTypeChange;
+        }
+
+        private void HandleInputTypeChange(InputType type)
+        {
+            if (type != InputType.MapEdit)
+            {
+                DeleteOutline();
+            }
+        }
+        private void HandleEditTypeChange(EditType type)
+        {
+            if (type == EditType.Delete)
+            {
+                _isCreateMode = false;
+            }
+            else
+            {
+                // Create Mode
+                _isCreateMode = true;
+            }
         }
 
         private void HandleMapDelete()
         {
-            if (_pickMapObjectList.Count > 0)
+            if (_pickMapObjectList.Count > 0 && _isCreateMode == false)
             {
-                _pickMapObjectList.ForEach(obj => Destroy(obj.gameObject));
-                Debug.Log("맵 삭제");
+                _map.DeleteTileObjects(_pickMapObjectList);
             }
             _pickMapObjectList.Clear();
         }
@@ -39,28 +65,30 @@ namespace GM.Players.Pickers
         private void HandleDrag(bool isDrag)
         {
             _isDrag = isDrag;
-            if (isDrag == true)
+            if (_isDrag == true)
             {
-                //HandlePick();
+                HandlePick();
             }
         }
 
-        void Update()
+        private void Update()
         {
             PickRaycast();
             if (_isRay == false) return;
 
             Vector3 mousePosition = _hit.point;
-            Vector3Int gridPosition = _grid.WorldToCell(mousePosition);
-            _cellPosition = _grid.CellToWorld(gridPosition);
+            _gridPosition = _grid.WorldToCell(mousePosition);
+            _cellPosition = _grid.CellToWorld(_gridPosition);
             _cellIndicator.transform.position = _cellPosition;
         }
 
-        void OnDestroy()
+        private void OnDestroy()
         {
             _player.Input.OnMapClickEvent -= HandlePick;
             _player.Input.OnMapDragEvent -= HandleDrag;
             _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
+            _player.Input.OnEditTypeChangeEvent -= HandleEditTypeChange;
+            _player.Input.OnInputTypeChangeEvent -= HandleInputTypeChange;
         }
 
         protected override void PickEntity()
@@ -75,21 +103,18 @@ namespace GM.Players.Pickers
                 return;
             }
 
-            // TODO : 특정 조건일 때 오브젝트가 생성되게 해야 함
-
-            if (_hit.transform.TryGetComponent(out Map map))
+            if (_hit.transform.GetComponent<Map>() && _isCreateMode)
             {
-                Debug.Log("맵 생성");
-                // TODO : Offset 계산
-                Vector3 tilePostion = new Vector3(_cellPosition.x + 1, _cellPosition.y + 0.5f, _cellPosition.z + 1);
-                Instantiate(_tilePrefab, tilePostion, Quaternion.identity);
+                DeleteOutline();
+                _map.SetTileObject(_mapObjectInfo, _gridPosition);
+                _pickMapObjectList.Add(_gridPosition);
             }
-            else if (_hit.transform.TryGetComponent(out MapObject mapObject))
+            else if (_hit.transform.TryGetComponent(out MapObject mapObject) && _isCreateMode == false)
             {
-                Debug.Log("맵 Outlien");
-                if (_pickMapObjectList.Contains(mapObject)) return;
+                _gridPosition = _grid.WorldToCell(_hit.point);
+                if (_pickMapObjectList.Contains(_gridPosition)) return;
                 mapObject.ShowOutLine(true);
-                _pickMapObjectList.Add(mapObject);
+                _pickMapObjectList.Add(_gridPosition);
             }
         }
 
@@ -99,7 +124,12 @@ namespace GM.Players.Pickers
             {
                 if (_pickMapObjectList.Count > 0)
                 {
-                    _pickMapObjectList.ForEach(obj => obj.ShowOutLine(false));
+                    foreach (MapObject mapObject in _map.GetTileObjects(_pickMapObjectList))
+                    {
+                        if (mapObject == null) continue;
+
+                        mapObject.ShowOutLine(false);
+                    }
                 }
                 _pickMapObjectList.Clear();
             }
