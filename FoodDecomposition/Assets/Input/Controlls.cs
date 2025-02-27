@@ -744,7 +744,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": ""Hold"",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""MapObjectDelete"",
@@ -753,6 +753,15 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""EditTypeChange"",
+                    ""type"": ""Button"",
+                    ""id"": ""328b5886-a1ba-4dd2-98c7-9e161d9ea413"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -800,6 +809,17 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""action"": ""MapObjectDelete"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ec6bc3ef-cc66-44f5-86dc-292927c10603"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""EditTypeChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -841,7 +861,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""id"": ""90362b6e-d583-4289-8d70-20f852bbb1ab"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""Press"",
                     ""initialStateCheck"": false
                 }
             ],
@@ -947,6 +967,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         m_MapEdit_MapClick = m_MapEdit.FindAction("MapClick", throwIfNotFound: true);
         m_MapEdit_MapDrag = m_MapEdit.FindAction("MapDrag", throwIfNotFound: true);
         m_MapEdit_MapObjectDelete = m_MapEdit.FindAction("MapObjectDelete", throwIfNotFound: true);
+        m_MapEdit_EditTypeChange = m_MapEdit.FindAction("EditTypeChange", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
@@ -1215,6 +1236,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MapEdit_MapClick;
     private readonly InputAction m_MapEdit_MapDrag;
     private readonly InputAction m_MapEdit_MapObjectDelete;
+    private readonly InputAction m_MapEdit_EditTypeChange;
     public struct MapEditActions
     {
         private @Controlls m_Wrapper;
@@ -1223,6 +1245,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         public InputAction @MapClick => m_Wrapper.m_MapEdit_MapClick;
         public InputAction @MapDrag => m_Wrapper.m_MapEdit_MapDrag;
         public InputAction @MapObjectDelete => m_Wrapper.m_MapEdit_MapObjectDelete;
+        public InputAction @EditTypeChange => m_Wrapper.m_MapEdit_EditTypeChange;
         public InputActionMap Get() { return m_Wrapper.m_MapEdit; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1244,6 +1267,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @MapObjectDelete.started += instance.OnMapObjectDelete;
             @MapObjectDelete.performed += instance.OnMapObjectDelete;
             @MapObjectDelete.canceled += instance.OnMapObjectDelete;
+            @EditTypeChange.started += instance.OnEditTypeChange;
+            @EditTypeChange.performed += instance.OnEditTypeChange;
+            @EditTypeChange.canceled += instance.OnEditTypeChange;
         }
 
         private void UnregisterCallbacks(IMapEditActions instance)
@@ -1260,6 +1286,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @MapObjectDelete.started -= instance.OnMapObjectDelete;
             @MapObjectDelete.performed -= instance.OnMapObjectDelete;
             @MapObjectDelete.canceled -= instance.OnMapObjectDelete;
+            @EditTypeChange.started -= instance.OnEditTypeChange;
+            @EditTypeChange.performed -= instance.OnEditTypeChange;
+            @EditTypeChange.canceled -= instance.OnEditTypeChange;
         }
 
         public void RemoveCallbacks(IMapEditActions instance)
@@ -1440,6 +1469,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         void OnMapClick(InputAction.CallbackContext context);
         void OnMapDrag(InputAction.CallbackContext context);
         void OnMapObjectDelete(InputAction.CallbackContext context);
+        void OnEditTypeChange(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {

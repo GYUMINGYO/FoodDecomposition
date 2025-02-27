@@ -9,6 +9,12 @@ public enum InputType
     MapEdit,
 }
 
+public enum EditType
+{
+    Create,
+    Delete,
+}
+
 [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReaderSO")]
 public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Controlls.IMapEditActions, Controlls.ICameraActions, Controlls.ICoreActions
 {
@@ -16,13 +22,18 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public event Action OnPickEvent;
 
-    public event Action OnMapEditChangeEvent;
-
     #region MapEditActions
 
     public event Action OnMapClickEvent;
     public event Action OnMapObjectDeleteEvent;
     public event Action<bool> OnMapDragEvent;
+    public event Action<EditType> OnEditTypeChangeEvent;
+
+    #endregion
+
+    #region CoreActions
+
+    public event Action<InputType> OnInputTypeChangeEvent;
 
     #endregion
 
@@ -32,8 +43,9 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     public Vector2 MousePosition => _mousePosition;
     private Vector2 _mousePosition;
 
-    private bool _isClicked;
-    private bool _isMapEdit;
+    private bool _isDrag = false;
+    private bool _isMapEdit = false;
+    private bool _isDeleteMode = false;
 
     private void OnEnable()
     {
@@ -74,6 +86,8 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
                 _controlls.MapEdit.Enable();
                 break;
         }
+
+        OnInputTypeChangeEvent?.Invoke(type);
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -105,7 +119,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
         if (context.performed)
         {
-            if (_isClicked == true)
+            if (_isDrag == true)
             {
                 OnMapDragEvent?.Invoke(true);
             }
@@ -124,11 +138,11 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     {
         if (context.started)
         {
-            _isClicked = true;
+            _isDrag = true;
         }
         else if (context.canceled)
         {
-            _isClicked = false;
+            _isDrag = false;
             OnMapDragEvent?.Invoke(false);
         }
     }
@@ -140,9 +154,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     public void OnMapEditChange(InputAction.CallbackContext context)
     {
-        //OnMapEditChangeEvent.Invoke();
-
-        if (context.performed)
+        if (context.started)
         {
             _isMapEdit = !_isMapEdit;
 
@@ -162,6 +174,23 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
         if (context.performed)
         {
             OnMapObjectDeleteEvent?.Invoke();
+        }
+    }
+
+    public void OnEditTypeChange(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _isDeleteMode = !_isDeleteMode;
+
+            if (_isDeleteMode)
+            {
+                OnEditTypeChangeEvent?.Invoke(EditType.Delete);
+            }
+            else
+            {
+                OnEditTypeChangeEvent?.Invoke(EditType.Create);
+            }
         }
     }
 }
