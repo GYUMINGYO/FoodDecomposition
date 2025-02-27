@@ -9,6 +9,8 @@ namespace GM.Maps
         private MapObject[,] _tileArr;
         [SerializeField] private Grid _grid;
 
+        private uint _tileCount = 0;
+
         private void Awake()
         {
             _tileArr = new MapObject[3000, 3000];
@@ -35,6 +37,26 @@ namespace GM.Maps
         {
             if (_tileArr[position.x, position.z] != null) return;
 
+            // up, down, left, right block check
+            if (_tileCount >= 9)
+            {
+                ushort count = 0;
+
+                // up
+                if (_tileArr[position.x + 1, position.z] != null) count++;
+                // down
+                else if (_tileArr[position.x - 1, position.z] != null) count++;
+                // left
+                else if (_tileArr[position.x, position.z - 1] != null) count++;
+                // right
+                else if (_tileArr[position.x, position.z + 1] != null) count++;
+
+                if (count <= 0)
+                {
+                    return;
+                }
+            }
+
             Vector3 mapObjPosition = _grid.CellToWorld(position);
             mapObjPosition.x += mapObjectInfo.objectSize.x;
             mapObjPosition.y += mapObjectInfo.objectSize.y;
@@ -54,6 +76,7 @@ namespace GM.Maps
 
             tile.ShowOutLine(true);
             _tileArr[position.x, position.z] = tile;
+            _tileCount++;
         }
 
         public void DeleteTileObject(Vector3Int position)
@@ -61,6 +84,7 @@ namespace GM.Maps
             // TODO : 삭제 방법 바꾸기 (Pool)
             Destroy(_tileArr[position.x, position.z]);
             _tileArr[position.x, position.z] = null;
+            _tileCount--;
         }
 
         public void DeleteTileObjects(List<Vector3Int> positionList)
@@ -72,6 +96,7 @@ namespace GM.Maps
 
                 Destroy(_tileArr[pos.x, pos.z].gameObject);
                 _tileArr[pos.x, pos.z] = null;
+                _tileCount--;
             }
         }
     }

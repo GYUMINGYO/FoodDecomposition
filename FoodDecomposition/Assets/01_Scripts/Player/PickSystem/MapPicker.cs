@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using GM.Entities;
 using GM.Maps;
@@ -58,8 +57,8 @@ namespace GM.Players.Pickers
             if (_pickMapObjectList.Count > 0 && _isCreateMode == false)
             {
                 _map.DeleteTileObjects(_pickMapObjectList);
+                _pickMapObjectList.Clear();
             }
-            _pickMapObjectList.Clear();
         }
 
         private void HandleDrag(bool isDrag)
@@ -126,12 +125,10 @@ namespace GM.Players.Pickers
                 {
                     foreach (MapObject mapObject in _map.GetTileObjects(_pickMapObjectList))
                     {
-                        if (mapObject == null) continue;
-
                         mapObject.ShowOutLine(false);
                     }
+                    _pickMapObjectList.Clear();
                 }
-                _pickMapObjectList.Clear();
             }
         }
     }
