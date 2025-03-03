@@ -1,25 +1,35 @@
 using AYellowpaper.SerializedCollections;
 using GM.Core.StatSystem;
 using GM.Entities;
+using GM.Staffs;
 using Unity.Behavior;
 using UnityEngine;
 
 namespace GM.BT
 {
-    public class BTStat : EntityStat
+    public class BTStat : MonoBehaviour, IEntityComponent, IAfterInitable
     {
         [SerializeField] protected BehaviorGraphAgent _btAgent;
+
         [SerializedDictionary("BTVariableName", "Stat")]
         [SerializeField] private SerializedDictionary<string, StatSO> _btStatMappingDictionary;
 
-        public override void Initialize(Entity entity)
+        private Staff _staff;
+        private EntityStat _stat;
+
+        public void Initialize(Entity entity)
         {
-            base.Initialize(entity);
+            _staff = entity as Staff;
+        }
+
+        public void AfterInit()
+        {
+            _stat = _staff.MyStaffHandler.GetCompo<EntityStat>();
 
             foreach (var mappingStat in _btStatMappingDictionary)
             {
-                _btAgent.SetVariableValue<float>(mappingStat.Key, GetStat(mappingStat.Value).Value);
-                GetStat(mappingStat.Value).OnValueChange += (StatSO stat, float current, float prev) =>
+                _btAgent.SetVariableValue<float>(mappingStat.Key, _stat.GetStat(mappingStat.Value).Value);
+                _stat.GetStat(mappingStat.Value).OnValueChange += (StatSO stat, float current, float prev) =>
                 {
                     _btAgent.SetVariableValue<float>(mappingStat.Key, current);
                 };
@@ -30,7 +40,7 @@ namespace GM.BT
         {
             foreach (var mappingStat in _btStatMappingDictionary)
             {
-                GetStat(mappingStat.Value).OnValueChange = null;
+                _stat.GetStat(mappingStat.Value).OnValueChange = null;
             }
         }
     }

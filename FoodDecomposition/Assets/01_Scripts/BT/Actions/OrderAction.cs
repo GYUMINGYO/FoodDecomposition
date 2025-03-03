@@ -17,7 +17,7 @@ public partial class OrderAction : Action
     protected override Status OnStart()
     {
         OrderData order = new OrderData();
-        order.orderTable = Table.Value;
+        order.orderTableID = Table.Value.ID;
         order.orderCustomer = Customer.Value;
         order.type = OrderType.Order;
         order.recipe = ManagerHub.Instance.GetManager<RecipeManager>().GetRecipe();

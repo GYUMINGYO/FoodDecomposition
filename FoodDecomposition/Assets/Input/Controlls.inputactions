@@ -722,7 +722,7 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MapObjectDelete",
@@ -731,6 +731,15 @@
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "EditTypeChange",
+                    "type": "Button",
+                    "id": "328b5886-a1ba-4dd2-98c7-9e161d9ea413",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],
@@ -778,6 +787,17 @@
                     "action": "MapObjectDelete",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec6bc3ef-cc66-44f5-86dc-292927c10603",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "EditTypeChange",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -819,7 +839,7 @@
                     "id": "90362b6e-d583-4289-8d70-20f852bbb1ab",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
                     "initialStateCheck": false
                 }
             ],

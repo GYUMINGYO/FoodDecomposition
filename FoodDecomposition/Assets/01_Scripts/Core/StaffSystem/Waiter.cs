@@ -44,7 +44,7 @@ namespace GM.Staffs
             else if (type == Enums.InteractableEntityType.Order)
             {
                 SetVariable("OrderCustomerTrm", _currentData.orderCustomer.transform);
-                return _currentData.orderTable.GetWaiterStandTrm(transform);
+                return ManagerHub.Instance.GetManager<RestourantManager>().GetTable(_currentData.orderTableID).GetWaiterStandTrm(transform);
             }
             else if (type == Enums.InteractableEntityType.FoodOut)
             {
@@ -53,7 +53,7 @@ namespace GM.Staffs
                     FoodOut foodOut = moveTarget as FoodOut;
                     SetTable(foodOut);
                     SetVariable("FoodTrm", foodOut.FoodTrm);
-                    SetVariable("TableFoodTrm", _currentData.orderTable.GetFoodPos(_currentData.orderCustomer));
+                    SetVariable("TableFoodTrm", ManagerHub.Instance.GetManager<RestourantManager>().GetTable(_currentData.orderTableID).GetFoodPos(_currentData.orderCustomer));
                     return foodOut.ReceiverTransform;
                 }
             }

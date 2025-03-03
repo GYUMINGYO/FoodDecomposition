@@ -1,4 +1,5 @@
 using GM;
+using GM.InteractableEntities;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,11 +15,19 @@ public struct SeatData
 
 namespace GM
 {
-    public class Table : MonoBehaviour
+    public class Table : InteractableEntity
     {
+        [SerializeField] private List<Transform> standTrmList;
+
         private Dictionary<Transform, SeatData> chairDictionary;
 
-        [SerializeField] private List<Transform> standTrmList;
+        public uint ID => _id;
+        private uint _id;
+
+        public void SetID(uint id)
+        {
+            _id = id;
+        }
 
         private void Awake()
         {
