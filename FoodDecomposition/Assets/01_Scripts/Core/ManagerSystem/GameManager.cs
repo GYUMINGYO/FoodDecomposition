@@ -1,14 +1,13 @@
 using GM.GameEventSystem;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace GM.Managers
 {
     public class GameManager : MonoBehaviour, IManagerable
     {
         [SerializeField] private GameEventChannelSO _gameCycleChannel;
-        [SerializeField] private Slider timeGauge;
+        [SerializeField] private Transform timeGauge;
         [SerializeField] private Transform dayLight;
 
         [SerializeField] private double _dayTime = 5;
@@ -86,7 +85,7 @@ namespace GM.Managers
                 _currentDayTime += Time.deltaTime;
 
                 float duration = (float)(_currentDayTime / _dayTime);
-                timeGauge.value = duration;
+                timeGauge.localPosition = new Vector3(-1320 + (1320 * duration), 0, 0);
                 dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, duration), -30, 0);
 
                 if (duration > 0.8f && !_isStopCustomer)
