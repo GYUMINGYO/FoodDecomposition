@@ -37,7 +37,7 @@ namespace GM
         {
             if (isOpen)
             {
-                warningPanel.ShowText("영업중에는 사용할 수 없는 기능입니다.");
+                warningPanel.ShowText();
             }
         }
 
