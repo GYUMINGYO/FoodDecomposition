@@ -6,24 +6,30 @@ namespace GM.Maps
     public class Map : MonoBehaviour
     {
         // TODO : 이거 맵 사이즈 어케 할지 생각 좀
-        private MapObject[,] _tileArr;
         [SerializeField] private Grid _grid;
 
+        private Tile[,] _tileArr;
+        private List<Tile> _tempTileList;
+
+        public uint CurrentTileCount => _tileCount;
         private uint _tileCount = 0;
 
         private void Awake()
         {
-            _tileArr = new MapObject[3000, 3000];
+            _tileArr = new Tile[3000, 3000];
+            _tempTileList = new List<Tile>();
         }
 
-        public MapObject GetTileObject(Vector3Int position)
+        // TODO : 구조 개선
+        // 지금은 그냥 타일 단일 구조임
+        public Tile GetTileObject(Vector3Int position)
         {
             return _tileArr[position.x, position.z];
         }
 
-        public List<MapObject> GetTileObjects(List<Vector3Int> positionList)
+        public List<Tile> GetTileObjects(List<Vector3Int> positionList)
         {
-            List<MapObject> mapObjects = new List<MapObject>();
+            List<Tile> mapObjects = new List<Tile>();
             foreach (Vector3Int position in positionList)
             {
                 if (_tileArr[position.x, position.z] == null) continue;
@@ -33,70 +39,126 @@ namespace GM.Maps
             return mapObjects;
         }
 
-        public void SetTileObject(ObjectInfoSO mapObjectInfo, Vector3Int position)
+        // TODO : 그전 타일 저장 해 놔서 껐다 키기기
+
+        public void SetTemporaryTile(ObjectInfoSO mapObjectInfo, Vector3Int startPos, Vector3Int endPos)
         {
-            if (_tileArr[position.x, position.z] != null) return;
-
-            // up, down, left, right block check
-            if (_tileCount >= 9)
+            // Initalize
+            if (_tempTileList.Count > 0)
             {
-                ushort count = 0;
-
-                // up
-                if (_tileArr[position.x + 1, position.z] != null) count++;
-                // down
-                else if (_tileArr[position.x - 1, position.z] != null) count++;
-                // left
-                else if (_tileArr[position.x, position.z - 1] != null) count++;
-                // right
-                else if (_tileArr[position.x, position.z + 1] != null) count++;
-
-                if (count <= 0)
+                foreach (Tile tile in _tempTileList)
                 {
-                    return;
+                    tile.gameObject.SetActive(false);
+                }
+                _tempTileList.Clear();
+            }
+
+            List<Tile> tempTileList = new List<Tile>();
+
+            // Calculate Distance
+            int maxX = Mathf.Max(startPos.x, endPos.x);
+            int minX = Mathf.Min(startPos.x, endPos.x);
+
+            int maxZ = Mathf.Max(startPos.z, endPos.z);
+            int minZ = Mathf.Min(startPos.z, endPos.z);
+
+            for (int x = minX; x <= maxX; ++x)
+            {
+                for (int z = minZ; z <= maxZ; ++z)
+                {
+                    if (_tileArr[x, z] != null)
+                    {
+                        if (_tileArr[x, z].IsFull) continue;
+
+                        _tileArr[x, z].gameObject.SetActive(true);
+                        tempTileList.Add(_tileArr[x, z]);
+                        continue;
+                    }
+
+                    Vector3 mapObjPosition = _grid.CellToWorld(new Vector3Int(x, 0, z));
+                    mapObjPosition.x += mapObjectInfo.objectSize.x;
+                    mapObjPosition.y += mapObjectInfo.objectSize.y;
+                    mapObjPosition.z += mapObjectInfo.objectSize.z;
+
+                    Tile tile = Instantiate(mapObjectInfo.mapObject, mapObjPosition, Quaternion.identity).GetComponent<Tile>();
+
+                    // even number
+                    if (((x + z) & 1) == 0)
+                    {
+                        tile.SetColor(Color.white);
+                    }
+                    else
+                    {
+                        tile.SetColor(Color.black);
+                    }
+                    tile.SetCollider(false);
+                    tile.ColorTransparent(true);
+                    tile.ShowOutLine(true);
+                    _tileArr[x, z] = tile;
+                    tempTileList.Add(tile);
                 }
             }
-
-            Vector3 mapObjPosition = _grid.CellToWorld(position);
-            mapObjPosition.x += mapObjectInfo.objectSize.x;
-            mapObjPosition.y += mapObjectInfo.objectSize.y;
-            mapObjPosition.z += mapObjectInfo.objectSize.z;
-
-            Tile tile = Instantiate(mapObjectInfo.mapObject, mapObjPosition, Quaternion.identity).GetComponent<Tile>();
-
-            // even number
-            if (((position.x + position.z) & 1) == 0)
-            {
-                tile.SetColor(Color.white);
-            }
-            else
-            {
-                tile.SetColor(Color.black);
-            }
-
-            tile.ShowOutLine(true);
-            _tileArr[position.x, position.z] = tile;
-            _tileCount++;
+            _tempTileList = tempTileList;
         }
 
-        public void DeleteTileObject(Vector3Int position)
+        public void SetTileObject()
         {
-            // TODO : 삭제 방법 바꾸기 (Pool)
-            Destroy(_tileArr[position.x, position.z]);
-            _tileArr[position.x, position.z] = null;
-            _tileCount--;
+            DeleteOutline();
+
+            foreach (Tile tile in _tempTileList)
+            {
+                tile.IsFull = true;
+                tile.SetCollider(true);
+                tile.ColorTransparent(false);
+                ++_tileCount;
+            }
+            _tempTileList.Clear();
         }
 
-        public void DeleteTileObjects(List<Vector3Int> positionList)
+        public void TileShowOutlie(Vector3Int startPos, Vector3Int endPos)
+        {
+            DeleteOutline();
+            _tempTileList.Clear();
+
+            // Calculate Distance
+            int maxX = Mathf.Max(startPos.x, endPos.x);
+            int minX = Mathf.Min(startPos.x, endPos.x);
+
+            int maxZ = Mathf.Max(startPos.z, endPos.z);
+            int minZ = Mathf.Min(startPos.z, endPos.z);
+
+            for (int x = minX; x <= maxX; ++x)
+            {
+                for (int z = minZ; z <= maxZ; ++z)
+                {
+                    if (_tileArr[x, z] == null) continue;
+
+                    _tileArr[x, z].ShowOutLine(true);
+                    _tempTileList.Add(_tileArr[x, z]);
+                }
+            }
+        }
+
+        public void DeleteOutline()
+        {
+            if (_tempTileList.Count < 0) return;
+
+            foreach (Tile tile in _tempTileList)
+            {
+                tile.ShowOutLine(false);
+            }
+        }
+
+        public void DeleteTile()
         {
             // TODO : 삭제 방법 바꾸기 (Pool)
-            foreach (var pos in positionList)
-            {
-                if (_tileArr[pos.x, pos.z] == null) continue;
+            if (_tempTileList.Count < 0) return;
 
-                Destroy(_tileArr[pos.x, pos.z].gameObject);
-                _tileArr[pos.x, pos.z] = null;
-                _tileCount--;
+            foreach (Tile tile in _tempTileList)
+            {
+                tile.IsFull = false;
+                tile.gameObject.SetActive(false);
+                --_tileCount;
             }
         }
     }
