@@ -16,8 +16,6 @@ public partial class RequstForCountAction : Action
 
     protected override Status OnStart()
     {
-        this.Customer.Value.SetIsLine(false);
-
         OrderData order = Customer.Value.GetOrderData();
         order.type = OrderType.Count;
         ManagerHub.Instance.GetManager<StaffManager>().AddOrderData(order);
