@@ -28,8 +28,6 @@ namespace GM
 
     public class Customer : Unit, IPoolable
     {
-        public Action customerExitEvent;
-
         [SerializeField] private PoolTypeSO poolType;
         [SerializeField] private List<MeshData> meshList;
 

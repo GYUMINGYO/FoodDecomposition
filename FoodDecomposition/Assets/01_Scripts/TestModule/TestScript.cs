@@ -1,14 +1,14 @@
-using GM.Players;
-using UnityEngine;
+using MKDir;
 
 namespace GM.Test
 {
-    public class TestScript : MonoBehaviour
+    public class TestScript : MonoSingleton<TestScript>
     {
-        [SerializeField] private Player _player;
-        void Update()
-        {
+        public WarningPanel warningPanel;
 
+        public void testText(string msg)
+        {
+            warningPanel.ShowText(msg);
         }
     }
 }
