@@ -138,7 +138,6 @@ namespace GM
                 }
             }
 
-            //test
             RemoveFood(customer);
         }
 

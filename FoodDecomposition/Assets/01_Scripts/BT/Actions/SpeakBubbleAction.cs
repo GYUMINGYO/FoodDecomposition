@@ -10,7 +10,6 @@ public enum SpeakBubbleType
 {
     order,
     wait,
-    count,
     hide
 }
 
@@ -26,12 +25,10 @@ public partial class SpeakBubbleAction : Action
         switch (this.Type.Value)
         {
             case SpeakBubbleType.order:
-                SpeakBubble.Value.OrderShow();
+                SpeakBubble.Value.OrderWaitShow();
                 break;
             case SpeakBubbleType.wait:
-                SpeakBubble.Value.WaitShow();
-                break;
-            case SpeakBubbleType.count:
+                SpeakBubble.Value.FoodWaitShow();
                 break;
             case SpeakBubbleType.hide:
                 SpeakBubble.Value.Hide();

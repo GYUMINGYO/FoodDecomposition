@@ -26,9 +26,4 @@ public partial class IsFrontEmptyCondition : Condition
         }
         return false;
     }
-
-    public override void OnStart()
-    {
-        Customer.Value.SetIsLine(true);
-    }
 }

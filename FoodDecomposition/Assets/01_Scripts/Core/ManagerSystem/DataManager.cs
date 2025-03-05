@@ -18,20 +18,20 @@ namespace GM
         private float money;
         private float dayMoney;
         private float materialCost;
-        private float presonalCost;
+        private float personalCost;
 
         public int CustomerCnt => customerCnt;
         public float Money => money;
         public float DayMoney => dayMoney;
         public float MaterialCost => materialCost;
-        public float PresonalCost => presonalCost;
+        public float PersonalCost => personalCost;
 
         public void Initialized()
         {
             customerCnt = 0;
-            money = 0;
+            money = 50;
 
-            DayMoneysClear();
+            DailyCostsClear();
         }
 
         public void AddMoney(float money)
@@ -41,31 +41,33 @@ namespace GM
             OnChangeMoenyData?.Invoke(this.money);
         }
 
-        public void SubtractMoney(float money, SubMoneyType subMoneyType = SubMoneyType.None)
+        public void SubtractMoney(float money)
         {
             this.money -= money;
             OnChangeMoenyData?.Invoke(this.money);
-
-            switch (subMoneyType)
-            {
-                case SubMoneyType.materialCost:
-                    materialCost -= money;
-                    break;
-                case SubMoneyType.personalCost:
-                    presonalCost -= money;
-                    break;
-            }
         }
 
         public void AddCustomerCnt() => customerCnt++;
 
         public void SubtractCustomerCnt() => customerCnt--;
 
-        public void DayMoneysClear()
+        public void AddMaterialCost(float money)
         {
+            materialCost += money;
+        }
+
+        public void AddPersonalCost(float money)
+        {
+            personalCost += money;
+        }
+
+        public void DailyCostsClear()
+        {
+            SubtractMoney(materialCost + personalCost);
+
             dayMoney = 0;
             materialCost = 0;
-            presonalCost = 0;
+            personalCost = 0;
         }
 
         public void Clear()

@@ -8,15 +8,12 @@ namespace GM.Managers
     {
         [SerializeField] private TextMeshProUGUI moneyText;
 
-        public void Awake()
-        {
-            SetMoneyUI(0);
-        }
-
         private void Start()
         {
             DataManager dataManager = ManagerHub.Instance.GetManager<DataManager>();
             dataManager.OnChangeMoenyData += HandleOnChangeMoneyData;
+
+            SetMoneyUI(dataManager.Money);
         }
 
         private void HandleOnChangeMoneyData(float money)

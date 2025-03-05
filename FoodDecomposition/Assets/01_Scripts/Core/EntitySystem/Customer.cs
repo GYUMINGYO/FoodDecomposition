@@ -19,6 +19,7 @@ namespace GM
     [BlackboardEnum]
     public enum CustomerState
     {
+        Sit,
         Order,
         Food,
         Counter,
@@ -35,23 +36,25 @@ namespace GM
         [SerializeField] private SkinnedMeshRenderer headRenderer;
         [SerializeField] private SkinnedMeshRenderer bodyRenderer;
 
-        public OrderData OrderData => _orderData;
-        private OrderData _orderData;
-        private bool isWait = false;
-        private bool isLine = false;
+        [SerializeField] private float foodWaitTime = 15f;
+        [SerializeField] private float orderWaitTime = 15f;
 
+        private OrderData _orderData;
+        public OrderData OrderData => _orderData;
+
+        private bool isWait = false;
         public bool IsWait => isWait;
+        public float FoodWaitTime => foodWaitTime;
+        public float OrderWaitTime => orderWaitTime;
+
         public PoolTypeSO PoolType => poolType;
         public GameObject GameObject => gameObject;
-
-        public bool isTest = false;
 
         protected override void Awake()
         {
             base.Awake();
 
-            if (!isTest)
-                gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
 
         public void SetOrderData(OrderData orderData) => _orderData = orderData;
@@ -80,7 +83,5 @@ namespace GM
             headRenderer.sharedMesh = meshList[randIdx].head;
             bodyRenderer.sharedMesh = meshList[randIdx].body;
         }
-
-        public void SetIsLine(bool value) => isLine = value;
     }
 }

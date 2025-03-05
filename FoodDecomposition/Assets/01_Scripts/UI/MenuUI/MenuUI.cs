@@ -6,6 +6,7 @@ namespace GM
     public class MenuUI : MonoBehaviour
     {
         [SerializeField] private GameEventChannelSO openMenuUIEvent;
+        [SerializeField] private MenuType menuType;
 
         protected bool isOpen = false;
 
@@ -16,7 +17,7 @@ namespace GM
 
         private void HandleMenuUIEvent(OpneMenuEvent evt)
         {
-            if (evt.type == MenuType.recipe)
+            if (evt.type == menuType)
             {
                 if (isOpen)
                     Close();

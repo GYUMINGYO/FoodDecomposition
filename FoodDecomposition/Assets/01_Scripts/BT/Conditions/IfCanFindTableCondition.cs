@@ -4,7 +4,6 @@ using GM.Managers;
 using System;
 using Unity.Behavior;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 
 [Serializable, Unity.Properties.GeneratePropertyBag]
 [Condition(name: "IfCanFindTable", story: "find [table] and [chair] and [exit]", category: "Conditions", id: "feee94772bb63b8b9926912882f12980")]
