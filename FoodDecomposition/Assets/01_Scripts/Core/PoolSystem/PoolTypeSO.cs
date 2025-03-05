@@ -5,6 +5,7 @@ using UnityEngine.AddressableAssets;
 public class PoolTypeSO : ScriptableObject
 {
     public string typeName;
-    public AssetReference assetRef;
+    public GameObject prefab;
+    //public AssetReference assetRef;
     public int initCount;
 }

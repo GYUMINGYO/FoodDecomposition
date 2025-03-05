@@ -74,6 +74,7 @@ namespace GM.Players.Pickers
             if (_gridPosition != currentGridPos) _isMoveCell = true;
             _gridPosition = currentGridPos;
             _cellPosition = _grid.CellToWorld(_gridPosition);
+            _cellPosition.y = 0.5f;
             _cellIndicator.transform.position = _cellPosition;
         }
 
