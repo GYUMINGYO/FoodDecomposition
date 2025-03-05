@@ -40,6 +40,7 @@ namespace GM.Players.Pickers
         {
             if (type != InputType.MapEdit)
             {
+                _map.DeleteOutline();
             }
         }
 
@@ -112,12 +113,14 @@ namespace GM.Players.Pickers
 
             if (_isMoveCell == false) return;
 
-            if (_hit.transform.GetComponent<Map>() && _isCreateMode)
+            if (_hit.transform.GetComponent<Map>())
             {
-                // Temporay Tile
-                _map.SetTemporaryTile(_mapObjectInfo, _startDragPosition, _gridPosition);
-
-                if (_isCreateMode == false)
+                if (_isCreateMode)
+                {
+                    // Temporay Tile
+                    _map.SetTemporaryTile(_mapObjectInfo, _startDragPosition, _gridPosition);
+                }
+                else
                 {
                     _map.TileShowOutlie(_startDragPosition, _gridPosition);
                 }

@@ -22,6 +22,9 @@ namespace GM.Maps
 
         // TODO : 구조 개선
         // 지금은 그냥 타일 단일 구조임
+
+        //! 지금은 유저가 직접 사용하지 않음 (유저가 마음대로 맵을 넓히는게 아님) / 돈을 주면 특정 부분이 확장되는 방식으로 변경함
+
         public Tile GetTileObject(Vector3Int position)
         {
             return _tileArr[position.x, position.z];
@@ -38,8 +41,6 @@ namespace GM.Maps
             }
             return mapObjects;
         }
-
-        // TODO : 그전 타일 저장 해 놔서 껐다 키기기
 
         public void SetTemporaryTile(ObjectInfoSO mapObjectInfo, Vector3Int startPos, Vector3Int endPos)
         {
@@ -71,6 +72,8 @@ namespace GM.Maps
                         if (_tileArr[x, z].IsFull) continue;
 
                         _tileArr[x, z].gameObject.SetActive(true);
+                        _tileArr[x, z].ShowOutLine(true);
+                        _tileArr[x, z].ColorTransparent(true);
                         tempTileList.Add(_tileArr[x, z]);
                         continue;
                     }
@@ -158,6 +161,7 @@ namespace GM.Maps
             {
                 tile.IsFull = false;
                 tile.gameObject.SetActive(false);
+                tile.ShowOutLine(false);
                 --_tileCount;
             }
         }
