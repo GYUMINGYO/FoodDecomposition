@@ -24,7 +24,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     #region MapEditActions
 
-    public event Action OnMapClickEvent;
+    public event Action<bool> OnMapClickEvent;
     public event Action OnMapObjectDeleteEvent;
     public event Action<bool> OnMapDragEvent;
     public event Action<EditType> OnEditTypeChangeEvent;
@@ -121,6 +121,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
         {
             if (_isDrag == true)
             {
+                // TODO : Delete Drag Event 
                 OnMapDragEvent?.Invoke(true);
             }
         }
@@ -130,7 +131,11 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     {
         if (context.performed)
         {
-            OnMapClickEvent?.Invoke();
+            OnMapClickEvent?.Invoke(true);
+        }
+        else if (context.canceled)
+        {
+            OnMapClickEvent?.Invoke(false);
         }
     }
 

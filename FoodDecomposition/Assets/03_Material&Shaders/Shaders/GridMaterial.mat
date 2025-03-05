@@ -29,7 +29,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2999
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -55,11 +55,11 @@ Material:
     - _GridSize: 0.95
     - _GridThickness: 0.95
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -1
     - _Thickness: 0.05
     - _Tiling: 10
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _GridColor: {r: 1, g: 1, b: 1, a: 1}
     - _Scale: {r: 5, g: 5, b: 0, a: 0}
     - _Size: {r: 1, g: 1, b: 0, a: 0}
