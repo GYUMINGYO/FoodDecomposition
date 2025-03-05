@@ -35,7 +35,7 @@ namespace GM
             Show();
 
             orderIconImage.enabled = true;
-            backOrderIconImage.enabled=true;
+            backOrderIconImage.enabled = true;
             orderIconImage.sprite = customer.GetOrderData().recipe.icon;
             backOrderIconImage.sprite = customer.GetOrderData().recipe.icon;
 
@@ -56,6 +56,8 @@ namespace GM
 
             orderIconImage.fillAmount = 0;
             isWaiting = true;
+
+            customer.OrderData.isCustomerOut = true;
         }
 
         public void FoodWaitShow()
