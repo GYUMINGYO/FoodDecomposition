@@ -13,8 +13,8 @@ namespace GM
         [SerializeField] private Image backOrderIconImage;
 
         [Header("FoodWait")]
+        [SerializeField] private GameObject slider;
         [SerializeField] private Image foodWaitIconImage;
-        [SerializeField] private Slider foodWaitSlider;
         [SerializeField] private Image foodWaitFillImage;
 
         [Header("")]
@@ -63,10 +63,10 @@ namespace GM
             Show();
 
             foodWaitIconImage.enabled = true;
-            foodWaitSlider.gameObject.SetActive(true);
+            slider.SetActive(true);
 
             foodWaitIconImage.sprite = customer.GetOrderData().recipe.icon;
-            foodWaitSlider.value = 1;
+            foodWaitFillImage.transform.localPosition = Vector3.zero;
             foodWaitFillImage.color = Color.green;
 
             StartCoroutine(FoodWaitGauge());
@@ -79,21 +79,22 @@ namespace GM
             while (elapsedTime < customer.FoodWaitTime)
             {
                 elapsedTime += Time.deltaTime;
-                foodWaitSlider.value = Mathf.Lerp(1, 0, elapsedTime / customer.FoodWaitTime);
+                float duration = elapsedTime / customer.FoodWaitTime;
+                foodWaitFillImage.transform.localPosition = new Vector3(0, Mathf.Lerp(0, -153, duration), 0);
 
 
-                if (foodWaitSlider.value <= 0.25f)
+                if (duration >= 0.75f)
                 {
                     foodWaitFillImage.color = Color.red;
                 }
-                else if (foodWaitSlider.value <= 0.5f)
+                else if (duration >= 0.5f)
                 {
                     foodWaitFillImage.color = new Color(1f, 0.5f, 0f);
                 }
                 yield return null;
             }
 
-            foodWaitSlider.value = 0;
+            foodWaitFillImage.transform.localPosition = new Vector3(0, -153, 0);
             isWaiting = true;
 
             customer.OrderData.isCustomerOut = true;
@@ -113,7 +114,7 @@ namespace GM
             orderIconImage.enabled = false;
             backOrderIconImage.enabled = false;
             foodWaitIconImage.enabled = false;
-            foodWaitSlider.gameObject.SetActive(false);
+            slider.SetActive(false);
             isWaiting = false;
             StopAllCoroutines();
         }

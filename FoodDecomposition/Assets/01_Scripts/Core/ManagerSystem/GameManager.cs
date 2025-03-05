@@ -7,7 +7,7 @@ namespace GM.Managers
     public class GameManager : MonoBehaviour, IManagerable
     {
         [SerializeField] private GameEventChannelSO _gameCycleChannel;
-        [SerializeField] private Transform timeGauge;
+        [SerializeField] private Transform timeGaugeFill;
         [SerializeField] private Transform dayLight;
 
         [SerializeField] private double _dayTime = 5;
@@ -85,7 +85,7 @@ namespace GM.Managers
                 _currentDayTime += Time.deltaTime;
 
                 float duration = (float)(_currentDayTime / _dayTime);
-                timeGauge.localPosition = new Vector3(-1255 + (1255 * duration), 0, 0);
+                timeGaugeFill.localPosition = new Vector3(-1255 + (1255 * duration), 0, 0);
                 dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, duration), -30, 0);
 
                 if (duration > 0.8f && !_isStopCustomer)
