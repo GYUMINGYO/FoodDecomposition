@@ -7,6 +7,7 @@ using Unity.Behavior;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
 using Unity.Properties;
+using GM.Managers;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "ThrowingAwayFoodTrash", story: "[staff] throwing food of [foodTrashTrm] with [animationTrigger] and [duration]", category: "Action", id: "1660e196c7ffc9e7715880d0c2048684")]
@@ -51,7 +52,7 @@ public partial class ThrowingAwayFoodTrashAction : Action
             .OnComplete((() =>
             {
                 // TODO : 이거 손에서 오브젝트가 없어지게 해야함
-                SingletonePoolManager.Instance.Push(food.GetComponent<Food>());
+                ManagerHub.Instance.Pool.Push(food.GetComponent<Food>());
             }));
     }
 

@@ -19,20 +19,16 @@ public class Pool
         LoadAndInstantiate(count);
     }
 
-    // async
-    private void LoadAndInstantiate(int count)
+    private async void LoadAndInstantiate(int count)
     {
-        var asset = _poolType.prefab;
+        var asset = _poolType.assetRef;
 
-        // TODO : 나중에 Addressable로 구조 변경
-        //await asset.LoadAssetAsync<GameObject>().Task;
-        //로드 실패시 에러처리
-        //Debug.Assert(asset.IsValid(), $"Error : Loading asset failed {_poolType.typeName}");
+        await asset.LoadAssetAsync<GameObject>().Task;
+        Debug.Assert(asset.IsValid(), $"Error : Loading asset failed {_poolType.typeName}");
 
         for (int i = 0; i < count; i++)
         {
-            //GameObject gameObj = await asset.InstantiateAsync().Task;
-            GameObject gameObj = GameObject.Instantiate(_poolType.prefab, _parent) as GameObject;
+            GameObject gameObj = await asset.InstantiateAsync().Task;
             gameObj.SetActive(false);
             gameObj.transform.SetParent(_parent);
             IPoolable item = gameObj.GetComponent<IPoolable>();
@@ -50,7 +46,7 @@ public class Pool
         if (_pool.Count == 0)
         {
 
-            GameObject gameObj = GameObject.Instantiate(_poolType.prefab, _parent) as GameObject;
+            GameObject gameObj = GameObject.Instantiate(_poolType.assetRef.Asset, _parent) as GameObject;
             item = gameObj.GetComponent<IPoolable>();
             item.SetUpPool(this);
         }

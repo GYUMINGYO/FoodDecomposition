@@ -10,6 +10,8 @@ namespace GM.Managers
     [DefaultExecutionOrder(-1)]
     public class ManagerHub : MonoSingleton<ManagerHub>
     {
+        public PoolManagerSO Pool;
+
         private Dictionary<Type, IManagerable> _managers;
         private List<IManagerUpdateable> _updateManagers;
 
@@ -19,6 +21,8 @@ namespace GM.Managers
 
             _managers = new Dictionary<Type, IManagerable>();
             _updateManagers = new List<IManagerUpdateable>();
+
+            Pool.InitializePool(transform);
 
             GetComponents<IManagerable>().ToList().ForEach(manager => _managers.Add(manager.GetType(), manager));
             FindAndAddManagerToDictionary();
