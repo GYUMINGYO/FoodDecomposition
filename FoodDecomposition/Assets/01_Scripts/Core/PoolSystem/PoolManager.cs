@@ -6,7 +6,7 @@ using UnityEngine;
 public class PoolManagerSO : ScriptableObject
 {
     public List<PoolTypeSO> poolList = new();
-    private Dictionary<PoolTypeSO, Pool> _pools;
+    private Dictionary<string, Pool> _pools; // PoolTypeSO를 string으로 변경
     private Transform _rootTrm;
 
     public event Action<int> LoadCountEvent;
@@ -15,7 +15,7 @@ public class PoolManagerSO : ScriptableObject
     public void InitializePool(Transform root)
     {
         _rootTrm = root;
-        _pools = new Dictionary<PoolTypeSO, Pool>();
+        _pools = new Dictionary<string, Pool>();
 
         foreach (var poolType in poolList)
         {
@@ -26,13 +26,13 @@ public class PoolManagerSO : ScriptableObject
                 LoadMessageEvent?.Invoke(poolType.initCount, $"{poolType.typeName} is loaded");
             };
 
-            _pools.Add(poolType, pool);
+            _pools.Add(poolType.name, pool); // name을 키로 사용
         }
     }
 
     public IPoolable Pop(PoolTypeSO type)
     {
-        if (_pools.TryGetValue(type, out Pool pool))
+        if (_pools.TryGetValue(type.name, out Pool pool)) // name으로 검색
         {
             return pool.Pop();
         }
@@ -41,7 +41,9 @@ public class PoolManagerSO : ScriptableObject
 
     public void Push(IPoolable item)
     {
-        if (_pools.TryGetValue(item.PoolType, out Pool pool))
+        Debug.Assert(item != null, "Item is null");
+
+        if (_pools.TryGetValue(item.PoolType.name, out Pool pool))
         {
             pool.Push(item);
         }
