@@ -1,5 +1,6 @@
 using GM;
 using GM.InteractableEntities;
+using GM.Managers;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -147,7 +148,7 @@ namespace GM
             {
                 if (pair.Value.customer == customer)
                 {
-                    SingletonePoolManager.Instance.Push(pair.Value.food);
+                    ManagerHub.Instance.Pool.Push(pair.Value.food);
                 }
             }
         }

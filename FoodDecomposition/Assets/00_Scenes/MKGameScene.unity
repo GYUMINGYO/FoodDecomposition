@@ -6326,51 +6326,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 805254143}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &806321629
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 806321630}
-  - component: {fileID: 806321631}
-  m_Layer: 0
-  m_Name: PoolManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &806321630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806321629}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1532440745}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &806321631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806321629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f8e14754195e9d44bb08234dc267efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  poolManager: {fileID: 11400000, guid: 1bb42ad4d2f1b844faae97c9a04ae166, type: 2}
 --- !u!1 &849703250
 GameObject:
   m_ObjectHideFlags: 0
@@ -12218,6 +12173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2681aea7028ea1a4295ac80d2c776e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Pool: {fileID: 11400000, guid: 1bb42ad4d2f1b844faae97c9a04ae166, type: 2}
 --- !u!4 &1532440745
 Transform:
   m_ObjectHideFlags: 0
@@ -12230,8 +12186,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 806321630}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1532440746
@@ -12249,7 +12204,7 @@ MonoBehaviour:
   _gameCycleChannel: {fileID: 11400000, guid: 543402fc32e299b48bdd4f48a1a925a2, type: 2}
   timeGauge: {fileID: 157036470}
   dayLight: {fileID: 472090896}
-  _dayTime: 120
+  _dayTime: 60
 --- !u!114 &1532440747
 MonoBehaviour:
   m_ObjectHideFlags: 0

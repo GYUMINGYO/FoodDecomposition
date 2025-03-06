@@ -14,7 +14,7 @@ public partial class ExitAction : Action
 
     protected override Status OnStart()
     {
-        SingletonePoolManager.Instance.Push(Customer.Value);
+        ManagerHub.Instance.Pool.Push(Customer.Value);
         ManagerHub.Instance.GetManager<DataManager>().SubtractCustomerCnt();
 
         return Status.Success;

@@ -70,7 +70,7 @@ namespace GM.Managers
                     yield return null;
                 }
 
-                Customer customer = SingletonePoolManager.Instance.Pop(customerPoolType) as Customer;
+                Customer customer = ManagerHub.Instance.Pool.Pop(customerPoolType) as Customer;
                 customer.transform.position = extrenceTrm.position;
                 customer.transform.rotation = Quaternion.Euler(0, 0, 0);
                 ManagerHub.Instance.GetManager<DataManager>().AddCustomerCnt();
