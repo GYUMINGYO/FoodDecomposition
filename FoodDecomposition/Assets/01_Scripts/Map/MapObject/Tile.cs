@@ -33,5 +33,16 @@ namespace GM.Maps
         {
             _collider.enabled = isActive;
         }
+
+        public override void PoolInitalize(Pool pool)
+        {
+        }
+
+        public override void ResetPoolItem()
+        {
+            _isFull = false;
+            ColorTransparent(true);
+            SetCollider(false);
+        }
     }
 }

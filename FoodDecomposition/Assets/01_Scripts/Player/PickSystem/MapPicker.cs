@@ -14,7 +14,8 @@ namespace GM.Players.Pickers
         private Vector3Int _gridPosition;
         [SerializeField] private ObjectInfoSO _mapObjectInfo;
 
-        private bool _isCreateMode = true;
+
+        private EditType editType;
         private bool _isMoveCell = false;
 
         public override void Initialize(Entity entity)
@@ -46,15 +47,7 @@ namespace GM.Players.Pickers
 
         private void HandleEditTypeChange(EditType type)
         {
-            if (type == EditType.Delete)
-            {
-                _isCreateMode = false;
-            }
-            else
-            {
-                // Create Mode
-                _isCreateMode = true;
-            }
+            editType = type;
         }
 
         private void HandleMapDelete()
@@ -102,7 +95,7 @@ namespace GM.Players.Pickers
             else
             {
                 // Real Set Tile
-                if (_isCreateMode == false) return;
+                if (editType == EditType.Delete) return;
 
                 _map.SetTileObject();
             }
@@ -114,9 +107,9 @@ namespace GM.Players.Pickers
 
             if (_isMoveCell == false) return;
 
-            if (_hit.transform.GetComponent<Map>())
+            if (_hit.transform.gameObject.layer == LayerMask.NameToLayer("Map"))
             {
-                if (_isCreateMode)
+                if (editType == EditType.Create)
                 {
                     // Temporay Tile
                     _map.SetTemporaryTile(_mapObjectInfo, _startDragPosition, _gridPosition);
@@ -128,9 +121,19 @@ namespace GM.Players.Pickers
 
                 _isMoveCell = false;
             }
-            else if (_hit.transform.GetComponent<MapObject>() && _isCreateMode == false)
+            else if (_hit.transform.gameObject.layer == LayerMask.NameToLayer("MapObject"))
             {
-                _map.TileShowOutlie(_startDragPosition, _gridPosition);
+                if (editType == EditType.Delete)
+
+                {
+                    _map.TileShowOutlie(_startDragPosition, _gridPosition);
+
+                }
+                else
+                {
+                    _map.SetTemporaryTile(_mapObjectInfo, _startDragPosition, _gridPosition);
+                }
+
                 _isMoveCell = false;
             }
         }

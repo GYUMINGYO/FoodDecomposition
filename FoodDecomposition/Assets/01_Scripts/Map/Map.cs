@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using GM.Managers;
+using Unity.AI.Navigation;
 using UnityEngine;
 
 namespace GM.Maps
@@ -7,6 +9,7 @@ namespace GM.Maps
     {
         [SerializeField] private Grid _grid;
 
+        private NavMeshSurface _navMeshSurface;
         private Tile[,] _tileArr;
         private List<Tile> _tempTileList;
 
@@ -15,6 +18,7 @@ namespace GM.Maps
 
         private void Awake()
         {
+            _navMeshSurface = GetComponent<NavMeshSurface>();
             _tileArr = new Tile[3000, 3000];
             _tempTileList = new List<Tile>();
         }
@@ -82,7 +86,9 @@ namespace GM.Maps
                     mapObjPosition.y += mapObjectInfo.objectSize.y;
                     mapObjPosition.z += mapObjectInfo.objectSize.z;
 
-                    Tile tile = Instantiate(mapObjectInfo.mapObject, mapObjPosition, Quaternion.identity).GetComponent<Tile>();
+                    Tile tile = ManagerHub.Instance.Pool.Pop(mapObjectInfo.poolType) as Tile;
+                    tile.transform.position = mapObjPosition;
+                    tile.transform.SetParent(transform);
 
                     // even number
                     if (((x + z) & 1) == 0)
@@ -115,6 +121,7 @@ namespace GM.Maps
                 ++_tileCount;
             }
             _tempTileList.Clear();
+            _navMeshSurface.BuildNavMesh();
         }
 
         public void TileShowOutlie(Vector3Int startPos, Vector3Int endPos)
@@ -163,6 +170,8 @@ namespace GM.Maps
                 tile.ShowOutLine(false);
                 --_tileCount;
             }
+
+            _navMeshSurface.BuildNavMesh();
         }
     }
 }

@@ -1,24 +1,16 @@
-using System;
 using UnityEngine;
 
 namespace GM.Maps
 {
     [CreateAssetMenu(fileName = "ObjectInfoSO", menuName = "SO/Map/Object")]
-    public class ObjectInfoSO : ScriptableObject, ICloneable
+    public class ObjectInfoSO : ScriptableObject
     {
         [Header("Information")]
+        public PoolTypeSO poolType;
         public string objectName;
         public string displayName;
         public Vector3 objectSize;
-        public Vector2 size;
+        public Vector2 cellSize;
         public bool unLock;
-
-        [Header("Object Value")]
-        public GameObject mapObject;
-
-        public object Clone()
-        {
-            return Instantiate(this);
-        }
     }
 }

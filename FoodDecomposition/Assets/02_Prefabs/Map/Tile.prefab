@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5882274517006783519}
   - component: {fileID: 7587189191516149088}
   - component: {fileID: 4444812453101403046}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,9 +98,9 @@ GameObject:
   - component: {fileID: 23089699597753897}
   - component: {fileID: 5978118904068932286}
   - component: {fileID: 2500822820438573503}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,6 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577f4b30c05acc44389ac6dc6629cc84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolType: {fileID: 11400000, guid: 025131841191bcf48b5fafbdc5e5b460, type: 2}
   _visual: {fileID: 5882274517006783519}
   _black: {fileID: 2100000, guid: 60ba9d33337b2054b99900581a698f9c, type: 2}
   _white: {fileID: 2100000, guid: e2028bdfca4e8ff43bac89d960539202, type: 2}
