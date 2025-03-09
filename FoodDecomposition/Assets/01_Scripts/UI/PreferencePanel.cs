@@ -49,7 +49,7 @@ namespace GM
                         valueText.text = $"{0}/{(int)manager.TargetPreference}";
                         gaugeFill.localPosition = new Vector3(-203, 0, 0);
 
-                        if(manager.Level <= nameList.Length)
+                        if (manager.Level <= nameList.Length)
                             nameText.text = nameList[manager.Level - 1];
 
                         break;
