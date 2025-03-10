@@ -74,6 +74,7 @@ namespace GM.Managers
                 customer.transform.position = extrenceTrm.position;
                 customer.transform.rotation = Quaternion.Euler(0, 0, 0);
                 ManagerHub.Instance.GetManager<DataManager>().AddCustomerCnt();
+                ManagerHub.Instance.GetManager<PreferenceManager>().AddDictionary(customer);
 
                 time = Time.time;
             }

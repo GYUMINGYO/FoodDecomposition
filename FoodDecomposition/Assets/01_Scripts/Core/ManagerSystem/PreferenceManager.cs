@@ -5,8 +5,7 @@ using UnityEngine;
 struct PreferenceData
 {
     public float prefGain;
-    public float prefGainRate;
-    public float prefLossRate;
+    public float prefRate;
 }
 
 namespace GM
@@ -33,24 +32,19 @@ namespace GM
         {
             PreferenceData data = prefDictionary[customer];
             data.prefGain += amount;
+            prefDictionary[customer] = data;
         }
 
-        public void AddPreferenceGainRate(Customer customer, float amount)
+        public void ModifyPreferenceRate(Customer customer, float amount)
         {
             PreferenceData data = prefDictionary[customer];
-            data.prefGainRate += amount;
-        }
-
-        public void AddPreferenceLossRate(Customer customer, float rate)
-        {
-            PreferenceData data = prefDictionary[customer];
-            data.prefLossRate += rate;
+            data.prefRate += amount;
+            prefDictionary[customer] = data;
         }
 
         public void ApplyFinalPreference(Customer customer)
         {
-            totalPref += prefDictionary[customer].prefGain - prefDictionary[customer].prefGain * (prefDictionary[customer].prefLossRate / 100);
-
+            totalPref += prefDictionary[customer].prefGain + prefDictionary[customer].prefGain * (prefDictionary[customer].prefRate / 100);
             prefDictionary[customer] = new();
         }
 

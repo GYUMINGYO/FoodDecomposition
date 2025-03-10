@@ -6,8 +6,8 @@ namespace GM.Managers
 {
     public class RecipeManager : MonoBehaviour, IManagerable
     {
-        public List<Recipe> recipeList;
-        private List<Recipe> salesList = new();
+        public List<RecipeSO> recipeList;
+        private List<RecipeSO> salesList = new();
 
         [SerializeField] private Transform content;
         [SerializeField] private GameObject linePrefab;
@@ -18,12 +18,12 @@ namespace GM.Managers
 
         private void Start()
         {
-            List<Recipe> compareList = new List<Recipe>(recipeList);
+            List<RecipeSO> compareList = new List<RecipeSO>(recipeList);
             recipeList.Clear();
 
-            foreach (Recipe recipe in compareList)
+            foreach (RecipeSO recipe in compareList)
             {
-                Recipe clone = recipe.Clone() as Recipe;
+                RecipeSO clone = recipe.Clone() as RecipeSO;
                 AddRecipe(clone);
             }
         }
@@ -36,7 +36,7 @@ namespace GM.Managers
         {
         }
 
-        public void AddRecipe(Recipe recipe)
+        public void AddRecipe(RecipeSO recipe)
         {
             recipeList.Add(recipe);
             if(!recipe.isLock)
@@ -44,7 +44,7 @@ namespace GM.Managers
             CardSpawn(recipe);
         }
 
-        public void CardSpawn(Recipe recipe)
+        public void CardSpawn(RecipeSO recipe)
         {
             if (cnt == 0 || lineObj == null)
             {
@@ -57,13 +57,13 @@ namespace GM.Managers
             cnt--;
         }
 
-        public Recipe GetRecipe()
+        public RecipeSO GetRecipe()
         {
             int idx = Random.Range(0, salesList.Count);
-            return salesList[idx].Clone() as Recipe;
+            return salesList[idx].Clone() as RecipeSO;
         }
 
-        public bool SetSalesRecipe(Recipe recipe, bool isSale)
+        public bool SetSalesRecipe(RecipeSO recipe, bool isSale)
         {
             if(isSale)
             {

@@ -16,6 +16,7 @@ public partial class ExitAction : Action
     {
         ManagerHub.Instance.Pool.Push(Customer.Value);
         ManagerHub.Instance.GetManager<DataManager>().SubtractCustomerCnt();
+        ManagerHub.Instance.GetManager<PreferenceManager>().ApplyFinalPreference(Customer.Value);
 
         return Status.Success;
     }

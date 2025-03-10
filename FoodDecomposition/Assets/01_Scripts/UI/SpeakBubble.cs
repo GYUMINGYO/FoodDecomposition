@@ -1,6 +1,14 @@
+using GM.Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum WaitState
+{
+    Positive,
+    Neutral,
+    Negative
+}
 
 namespace GM
 {
@@ -19,15 +27,14 @@ namespace GM
 
         [Header("")]
         private Customer customer;
-
+        private WaitState curWaitState = WaitState.Positive;
         private bool isWaiting = false;
-        public bool IsWaiting => isWaiting;
 
+        public bool IsWaiting => isWaiting;
+        
         private void Awake()
         {
             customer = GetComponentInParent<Customer>();
-
-            Hide();
         }
 
         public void OrderWaitShow()
@@ -49,8 +56,18 @@ namespace GM
             while (elapsedTime < customer.OrderWaitTime)
             {
                 elapsedTime += Time.deltaTime;
-                orderIconImage.fillAmount = Mathf.Lerp(1f, 0.1f, elapsedTime / customer.OrderWaitTime);
 
+                float duration = elapsedTime / customer.OrderWaitTime;
+                orderIconImage.fillAmount = Mathf.Lerp(1f, 0.1f, duration);
+
+                if (duration >= 0.75f)
+                {
+                    curWaitState = WaitState.Negative;
+                }
+                else if (duration >= 0.5f)
+                {
+                    curWaitState = WaitState.Neutral;
+                }
                 yield return null;
             }
 
@@ -88,10 +105,12 @@ namespace GM
                 if (duration >= 0.75f)
                 {
                     foodWaitFillImage.color = Color.red;
+                    curWaitState = WaitState.Negative;
                 }
                 else if (duration >= 0.5f)
                 {
                     foodWaitFillImage.color = new Color(1f, 0.5f, 0f);
+                    curWaitState = WaitState.Neutral;
                 }
                 yield return null;
             }
@@ -119,6 +138,25 @@ namespace GM
             slider.SetActive(false);
             isWaiting = false;
             StopAllCoroutines();
+        }
+
+        public void CalculatePreferenceRate()
+        {
+            Hide();
+
+            float rate = 0;
+            switch (curWaitState)
+            {
+                case WaitState.Positive:
+                    rate = 5;
+                    break;
+                case WaitState.Negative:
+                    rate = -5;
+                    break;
+            }
+
+            ManagerHub.Instance.GetManager<PreferenceManager>().ModifyPreferenceRate(customer, rate);
+            curWaitState = WaitState.Positive;
         }
     }
 }

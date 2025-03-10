@@ -1,4 +1,5 @@
 using GM;
+using GM.Managers;
 using System;
 using Unity.Behavior;
 using Unity.Properties;
@@ -31,7 +32,7 @@ public partial class SpeakBubbleAction : Action
                 SpeakBubble.Value.FoodWaitShow();
                 break;
             case SpeakBubbleType.hide:
-                SpeakBubble.Value.Hide();
+                SpeakBubble.Value.CalculatePreferenceRate();
                 break;
         }
 
