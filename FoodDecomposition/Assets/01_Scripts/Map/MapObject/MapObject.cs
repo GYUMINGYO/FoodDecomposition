@@ -13,19 +13,29 @@ namespace GM.Maps
         public Transform Visual => _visual;
         [SerializeField] protected Transform _visual;
 
-        public Vector3 Size => _size;
-        protected Vector3 _size;
-
         protected MeshRenderer _meshRenderer;
+        protected Collider _collider;
         protected Outline _outline;
 
         protected virtual void Awake()
         {
             _outline = GetComponent<Outline>();
             _meshRenderer = _visual.GetComponent<MeshRenderer>();
+            _collider = GetComponent<Collider>();
 
             ShowOutLine(false);
-            _size = _meshRenderer.bounds.size;
+        }
+
+        public void ColorTransparent(bool isTransparent)
+        {
+            Color newColor = _meshRenderer.material.color;
+            newColor.a = isTransparent == true ? 0.8f : 1f;
+            _meshRenderer.material.color = newColor;
+        }
+
+        public void SetCollider(bool isActive)
+        {
+            _collider.enabled = isActive;
         }
 
         public void ShowOutLine(bool enabled)
