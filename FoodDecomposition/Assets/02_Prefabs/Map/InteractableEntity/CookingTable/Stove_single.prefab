@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3728209523565811270}
   - component: {fileID: 399917805932093356}
+  - component: {fileID: 480189130718220089}
   m_Layer: 6
   m_Name: Stove_single
   m_TagString: CookingTable
@@ -46,9 +47,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66eb961c3ec594c4eba921462b80ed23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolType: {fileID: 11400000, guid: d902cb4056e18bf40929f914bcd62198, type: 2}
+  _visual: {fileID: 8339546091302013114}
   _type: 7
+  _isShared: 0
   _entityTransform: {fileID: 2770424339586494874}
   _cookAnimation: {fileID: 7400000, guid: 6d560071669fba94b9c40f8c02ad9786, type: 2}
+--- !u!114 &480189130718220089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2153449779505544118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &2350890933989923901
 GameObject:
   m_ObjectHideFlags: 0
