@@ -9,12 +9,9 @@ namespace GM.Maps
 
         [SerializeField] private Material _black, _white;
 
-        private Collider _collider;
-
         protected override void Awake()
         {
             base.Awake();
-            _collider = GetComponent<Collider>();
         }
 
         public void SetColor(Color color)
@@ -22,16 +19,15 @@ namespace GM.Maps
             _meshRenderer.material = color == Color.black ? _black : _white;
         }
 
-        public void ColorTransparent(bool isTransparent)
+        public override void PoolInitalize(Pool pool)
         {
-            Color newColor = _meshRenderer.material.color;
-            newColor.a = isTransparent == true ? 0.8f : 1f;
-            _meshRenderer.material.color = newColor;
         }
 
-        public void SetCollider(bool isActive)
+        public override void ResetPoolItem()
         {
-            _collider.enabled = isActive;
+            _isFull = false;
+            ColorTransparent(true);
+            SetCollider(false);
         }
     }
 }
