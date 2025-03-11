@@ -181,7 +181,7 @@ namespace GM.Maps
 
             if (!isTemp) return;
 
-            ManagerHub.Instance.Pool.Push(_mapArray[position.x, position.z].mapObject);
+            //ManagerHub.Instance.Pool.Push(_mapArray[position.x, position.z].mapObject);
             _mapArray[position.x, position.z].mapObject = null;
         }
 

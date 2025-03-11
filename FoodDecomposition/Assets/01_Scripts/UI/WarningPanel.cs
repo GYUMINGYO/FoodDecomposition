@@ -8,14 +8,15 @@ namespace GM
     {
         [SerializeField] private TextMeshProUGUI text;
 
-        public void ShowText()
+        public void ShowText(string msg)
         {
             WarningPanel warningPanel = Instantiate(gameObject, transform.parent).GetComponent<WarningPanel>();
-            warningPanel.ShowWarning();
+            warningPanel.ShowWarning(msg);
         }
 
-        private void ShowWarning()
+        private void ShowWarning(string msg)
         {
+            text.text = msg;
             text.enabled = true;
 
             transform.DOLocalMoveY(100, 1f)

@@ -30,7 +30,7 @@ namespace GM
             _id = id;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
             chairDictionary = new Dictionary<Transform, SeatData>();
 

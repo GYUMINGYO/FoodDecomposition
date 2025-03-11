@@ -16,7 +16,7 @@ namespace GM.Data
         public uint orderTableID;
         public Customer orderCustomer;
         public OrderType type;
-        public Recipe recipe;
+        public RecipeSO recipe;
         public bool isCustomerOut;
     }
 }

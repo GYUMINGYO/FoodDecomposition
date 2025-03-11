@@ -3,7 +3,7 @@ using UnityEngine;
 namespace GM.Maps
 {
     [RequireComponent(typeof(Outline))]
-    public abstract class MapObject : MonoBehaviour, IPoolable
+    public abstract class MapObject : MonoBehaviour
     {
         [SerializeField] protected PoolTypeSO _poolType;
         public PoolTypeSO PoolType => _poolType;
@@ -20,7 +20,7 @@ namespace GM.Maps
         protected virtual void Awake()
         {
             _outline = GetComponent<Outline>();
-            _meshRenderer = _visual.GetComponent<MeshRenderer>();
+            //_meshRenderer = _visual.GetComponentInChildren<MeshRenderer>();
             _collider = GetComponent<Collider>();
 
             ShowOutLine(false);
