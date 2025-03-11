@@ -148,10 +148,10 @@ namespace GM
             switch (curWaitState)
             {
                 case WaitState.Positive:
-                    rate = 5;
+                    rate = 10;
                     break;
                 case WaitState.Negative:
-                    rate = -5;
+                    rate = -10;
                     break;
             }
 
