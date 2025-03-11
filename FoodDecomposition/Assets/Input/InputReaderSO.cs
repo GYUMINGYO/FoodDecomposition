@@ -13,6 +13,7 @@ public enum EditType
 {
     Create,
     Delete,
+    MoveAndRotate
 }
 
 [CreateAssetMenu(fileName = "InputReaderSO", menuName = "SO/InputReaderSO")]
@@ -28,6 +29,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     public event Action OnMapObjectDeleteEvent;
     public event Action<bool> OnMapDragEvent;
     public event Action<EditType> OnEditTypeChangeEvent;
+    public event Action OnRotateObjectEvent;
 
     #endregion
 
@@ -45,7 +47,7 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
 
     private bool _isDrag = false;
     private bool _isMapEdit = false;
-    private bool _isDeleteMode = false;
+    private EditType _editType = EditType.Create;
 
     private void OnEnable()
     {
@@ -186,16 +188,17 @@ public class InputReaderSO : ScriptableObject, Controlls.IPlayerActions, Control
     {
         if (context.started)
         {
-            _isDeleteMode = !_isDeleteMode;
+            _editType = (EditType)(((int)_editType + 1) % Enum.GetValues(typeof(EditType)).Length);
 
-            if (_isDeleteMode)
-            {
-                OnEditTypeChangeEvent?.Invoke(EditType.Delete);
-            }
-            else
-            {
-                OnEditTypeChangeEvent?.Invoke(EditType.Create);
-            }
+            OnEditTypeChangeEvent?.Invoke(_editType);
+        }
+    }
+
+    public void OnRotateObject(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnRotateObjectEvent?.Invoke();
         }
     }
 }

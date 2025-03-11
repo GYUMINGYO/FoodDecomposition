@@ -763,6 +763,15 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateObject"",
+                    ""type"": ""Button"",
+                    ""id"": ""38a200cb-c19f-457a-a241-225d6ab384e6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -818,6 +827,17 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""EditTypeChange"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcdd4663-05d7-4f65-98b6-67311c24bd98"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RotateObject"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,6 +988,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         m_MapEdit_MapDrag = m_MapEdit.FindAction("MapDrag", throwIfNotFound: true);
         m_MapEdit_MapObjectDelete = m_MapEdit.FindAction("MapObjectDelete", throwIfNotFound: true);
         m_MapEdit_EditTypeChange = m_MapEdit.FindAction("EditTypeChange", throwIfNotFound: true);
+        m_MapEdit_RotateObject = m_MapEdit.FindAction("RotateObject", throwIfNotFound: true);
         // Camera
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Zoom = m_Camera.FindAction("Zoom", throwIfNotFound: true);
@@ -1237,6 +1258,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
     private readonly InputAction m_MapEdit_MapDrag;
     private readonly InputAction m_MapEdit_MapObjectDelete;
     private readonly InputAction m_MapEdit_EditTypeChange;
+    private readonly InputAction m_MapEdit_RotateObject;
     public struct MapEditActions
     {
         private @Controlls m_Wrapper;
@@ -1246,6 +1268,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         public InputAction @MapDrag => m_Wrapper.m_MapEdit_MapDrag;
         public InputAction @MapObjectDelete => m_Wrapper.m_MapEdit_MapObjectDelete;
         public InputAction @EditTypeChange => m_Wrapper.m_MapEdit_EditTypeChange;
+        public InputAction @RotateObject => m_Wrapper.m_MapEdit_RotateObject;
         public InputActionMap Get() { return m_Wrapper.m_MapEdit; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1270,6 +1293,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @EditTypeChange.started += instance.OnEditTypeChange;
             @EditTypeChange.performed += instance.OnEditTypeChange;
             @EditTypeChange.canceled += instance.OnEditTypeChange;
+            @RotateObject.started += instance.OnRotateObject;
+            @RotateObject.performed += instance.OnRotateObject;
+            @RotateObject.canceled += instance.OnRotateObject;
         }
 
         private void UnregisterCallbacks(IMapEditActions instance)
@@ -1289,6 +1315,9 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
             @EditTypeChange.started -= instance.OnEditTypeChange;
             @EditTypeChange.performed -= instance.OnEditTypeChange;
             @EditTypeChange.canceled -= instance.OnEditTypeChange;
+            @RotateObject.started -= instance.OnRotateObject;
+            @RotateObject.performed -= instance.OnRotateObject;
+            @RotateObject.canceled -= instance.OnRotateObject;
         }
 
         public void RemoveCallbacks(IMapEditActions instance)
@@ -1470,6 +1499,7 @@ public partial class @Controlls: IInputActionCollection2, IDisposable
         void OnMapDrag(InputAction.CallbackContext context);
         void OnMapObjectDelete(InputAction.CallbackContext context);
         void OnEditTypeChange(InputAction.CallbackContext context);
+        void OnRotateObject(InputAction.CallbackContext context);
     }
     public interface ICameraActions
     {
