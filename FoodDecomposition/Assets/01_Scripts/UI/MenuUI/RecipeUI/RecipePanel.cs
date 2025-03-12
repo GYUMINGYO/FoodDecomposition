@@ -1,4 +1,5 @@
 using DG.Tweening;
+using GM.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -11,9 +12,16 @@ namespace GM
         [SerializeField] private RecipeInfo recipeInfo;
         [SerializeField] private float duration = 0.5f;
 
+        [SerializeField] private Transform content;
+        [SerializeField] private GameObject linePrefab;
+        [SerializeField] private GameObject recipeCardPrefab;
+
         private CanvasGroup group;
         private GraphicRaycaster raycaster;
         private EventSystem eventSystem;
+
+        private GameObject lineObj;
+        int cnt = 3;
 
         public override void Awake()
         {
@@ -22,6 +30,11 @@ namespace GM
             group = GetComponent<CanvasGroup>();
             raycaster = transform.root.GetComponent<GraphicRaycaster>();
             eventSystem = EventSystem.current;
+        }
+
+        private void Start()
+        {
+            ManagerHub.Instance.GetManager<RecipeManager>().CardSpawnEvent += CardSpawn;
         }
 
         public override void Open()
@@ -81,6 +94,24 @@ namespace GM
                     Close();
                 }
             }
+        }
+
+        public void CardSpawn(RecipeSO recipe)
+        {
+            if (cnt == 0 || lineObj == null)
+            {
+                lineObj = Instantiate(linePrefab, content.transform);
+                cnt = 3;
+            }
+
+            RecipeCard card = Instantiate(recipeCardPrefab, lineObj.transform).GetComponent<RecipeCard>();
+            card.Initialize(recipe);
+            cnt--;
+        }
+
+        private void OnDestroy()
+        {
+            ManagerHub.Instance.GetManager<RecipeManager>().CardSpawnEvent -= CardSpawn;
         }
     }
 }

@@ -1,20 +1,16 @@
+using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace GM.Managers
 {
     public class RecipeManager : MonoBehaviour, IManagerable
     {
+        public Action<RecipeSO> CardSpawnEvent;
+
         public List<RecipeSO> recipeList;
         private List<RecipeSO> salesList = new();
-
-        [SerializeField] private Transform content;
-        [SerializeField] private GameObject linePrefab;
-        [SerializeField] private GameObject recipeCardPrefab;
-
-        private GameObject lineObj;
-        int cnt = 3;
 
         private void Start()
         {
@@ -28,33 +24,12 @@ namespace GM.Managers
             }
         }
 
-        public void Initialized()
-        {
-        }
-
-        public void Clear()
-        {
-        }
-
         public void AddRecipe(RecipeSO recipe)
         {
             recipeList.Add(recipe);
             if(!recipe.isLock)
                 salesList.Add(recipe);
-            CardSpawn(recipe);
-        }
-
-        public void CardSpawn(RecipeSO recipe)
-        {
-            if (cnt == 0 || lineObj == null)
-            {
-                lineObj = Instantiate(linePrefab, content.transform);
-                cnt = 3;
-            }
-
-            RecipeCard card = Instantiate(recipeCardPrefab, lineObj.transform).GetComponent<RecipeCard>();
-            card.Initialize(recipe);
-            cnt--;
+            CardSpawnEvent?.Invoke(recipe);
         }
 
         public RecipeSO GetRecipe()
@@ -79,6 +54,14 @@ namespace GM.Managers
                 salesList.Remove(recipe);
             }
             return true;
+        }
+
+        public void Initialized()
+        {
+        }
+
+        public void Clear()
+        {
         }
     }
 }
