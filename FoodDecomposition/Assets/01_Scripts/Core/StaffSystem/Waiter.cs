@@ -34,12 +34,7 @@ namespace GM.Staffs
 
             if (type == Enums.InteractableEntityType.Rest)
             {
-                RestRoom waiterRest;
-                if (ManagerHub.Instance.GetManager<RestourantManager>().GetRestEntity(type, out waiterRest, this, StaffType.Waiter))
-                {
-                    SetTable(waiterRest);
-                    return waiterRest.EntityTransform;
-                }
+                return _myRestRoom.transform;
             }
             else if (type == Enums.InteractableEntityType.Order)
             {

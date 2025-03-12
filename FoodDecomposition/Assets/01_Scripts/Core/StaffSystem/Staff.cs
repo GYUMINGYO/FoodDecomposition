@@ -39,6 +39,7 @@ namespace GM.Staffs
 
         protected BehaviorGraphAgent _myBTAgent;
         protected InteractableEntity _targetTable;
+        protected StaffRestTransform _myRestRoom;
 
         protected override void Awake()
         {
@@ -69,6 +70,11 @@ namespace GM.Staffs
         {
             Profile = staffProfile;
             _level = _staffHandler.GetCompo<StaffLevel>();
+        }
+
+        public void SetStaffRestRoom(StaffRestTransform restRoom)
+        {
+            _myRestRoom = restRoom;
         }
 
         public BlackboardVariable<T> GetVariable<T>(string variableName)
