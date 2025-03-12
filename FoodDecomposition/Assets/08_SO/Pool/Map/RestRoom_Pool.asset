@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7206c34a6eac74e98c1f3111235058, type: 3}
-  m_Name: Tile_Info
+  m_Script: {fileID: 11500000, guid: befe42bd555ff6d489e056e33c9f16c0, type: 3}
+  m_Name: RestRoom_Pool
   m_EditorClassIdentifier: 
-  poolType: {fileID: 11400000, guid: 025131841191bcf48b5fafbdc5e5b460, type: 2}
-  objectName: Tile
-  displayName: 
-  objectSize: {x: 1, y: 0.5, z: 1}
-  cellSize: {x: 1, y: 1}
-  unLock: 0
+  typeName: RestRoom
+  assetRef:
+    m_AssetGUID: 6ff95ba6569ce2f49be72c2bc99695e5
+    m_SubObjectName: 
+    m_SubObjectGUID: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  initCount: 10

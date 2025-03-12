@@ -77,8 +77,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2561500260092561311}
   - component: {fileID: 7396022216985635529}
+  - component: {fileID: 2688883637261313836}
   m_Layer: 6
-  m_Name: CuttingBoardTable
+  m_Name: CuttingBoardTable_Prefab
   m_TagString: CookingTable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,9 +114,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66eb961c3ec594c4eba921462b80ed23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolType: {fileID: 11400000, guid: 6f9aeb4f6fc6ee043afd747745a8e06d, type: 2}
+  _visual: {fileID: 2803565609977411367}
   _type: 8
+  _isShared: 0
   _entityTransform: {fileID: 4991585753460807631}
   _cookAnimation: {fileID: 7400000, guid: 64f5b42930ee1a64f99529e64971f3c2, type: 2}
+--- !u!114 &2688883637261313836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630256227570588105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &3651185135605397257
 GameObject:
   m_ObjectHideFlags: 0

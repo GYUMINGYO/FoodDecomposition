@@ -190,8 +190,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2401044562318961856}
   - component: {fileID: 7444107388946735147}
+  - component: {fileID: 5359114386909107563}
   m_Layer: 0
-  m_Name: FoodOut
+  m_Name: FoodOut_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -228,10 +229,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2904731bcd0eff64eaa49818e4f887ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolType: {fileID: 11400000, guid: 63f83077b66c00a4785b43224ac874df, type: 2}
+  _visual: {fileID: 5698538099495779848}
   _type: 4
+  _isShared: 0
   _senderTransform: {fileID: 8848623868602434119}
   _receiverTransform: {fileID: 2314587753173969522}
   _foodTrm: {fileID: 2701302715461162817}
+--- !u!114 &5359114386909107563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5859311294905104040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6895093695809867427
 GameObject:
   m_ObjectHideFlags: 0

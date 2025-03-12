@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8221395636925172274}
   - component: {fileID: 6263137113087538206}
+  - component: {fileID: 18424214639093769}
   m_Layer: 0
-  m_Name: KitchenTable_Sink
+  m_Name: KitchenTable_Sink_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -46,9 +47,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66eb961c3ec594c4eba921462b80ed23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _poolType: {fileID: 11400000, guid: ea20948cfb607d641bc54d64e96d9665, type: 2}
+  _visual: {fileID: 8246501727185861365}
   _type: 9
+  _isShared: 0
   _entityTransform: {fileID: 2982060964728168334}
   _cookAnimation: {fileID: 7400000, guid: b43cfe504df8d6c4b97cb850530c7dd8, type: 2}
+--- !u!114 &18424214639093769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2392227354627258695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0, b: 0, a: 1}
+  outlineWidth: 2
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &6592381769165307921
 GameObject:
   m_ObjectHideFlags: 0
