@@ -1,10 +1,8 @@
 using GM.Entities;
 using GM.InteractableEntities;
-using GM.Staffs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -104,29 +102,6 @@ namespace GM.Managers
             var tables = GetInteractableEntitiesTryGetValue(type);
 
             tableEntity = tables?.First();
-            return tableEntity != null;
-        }
-
-        public bool GetRestEntity(Enums.InteractableEntityType type, out RestRoom tableEntity, Entity owner, StaffType staffType)
-        {
-            tableEntity = null;
-
-            var tables = GetInteractableEntitiesTryGetValue(type, table => table.InUse == false);
-            List<InteractableEntity> restRoomList = new List<InteractableEntity>();
-
-            foreach (RestRoom restRoom in tables)
-            {
-                if (restRoom.StaffType == staffType)
-                {
-                    restRoomList.Add(restRoom);
-                }
-            }
-
-            if (tables != null)
-            {
-                tableEntity = CalculateMinimumDistanceEntity(restRoomList, owner) as RestRoom;
-            }
-
             return tableEntity != null;
         }
 
