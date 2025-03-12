@@ -3413,6 +3413,9 @@ MonoBehaviour:
   menuType: 3
   recipeInfo: {fileID: 672683304}
   duration: 0.5
+  content: {fileID: 180303041}
+  linePrefab: {fileID: 2649119357628386549, guid: 297badc7029d6b74082a6beaeba77292, type: 3}
+  recipeCardPrefab: {fileID: 6555894109483066090, guid: 599a5f0da5cc3164aa920d6d4c477be5, type: 3}
 --- !u!225 &356342168
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4515,6 +4518,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 522545944}
   m_CullTransparentMesh: 1
+--- !u!1 &538751376
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 538751377}
+  - component: {fileID: 538751378}
+  m_Layer: 0
+  m_Name: DayVisualController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &538751377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538751376}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1228209816}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &538751378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538751376}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b72c626d050253438a074ba1f9a6e23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeGaugeFill: {fileID: 157036470}
+  dayLight: {fileID: 472090896}
 --- !u!1 &549248869
 GameObject:
   m_ObjectHideFlags: 0
@@ -10609,6 +10658,7 @@ Transform:
   - {fileID: 1005773719}
   - {fileID: 1043034947}
   - {fileID: 1201150832}
+  - {fileID: 538751377}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1238077242
@@ -13298,9 +13348,6 @@ MonoBehaviour:
   recipeList:
   - {fileID: 11400000, guid: 9005271e69911c8449919c3529ceb597, type: 2}
   - {fileID: 11400000, guid: 74f52674c69ed3c48b222847cff66de4, type: 2}
-  content: {fileID: 180303041}
-  linePrefab: {fileID: 2649119357628386549, guid: 297badc7029d6b74082a6beaeba77292, type: 3}
-  recipeCardPrefab: {fileID: 6555894109483066090, guid: 599a5f0da5cc3164aa920d6d4c477be5, type: 3}
 --- !u!114 &1532440744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13342,8 +13389,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameCycleChannel: {fileID: 11400000, guid: 543402fc32e299b48bdd4f48a1a925a2, type: 2}
-  timeGaugeFill: {fileID: 157036470}
-  dayLight: {fileID: 472090896}
   _dayTime: 120
 --- !u!114 &1532440747
 MonoBehaviour:

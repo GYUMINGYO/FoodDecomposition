@@ -1,12 +1,11 @@
 using GM;
-using System;
-using Unity.Behavior;
-using UnityEngine;
-using Action = Unity.Behavior.Action;
-using Unity.Properties;
 using GM.InteractableEntities;
 using GM.Managers;
-using NUnit.Framework.Interfaces;
+using System;
+using Unity.Behavior;
+using Unity.Properties;
+using UnityEngine;
+using Action = Unity.Behavior.Action;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "FindTable", story: "find [table] [chair] [exit] for [customer]", category: "Action", id: "82f026d4ef14a695c07ec99879662be6")]

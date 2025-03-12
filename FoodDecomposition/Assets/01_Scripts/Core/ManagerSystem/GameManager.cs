@@ -7,8 +7,6 @@ namespace GM.Managers
     public class GameManager : MonoBehaviour, IManagerable
     {
         [SerializeField] private GameEventChannelSO _gameCycleChannel;
-        [SerializeField] private Transform timeGaugeFill;
-        [SerializeField] private Transform dayLight;
 
         [SerializeField] private double _dayTime = 5;
         private double _currentDayTime = 0;
@@ -16,6 +14,9 @@ namespace GM.Managers
         private bool _isDayTimer;
         private bool _isStopDayTimer;
         private bool _isStopCustomer;
+
+        private float duration;
+        public float Duration => duration;
 
         private void Awake()
         {
@@ -84,10 +85,7 @@ namespace GM.Managers
 
                 _currentDayTime += Time.deltaTime;
 
-                float duration = (float)(_currentDayTime / _dayTime);
-                timeGaugeFill.localPosition = new Vector3(-1255 + (1255 * duration), 0, 0);
-                dayLight.localRotation = Quaternion.Euler(Mathf.Lerp(-155, -375, duration), -30, 0);
-
+                duration = (float)(_currentDayTime / _dayTime);
                 if (duration > 0.8f && !_isStopCustomer)
                 {
                     // 마감시간(손님 생성 멈춤)

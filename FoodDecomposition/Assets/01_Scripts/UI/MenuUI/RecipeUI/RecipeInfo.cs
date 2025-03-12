@@ -51,7 +51,7 @@ namespace GM
             sellPriceText.text = recipe.sellPrice.ToString();
             materialCostText.text = recipe.materialCost.ToString();
             TastyText.text = recipe.tasty.ToString();
-            researchFundsText.text = recipe.researchFunds.ToString();
+            researchFundsText.text = $"연구:{recipe.researchFunds.ToString()}";
 
             group.alpha = 1;
             group.blocksRaycasts = true;
