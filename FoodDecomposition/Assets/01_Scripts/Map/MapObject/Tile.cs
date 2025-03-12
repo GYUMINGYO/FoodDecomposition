@@ -16,7 +16,7 @@ namespace GM.Maps
 
         public void SetColor(Color color)
         {
-            _meshRenderer.material = color == Color.black ? _black : _white;
+            _meshRenderers[0].material = color == Color.black ? _black : _white;
         }
 
         public override void PoolInitalize(Pool pool)
@@ -26,7 +26,7 @@ namespace GM.Maps
         public override void ResetPoolItem()
         {
             _isFull = false;
-            ColorTransparent(true);
+            SetTransparentColor(true);
             SetCollider(false);
         }
     }

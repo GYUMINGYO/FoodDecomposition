@@ -10,7 +10,7 @@ namespace GM.Maps
         public string objectName;
         public string displayName;
         public Vector3 objectSize;
-        public Vector2 cellSize;
+        public Vector2Int cellSize;
         public bool unLock;
     }
 }

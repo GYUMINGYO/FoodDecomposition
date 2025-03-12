@@ -1,4 +1,3 @@
-using System;
 using GM.Entities;
 using GM.Managers;
 using GM.Maps;
@@ -17,10 +16,9 @@ namespace GM.Players.Pickers
         private MapObject _mapObject;
         private Vector3 _cellPosition;
         private Vector3Int _gridPosition;
-        private Vector3Int _startDragPosition;
         private bool _isClick = false;
-        private bool _isMoveCell = false;
-        private bool _isObjectSet = false;
+        private bool _isCellEdit = false;
+        private bool _isPick = false;
 
         // TODO : 특정 칸이 설치가 안되는 칸이면 빨간색으로 표시하기
 
@@ -33,26 +31,7 @@ namespace GM.Players.Pickers
             _player.Input.OnEditTypeChangeEvent += HandleEditTypeChange;
             _player.Input.OnInputTypeChangeEvent += HandleInputTypeChange;
             _player.Input.OnMapDragEvent += HandleMapDrag;
-            _player.Input.OnRotateObjectEvent += HnadleRotateObject;
-        }
-
-        private void OnDestroy()
-        {
-            _player.Input.OnMapClickEvent -= HandleMapClick;
-            _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
-            _player.Input.OnEditTypeChangeEvent -= HandleEditTypeChange;
-            _player.Input.OnInputTypeChangeEvent -= HandleInputTypeChange;
-            _player.Input.OnMapDragEvent -= HandleMapDrag;
-            _player.Input.OnRotateObjectEvent -= HnadleRotateObject;
-        }
-
-        private void HnadleRotateObject()
-        {
-            if (_mapObject == null) return;
-
-            var mapObjectRot = _mapObject.transform.eulerAngles;
-            mapObjectRot.y += 90f;
-            _mapObject.transform.eulerAngles = mapObjectRot;
+            _player.Input.OnRotateObjectEvent += HandleRotateObject;
         }
 
         public void SetMapObject(ObjectInfoSO mapObjectInfo)
@@ -68,8 +47,37 @@ namespace GM.Players.Pickers
             _mapObject = ManagerHub.Instance.Pool.Pop(_mapObjectInfo.poolType) as MapObject;
             _mapObject.transform.position = new Vector3(_mapObject.transform.position.x, mapObjectInfo.objectSize.y, _mapObject.transform.position.z);
             _mapObject.transform.eulerAngles = new Vector3(0, 180, 0);
-            _mapObject.ColorTransparent(true);
+            _mapObject.SetTransparentColor(true);
             _cellIndicator.SetActive(false);
+            _isCellEdit = false;
+        }
+
+        private void OnDestroy()
+        {
+            _player.Input.OnMapClickEvent -= HandleMapClick;
+            _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
+            _player.Input.OnEditTypeChangeEvent -= HandleEditTypeChange;
+            _player.Input.OnInputTypeChangeEvent -= HandleInputTypeChange;
+            _player.Input.OnMapDragEvent -= HandleMapDrag;
+            _player.Input.OnRotateObjectEvent -= HandleRotateObject;
+        }
+
+        private void HandleMapClick(bool isClick)
+        {
+            _gridPosition = _grid.WorldToCell(_hit.point);
+            _isClick = isClick;
+            _isPick = false;
+            if (_isClick)
+            {
+                HandlePick();
+            }
+        }
+
+        private void HandleRotateObject()
+        {
+            if (_mapObject == null) return;
+
+            _mapObject.RotateObject();
         }
 
         private void HandleMapDrag(bool isDrag)
@@ -93,6 +101,18 @@ namespace GM.Players.Pickers
         {
             Debug.Log(type);
             _editType = type;
+
+            if (_editType == EditType.Create)
+            {
+                _mapObject?.gameObject.SetActive(true);
+                _isCellEdit = false;
+            }
+            else
+            {
+                _cellIndicator.SetActive(true);
+                _mapObject?.gameObject.SetActive(false);
+                _isCellEdit = true;
+            }
         }
 
         private void HandleMapDelete()
@@ -100,7 +120,7 @@ namespace GM.Players.Pickers
             _map.DeleteTile();
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             PickRaycast();
             if (_isRay == false) return;
@@ -112,65 +132,44 @@ namespace GM.Players.Pickers
                 //_cellIndicator.SetActive(false);
             }
 
-            if (_gridPosition != currentGridPos) _isMoveCell = true;
+            if (_gridPosition != currentGridPos)
+            {
+                _isPick = false;
+                HandlePick();
+            }
 
             _gridPosition = currentGridPos;
             _cellPosition = _grid.CellToWorld(_gridPosition);
             _cellPosition.y = 0.5f;
 
-            if (_mapObject == null)
+            if (_mapObject == null || _isCellEdit || _mapObject.IsObjectLock)
             {
                 // Cell
                 _cellIndicator.transform.position = _cellPosition;
             }
             else
             {
-                if (_isObjectSet == false)
-                {
-                    Vector3 objPos = new Vector3(_cellPosition.x + _mapObjectInfo.objectSize.x, _cellPosition.y, _cellPosition.z + _mapObjectInfo.objectSize.z);
-                    // MapObject
-                    _mapObject.transform.position = objPos;
-                }
-            }
-        }
-
-        private void HandleMapClick(bool isClick)
-        {
-            _gridPosition = _grid.WorldToCell(_hit.point);
-            _isClick = isClick;
-            if (_isClick)
-            {
-                _startDragPosition = _gridPosition;
-                HandlePick();
-            }
-            else
-            {
-                // Real Set Tile
-                if (_editType == EditType.Delete) return;
-
-                _map.SetTileObject();
+                Vector3 objPos = new Vector3(_cellPosition.x + _mapObjectInfo.objectSize.x, _cellPosition.y, _cellPosition.z + _mapObjectInfo.objectSize.z);
+                // MapObject
+                _mapObject.transform.position = objPos;
             }
         }
 
         protected override void PickEntity()
         {
-            if (_isMoveCell == false) return;
+            if (_isPick) return;
 
-            if (_hit.transform.CompareTag("Tile") && _mapObject != null)
+            _gridPosition = _grid.WorldToCell(_hit.point);
+
+            if (_editType == EditType.Create && _mapObject != null)
             {
-                _gridPosition = _grid.WorldToCell(_hit.point);
-                if (_editType == EditType.Create)
-                {
-                    _isObjectSet = true;
-                    _map.SetMapObject(_mapObjectInfo, _mapObject, _gridPosition, _isClick);
-                    _isObjectSet = false;
-                }
-                else if (_editType == EditType.Delete)
-                {
-                    _map.DeleteObject(_gridPosition, _isClick);
-                }
-
-                _isMoveCell = false;
+                _isPick = true;
+                _map.SetMapObject(_mapObject, _gridPosition, _isClick);
+            }
+            else if (_editType == EditType.Delete)
+            {
+                _isPick = true;
+                _map.DeleteObject(_gridPosition, _isClick);
             }
         }
     }
