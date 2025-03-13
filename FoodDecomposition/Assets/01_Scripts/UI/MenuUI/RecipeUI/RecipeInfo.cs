@@ -15,6 +15,7 @@ namespace GM
         [SerializeField] private Image foodIcon;
         [SerializeField] private TextMeshProUGUI sellPriceText;
         [SerializeField] private TextMeshProUGUI materialCostText;
+        [SerializeField] private TextMeshProUGUI TastyText;
         [SerializeField] private TextMeshProUGUI researchFundsText;
 
         [Header("")]
@@ -25,7 +26,7 @@ namespace GM
         [SerializeField] private Image salesImage;
         [SerializeField] private TextMeshProUGUI salesText;
 
-        private Recipe recipe;
+        private RecipeSO recipe;
         private RecipeCard card;
 
         private void Start()
@@ -47,9 +48,10 @@ namespace GM
 
             nameText.text = recipe.foodName;
             foodIcon.sprite = recipe.icon;
-            sellPriceText.text = $"가격:{recipe.sellPrice}";
-            materialCostText.text = $"재료비:{recipe.materialCost}";
-            researchFundsText.text = $"연구:{recipe.researchFunds}";
+            sellPriceText.text = recipe.sellPrice.ToString();
+            materialCostText.text = recipe.materialCost.ToString();
+            TastyText.text = recipe.tasty.ToString();
+            researchFundsText.text = recipe.researchFunds.ToString();
 
             group.alpha = 1;
             group.blocksRaycasts = true;

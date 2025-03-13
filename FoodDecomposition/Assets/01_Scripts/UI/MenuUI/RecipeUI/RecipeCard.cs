@@ -10,9 +10,9 @@ namespace GM
         [SerializeField] private Image icon;
         [SerializeField] private Image lockPanel;
 
-        private Recipe recipe;
+        private RecipeSO recipe;
 
-        public void Initialize(Recipe recipe)
+        public void Initialize(RecipeSO recipe)
         {
             this.recipe = recipe;
 
@@ -27,7 +27,7 @@ namespace GM
             lockPanel.color = new Color(0, 0, 0, value ? 0.8f : 0);
         }
 
-        public Recipe GetRecipe()
+        public RecipeSO GetRecipe()
         {
             return recipe;
         }

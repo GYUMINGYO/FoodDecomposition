@@ -1,6 +1,14 @@
+using GM.Managers;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum WaitState
+{
+    Positive,
+    Neutral,
+    Negative
+}
 
 namespace GM
 {
@@ -13,21 +21,20 @@ namespace GM
         [SerializeField] private Image backOrderIconImage;
 
         [Header("FoodWait")]
+        [SerializeField] private GameObject slider;
         [SerializeField] private Image foodWaitIconImage;
-        [SerializeField] private Slider foodWaitSlider;
         [SerializeField] private Image foodWaitFillImage;
 
         [Header("")]
         private Customer customer;
-
+        private WaitState curWaitState = WaitState.Positive;
         private bool isWaiting = false;
-        public bool IsWaiting => isWaiting;
 
+        public bool IsWaiting => isWaiting;
+        
         private void Awake()
         {
             customer = GetComponentInParent<Customer>();
-
-            Hide();
         }
 
         public void OrderWaitShow()
@@ -49,8 +56,18 @@ namespace GM
             while (elapsedTime < customer.OrderWaitTime)
             {
                 elapsedTime += Time.deltaTime;
-                orderIconImage.fillAmount = Mathf.Lerp(1f, 0.1f, elapsedTime / customer.OrderWaitTime);
 
+                float duration = elapsedTime / customer.OrderWaitTime;
+                orderIconImage.fillAmount = Mathf.Lerp(1f, 0.1f, duration);
+
+                if (duration >= 0.75f)
+                {
+                    curWaitState = WaitState.Negative;
+                }
+                else if (duration >= 0.5f)
+                {
+                    curWaitState = WaitState.Neutral;
+                }
                 yield return null;
             }
 
@@ -65,10 +82,10 @@ namespace GM
             Show();
 
             foodWaitIconImage.enabled = true;
-            foodWaitSlider.gameObject.SetActive(true);
+            slider.SetActive(true);
 
             foodWaitIconImage.sprite = customer.GetOrderData().recipe.icon;
-            foodWaitSlider.value = 1;
+            foodWaitFillImage.transform.localPosition = Vector3.zero;
             foodWaitFillImage.color = Color.green;
 
             StartCoroutine(FoodWaitGauge());
@@ -81,21 +98,24 @@ namespace GM
             while (elapsedTime < customer.FoodWaitTime)
             {
                 elapsedTime += Time.deltaTime;
-                foodWaitSlider.value = Mathf.Lerp(1, 0, elapsedTime / customer.FoodWaitTime);
+                float duration = elapsedTime / customer.FoodWaitTime;
+                foodWaitFillImage.transform.localPosition = new Vector3(0, Mathf.Lerp(0, -153, duration), 0);
 
 
-                if (foodWaitSlider.value <= 0.25f)
+                if (duration >= 0.75f)
                 {
                     foodWaitFillImage.color = Color.red;
+                    curWaitState = WaitState.Negative;
                 }
-                else if (foodWaitSlider.value <= 0.5f)
+                else if (duration >= 0.5f)
                 {
                     foodWaitFillImage.color = new Color(1f, 0.5f, 0f);
+                    curWaitState = WaitState.Neutral;
                 }
                 yield return null;
             }
 
-            foodWaitSlider.value = 0;
+            foodWaitFillImage.transform.localPosition = new Vector3(0, -153, 0);
             isWaiting = true;
 
             customer.OrderData.isCustomerOut = true;
@@ -115,9 +135,28 @@ namespace GM
             orderIconImage.enabled = false;
             backOrderIconImage.enabled = false;
             foodWaitIconImage.enabled = false;
-            foodWaitSlider.gameObject.SetActive(false);
+            slider.SetActive(false);
             isWaiting = false;
             StopAllCoroutines();
+        }
+
+        public void CalculatePreferenceRate()
+        {
+            Hide();
+
+            float rate = 0;
+            switch (curWaitState)
+            {
+                case WaitState.Positive:
+                    rate = 10;
+                    break;
+                case WaitState.Negative:
+                    rate = -10;
+                    break;
+            }
+
+            ManagerHub.Instance.GetManager<PreferenceManager>().ModifyPreferenceRate(customer, rate);
+            curWaitState = WaitState.Positive;
         }
     }
 }
