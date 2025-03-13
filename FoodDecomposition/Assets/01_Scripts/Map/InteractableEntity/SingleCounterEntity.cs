@@ -15,8 +15,9 @@ namespace GM
 
         int lineIdx = 0;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             for (int i = 0; i < 3; ++i)
             {
                 lineCustomerList.Add(null);

@@ -16,7 +16,7 @@ namespace GM.Test
         {
             if (Input.GetKeyDown(KeyCode.N))
             {
-                _mapPicker.SetMapObject(_stove);
+                _mapPicker.SetMapObjectInfo(_stove);
             }
             else if (Input.GetKeyDown(KeyCode.P))
             {

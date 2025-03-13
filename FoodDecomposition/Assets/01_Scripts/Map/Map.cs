@@ -49,7 +49,6 @@ namespace GM.Maps
 
         public void SetMapObject(MapObject mapObject, Vector3Int position, bool isInstallation)
         {
-            // Lock (Prevent data conversion)
             mapObject.IsObjectLock = true;
 
             int sizeX = mapObject.Info.cellSize.x;
@@ -64,7 +63,6 @@ namespace GM.Maps
             // Calculate Direction
             if (Mathf.Abs(mapObject.GetNormalizedRotationY()) == 90)
             {
-                // Change X and Z
                 int temp = sizeX;
                 sizeX = sizeZ;
                 sizeZ = temp;
@@ -79,12 +77,14 @@ namespace GM.Maps
                     int posZ = position.z + (z * signVec.y);
                     if (_mapArray[posX, posZ].tile == null || _mapArray[posX, posZ].mapObject != null)
                     {
-                        // TODO : Object Red 처리
+                        mapObject.SetColor(false, true);
                         mapObject.IsObjectLock = false;
                         return;
                     }
                 }
             }
+
+            mapObject.SetColor();
 
             // Installation
             if (isInstallation)
@@ -112,6 +112,75 @@ namespace GM.Maps
             }
 
             mapObject.IsObjectLock = false;
+        }
+
+        public bool SetMapObject(ref MapObject mapObject, Vector3Int position, bool isInstallation)
+        {
+            int sizeX = mapObject.Info.cellSize.x;
+            int sizeZ = mapObject.Info.cellSize.y;
+            Vector2Int signVec = Vector2Int.one;
+            signVec.x = (mapObject.ObjDirection == ObjectDirection.Left) ||
+                        (mapObject.ObjDirection == ObjectDirection.Up) ? -1 : 1;
+
+            signVec.y = (mapObject.ObjDirection == ObjectDirection.Left) ||
+                        (mapObject.ObjDirection == ObjectDirection.Down) ? -1 : 1;
+
+            // Calculate Direction
+            if (Mathf.Abs(mapObject.GetNormalizedRotationY()) == 90)
+            {
+                int temp = sizeX;
+                sizeX = sizeZ;
+                sizeZ = temp;
+            }
+
+            // Check if it can Install is possible
+            for (int x = 0; x < sizeX; ++x)
+            {
+                for (int z = 0; z < sizeZ; ++z)
+                {
+                    int posX = position.x + (x * signVec.x);
+                    int posZ = position.z + (z * signVec.y);
+                    if (_mapArray[posX, posZ].tile == null || _mapArray[posX, posZ].mapObject != null)
+                    {
+                        mapObject.SetColor(false, true);
+                        mapObject.IsObjectLock = false;
+                        return false;
+                    }
+                }
+            }
+
+            mapObject.SetColor();
+
+            // Installation
+            if (isInstallation)
+            {
+                Vector3 installObjectPos = _grid.CellToWorld(new Vector3Int(position.x, 0, position.z));
+                installObjectPos.x += mapObject.Info.objectSize.x;
+                installObjectPos.y += mapObject.transform.position.y;
+                installObjectPos.z += mapObject.Info.objectSize.z;
+
+                MapObject installMapObject = ManagerHub.Instance.Pool.Pop(mapObject.Info.poolType) as MapObject;
+                installMapObject.name = mapObject.Info.name;
+                installMapObject.transform.position = installObjectPos;
+                installMapObject.transform.rotation = mapObject.transform.rotation;
+
+                for (int x = 0; x < sizeX; ++x)
+                {
+                    for (int z = 0; z < sizeZ; ++z)
+                    {
+                        int posX = position.x + (x * signVec.x);
+                        int posZ = position.z + (z * signVec.y);
+                        _mapArray[posX, posZ].SetMapObject(installMapObject);
+                    }
+                }
+                installMapObject.transform.SetParent(_mapObjectsTrm);
+            }
+
+            mapObject.IsObjectLock = false;
+
+            ManagerHub.Instance.Pool.Push(mapObject);
+            mapObject = null;
+            return true;
         }
 
         public void SetTemporaryTile(ObjectInfoSO mapObjectInfo, Vector3Int startPos, Vector3Int endPos)
@@ -216,23 +285,48 @@ namespace GM.Maps
             }
         }
 
-        public void DeleteObject(Vector3Int position, bool isConfirmed)
+        public void InitDeleteObject()
         {
             if (_beforeDeleteObject != null)
             {
                 _beforeDeleteObject.SetTransparentColor();
-                _beforeDeleteObject.SetDestoryColor(false);
+                _beforeDeleteObject.SetColor();
             }
+        }
+
+        public void DeleteObject(Vector3Int position, bool isConfirmed)
+        {
+            InitDeleteObject();
 
             if (_mapArray[position.x, position.z].tile == null || _mapArray[position.x, position.z].mapObject == null) return;
 
             MapObject currentDeleteObject = _mapArray[position.x, position.z].mapObject;
-            currentDeleteObject.SetDestoryColor(true);
+            currentDeleteObject.SetColor(false, true);
             currentDeleteObject.SetTransparentColor(true, 0.9f);
             _beforeDeleteObject = currentDeleteObject;
 
             if (isConfirmed)
             {
+                _mapArray[position.x, position.z].mapObject.DestoryObject();
+            }
+        }
+
+        public void DeleteObject(Vector3Int position, bool isConfirmed, out MapObject destoryObject)
+        {
+            InitDeleteObject();
+            destoryObject = null;
+
+            if (_mapArray[position.x, position.z].tile == null || _mapArray[position.x, position.z].mapObject == null) return;
+
+            MapObject currentDeleteObject = _mapArray[position.x, position.z].mapObject;
+            currentDeleteObject.SetColor(true, false);
+            currentDeleteObject.SetTransparentColor(true, 0.9f);
+            _beforeDeleteObject = currentDeleteObject;
+
+            if (isConfirmed)
+            {
+                destoryObject = _mapArray[position.x, position.z].mapObject;
+                destoryObject = ManagerHub.Instance.Pool.Pop(destoryObject.Info.poolType) as MapObject;
                 _mapArray[position.x, position.z].mapObject.DestoryObject();
             }
         }

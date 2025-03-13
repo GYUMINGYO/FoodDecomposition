@@ -14,13 +14,12 @@ namespace GM.Players.Pickers
 
         private EditType _editType;
         private MapObject _mapObject;
+        protected MapObject _moveAndRotateObject;
         private Vector3 _cellPosition;
         private Vector3Int _gridPosition;
         private bool _isClick = false;
         private bool _isCellEdit = false;
         private bool _isPick = false;
-
-        // TODO : 특정 칸이 설치가 안되는 칸이면 빨간색으로 표시하기
 
         public override void Initialize(Entity entity)
         {
@@ -34,7 +33,7 @@ namespace GM.Players.Pickers
             _player.Input.OnRotateObjectEvent += HandleRotateObject;
         }
 
-        public void SetMapObject(ObjectInfoSO mapObjectInfo)
+        public void SetMapObjectInfo(ObjectInfoSO mapObjectInfo)
         {
             if (mapObjectInfo == null)
             {
@@ -78,6 +77,7 @@ namespace GM.Players.Pickers
             if (_mapObject == null) return;
 
             _mapObject.RotateObject();
+            _moveAndRotateObject?.RotateObject();
         }
 
         private void HandleMapDrag(bool isDrag)
@@ -95,6 +95,8 @@ namespace GM.Players.Pickers
             {
                 _map.DeleteOutline();
             }
+            HandlePick();
+            _map.InitDeleteObject();
         }
 
         private void HandleEditTypeChange(EditType type)
@@ -105,14 +107,25 @@ namespace GM.Players.Pickers
             if (_editType == EditType.Create)
             {
                 _mapObject?.gameObject.SetActive(true);
+                _moveAndRotateObject?.gameObject.SetActive(false);
                 _isCellEdit = false;
+            }
+            else if (_editType == EditType.MoveAndRotate)
+            {
+                _cellIndicator.SetActive(true);
+                _mapObject?.gameObject.SetActive(false);
+                _moveAndRotateObject?.gameObject.SetActive(true);
+                _isCellEdit = true;
             }
             else
             {
                 _cellIndicator.SetActive(true);
+                _moveAndRotateObject?.gameObject.SetActive(false);
                 _mapObject?.gameObject.SetActive(false);
                 _isCellEdit = true;
             }
+            HandlePick();
+            _map.InitDeleteObject();
         }
 
         private void HandleMapDelete()
@@ -127,10 +140,6 @@ namespace GM.Players.Pickers
 
             Vector3 mousePosition = _hit.point;
             Vector3Int currentGridPos = _grid.WorldToCell(mousePosition);
-            if (_map.GetTileObject(currentGridPos) == null)
-            {
-                //_cellIndicator.SetActive(false);
-            }
 
             if (_gridPosition != currentGridPos)
             {
@@ -142,7 +151,9 @@ namespace GM.Players.Pickers
             _cellPosition = _grid.CellToWorld(_gridPosition);
             _cellPosition.y = 0.5f;
 
-            if (_mapObject == null || _isCellEdit || _mapObject.IsObjectLock)
+            if (_mapObject == null ||
+                _isCellEdit ||
+                _mapObject.IsObjectLock)
             {
                 // Cell
                 _cellIndicator.transform.position = _cellPosition;
@@ -150,7 +161,7 @@ namespace GM.Players.Pickers
             else
             {
                 Vector3 objPos = new Vector3(_cellPosition.x + _mapObjectInfo.objectSize.x, _cellPosition.y, _cellPosition.z + _mapObjectInfo.objectSize.z);
-                // MapObject
+                if (_editType == EditType.MoveAndRotate && _moveAndRotateObject != null) _moveAndRotateObject.transform.position = objPos;
                 _mapObject.transform.position = objPos;
             }
         }
@@ -161,16 +172,41 @@ namespace GM.Players.Pickers
 
             _gridPosition = _grid.WorldToCell(_hit.point);
 
+            _isPick = true;
             if (_editType == EditType.Create && _mapObject != null)
             {
-                _isPick = true;
                 _map.SetMapObject(_mapObject, _gridPosition, _isClick);
             }
             else if (_editType == EditType.Delete)
             {
-                _isPick = true;
                 _map.DeleteObject(_gridPosition, _isClick);
             }
+            else if (_editType == EditType.MoveAndRotate)
+            {
+                if (_isMoveAndRotateMap)
+                {
+                    if (_isClick)
+                    {
+                        if (_map.SetMapObject(ref _moveAndRotateObject, _gridPosition, _isClick))
+                        {
+                            _isMoveAndRotateMap = false;
+                            _cellIndicator.SetActive(true);
+                            _isCellEdit = true;
+                        }
+                    }
+                    return;
+                }
+
+                _map.DeleteObject(_gridPosition, _isClick, out _moveAndRotateObject);
+                if (_moveAndRotateObject != null)
+                {
+                    _cellIndicator.SetActive(false);
+                    _isCellEdit = false;
+                    _isMoveAndRotateMap = true;
+                }
+            }
         }
+
+        private bool _isMoveAndRotateMap;
     }
 }

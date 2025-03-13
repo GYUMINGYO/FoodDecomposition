@@ -30,8 +30,10 @@ namespace GM
             _id = id;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             chairDictionary = new Dictionary<Transform, SeatData>();
 
             Transform[] chairs = GetComponentsInChildren<Transform>().Where(x => x.CompareTag("Chair")).ToArray();

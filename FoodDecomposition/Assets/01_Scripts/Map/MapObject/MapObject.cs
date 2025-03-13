@@ -79,11 +79,14 @@ namespace GM.Maps
             }
         }
 
-        public void SetDestoryColor(bool isDestoryColor)
+        public void SetColor(bool isMoveAndRotate = false, bool isDestory = false)
         {
             for (int i = 0; i < _meshRenderers.Length; ++i)
             {
-                Color newColor = isDestoryColor ? Color.red : _originColors[i];
+                Color newColor;
+                if (isMoveAndRotate) newColor = Color.green;
+                else if (isDestory) newColor = Color.red;
+                else newColor = _originColors[i];
                 _meshRenderers[i].material.color = newColor;
             }
         }
