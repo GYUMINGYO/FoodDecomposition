@@ -12,20 +12,21 @@ namespace GM.Entities
         protected virtual void Awake()
         {
             _components = new Dictionary<Type, IEntityComponent>();
-            AddComponentToDictionary();
+            AddComponentToDictionary(gameObject, _components);
             ComponentInitialize();
             AfterInitialize();
         }
 
         #region Entity Component Structure
 
-        protected virtual void AddComponentToDictionary()
+        public static void AddComponentToDictionary<T>(GameObject targetObject, Dictionary<Type, T> targetDictionary, bool includeInactive = true)
         {
-            GetComponentsInChildren<IEntityComponent>(true)
-                .ToList().ForEach(component => _components.Add(component.GetType(), component));
+            targetObject.GetComponentsInChildren<T>(includeInactive)
+                .ToList()
+                .ForEach(component => targetDictionary.Add(component.GetType(), component));
         }
 
-        private void ComponentInitialize()
+        protected void ComponentInitialize()
         {
             _components.Values.ToList().ForEach(component => component.Initialize(this));
         }

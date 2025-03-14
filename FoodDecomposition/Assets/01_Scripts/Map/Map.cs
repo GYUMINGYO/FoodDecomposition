@@ -20,9 +20,9 @@ namespace GM.Maps
         {
             _navMeshSurface = GetComponent<NavMeshSurface>();
             _mapArray = new MapArray[3000, 3000];
-            for (int x = 0; x < 3000; x++)
+            for (int x = 0; x < 3000; ++x)
             {
-                for (int z = 0; z < 3000; z++)
+                for (int z = 0; z < 3000; ++z)
                 {
                     _mapArray[x, z] = new MapArray();
                 }

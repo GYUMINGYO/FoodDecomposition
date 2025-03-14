@@ -1,6 +1,6 @@
 using GM.Maps;
 using GM.Players;
-using GM.Players.Pickers;
+using GM.Players.Pickers.Maps;
 using UnityEngine;
 
 namespace GM.Test

@@ -1,4 +1,5 @@
-using System.Linq;
+using System;
+using System.Collections.Generic;
 using GM.Data;
 using GM.Entities;
 using UnityEngine;
@@ -16,15 +17,13 @@ namespace GM.Staffs
         [SerializeField] private Waiter _waiter;
         [SerializeField] private Chef _chef;
 
-        protected override void AddComponentToDictionary()
-        {
-            GetComponentsInChildren<IEntityComponent>(false)
-                .ToList().ForEach(component => _components.Add(component.GetType(), component));
-        }
-
         protected override void Awake()
         {
-            base.Awake();
+            _components = new Dictionary<Type, IEntityComponent>();
+            AddComponentToDictionary(gameObject, _components, false);
+            ComponentInitialize();
+            AfterInitialize();
+
             SetStaff();
         }
 

@@ -1,12 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using GM.Entities;
 using GM.Managers;
 using GM.Maps;
 using UnityEngine;
 
-namespace GM.Players.Pickers
+namespace GM.Players.Pickers.Maps
 {
     public class MapPicker : Picker
     {
+        private Dictionary<Type, MapEditor> _mapEditors;
+
         [SerializeField] private Map _map;
         [SerializeField] private Grid _grid;
         [SerializeField] private GameObject _cellIndicator;
@@ -25,12 +30,40 @@ namespace GM.Players.Pickers
         {
             base.Initialize(entity);
 
+            _mapEditors = new Dictionary<Type, MapEditor>();
+            Entity.AddComponentToDictionary(gameObject, _mapEditors);
+            EditorInitialize();
+            ConnectInputEvent();
+        }
+
+        private void EditorInitialize()
+        {
+            _mapEditors.Values.ToList().ForEach(editor => editor.Initialize(this, _map, _player));
+        }
+
+        private void ConnectInputEvent()
+        {
             _player.Input.OnMapClickEvent += HandleMapClick;
             _player.Input.OnMapObjectDeleteEvent += HandleMapDelete;
             _player.Input.OnEditTypeChangeEvent += HandleEditTypeChange;
             _player.Input.OnInputTypeChangeEvent += HandleInputTypeChange;
             _player.Input.OnMapDragEvent += HandleMapDrag;
             _player.Input.OnRotateObjectEvent += HandleRotateObject;
+        }
+
+        private void DisConnectInputEvent()
+        {
+            _player.Input.OnMapClickEvent -= HandleMapClick;
+            _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
+            _player.Input.OnEditTypeChangeEvent -= HandleEditTypeChange;
+            _player.Input.OnInputTypeChangeEvent -= HandleInputTypeChange;
+            _player.Input.OnMapDragEvent -= HandleMapDrag;
+            _player.Input.OnRotateObjectEvent -= HandleRotateObject;
+        }
+
+        private void OnDestroy()
+        {
+            DisConnectInputEvent();
         }
 
         public void SetMapObjectInfo(ObjectInfoSO mapObjectInfo)
@@ -49,16 +82,6 @@ namespace GM.Players.Pickers
             _mapObject.SetTransparentColor(true);
             _cellIndicator.SetActive(false);
             _isCellEdit = false;
-        }
-
-        private void OnDestroy()
-        {
-            _player.Input.OnMapClickEvent -= HandleMapClick;
-            _player.Input.OnMapObjectDeleteEvent -= HandleMapDelete;
-            _player.Input.OnEditTypeChangeEvent -= HandleEditTypeChange;
-            _player.Input.OnInputTypeChangeEvent -= HandleInputTypeChange;
-            _player.Input.OnMapDragEvent -= HandleMapDrag;
-            _player.Input.OnRotateObjectEvent -= HandleRotateObject;
         }
 
         private void HandleMapClick(bool isClick)
